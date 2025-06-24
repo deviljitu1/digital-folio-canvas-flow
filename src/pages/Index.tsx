@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, MapPin, Github, Linkedin, Instagram } from 'lucide-react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, MapPin, Github, Linkedin, Instagram, Code2, Palette, TrendingUp, Star } from 'lucide-react';
 
 const Portfolio = () => {
   const [isDark, setIsDark] = useState(false);
@@ -87,9 +87,29 @@ const Portfolio = () => {
   ];
 
   const skills = {
-    frontend: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "WordPress", "Responsive Design"],
-    marketing: ["Google Analytics", "Tag Manager", "Canva", "Chatbots", "Email Automation", "Meta Ads"],
-    soft: ["Content Strategy", "Branding", "Conversion Optimization", "SEO", "PPC Management"]
+    frontend: [
+      { name: "HTML5", level: 95, icon: "🌐" },
+      { name: "CSS3", level: 90, icon: "🎨" },
+      { name: "JavaScript", level: 85, icon: "⚡" },
+      { name: "Bootstrap", level: 80, icon: "📱" },
+      { name: "WordPress", level: 88, icon: "📝" },
+      { name: "Responsive Design", level: 92, icon: "📐" }
+    ],
+    marketing: [
+      { name: "Google Analytics", level: 90, icon: "📊" },
+      { name: "Tag Manager", level: 85, icon: "🏷️" },
+      { name: "Canva", level: 95, icon: "🎪" },
+      { name: "Chatbots", level: 75, icon: "🤖" },
+      { name: "Email Automation", level: 88, icon: "📧" },
+      { name: "Meta Ads", level: 82, icon: "📢" }
+    ],
+    soft: [
+      { name: "Content Strategy", level: 93, icon: "📋" },
+      { name: "Branding", level: 87, icon: "✨" },
+      { name: "Conversion Optimization", level: 85, icon: "🎯" },
+      { name: "SEO", level: 90, icon: "🔍" },
+      { name: "PPC Management", level: 80, icon: "💰" }
+    ]
   };
 
   const certifications = [
@@ -236,51 +256,175 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Skills & Expertise</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Technologies and tools I work with</p>
+      <section id="skills" className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Skills & Expertise
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Mastering the art of digital creation through cutting-edge technologies and strategic marketing excellence
+            </p>
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
+            </div>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="skill-category">
-              <h3 className="text-2xl font-semibold mb-6 text-blue-600">Front-end Development</h3>
-              <div className="space-y-3">
-                {skills.frontend.map((skill) => (
-                  <div key={skill} className="skill-item">
-                    <span className="block p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
-                      {skill}
-                    </span>
+          <div className="grid lg:grid-cols-3 gap-10">
+            {/* Frontend Development */}
+            <div className="skill-category group">
+              <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+                isDark 
+                  ? 'bg-gradient-to-br from-blue-900/30 to-blue-800/20 border-blue-700/30 hover:border-blue-500/50' 
+                  : 'bg-gradient-to-br from-blue-50/80 to-white/80 border-blue-200/50 hover:border-blue-400/50'
+              } hover:shadow-2xl hover:shadow-blue-500/20`}>
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <Code2 className="text-white" size={24} />
                   </div>
-                ))}
+                  <h3 className="text-2xl font-bold text-blue-600 mb-2">Frontend Development</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Building beautiful user experiences</p>
+                </div>
+                
+                <div className="space-y-6">
+                  {skills.frontend.map((skill, index) => (
+                    <div key={skill.name} className="skill-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">{skill.icon}</span>
+                          <span className="font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
+                        </div>
+                        <span className="text-sm font-bold text-blue-600">{skill.level}%</span>
+                      </div>
+                      <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-1000 ease-out"
+                          style={{ 
+                            width: `${skill.level}%`,
+                            animationDelay: `${index * 0.2}s`
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             
-            <div className="skill-category">
-              <h3 className="text-2xl font-semibold mb-6 text-purple-600">Marketing Tools</h3>
-              <div className="space-y-3">
-                {skills.marketing.map((skill) => (
-                  <div key={skill} className="skill-item">
-                    <span className="block p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors">
-                      {skill}
-                    </span>
+            {/* Marketing Tools */}
+            <div className="skill-category group">
+              <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+                isDark 
+                  ? 'bg-gradient-to-br from-purple-900/30 to-purple-800/20 border-purple-700/30 hover:border-purple-500/50' 
+                  : 'bg-gradient-to-br from-purple-50/80 to-white/80 border-purple-200/50 hover:border-purple-400/50'
+              } hover:shadow-2xl hover:shadow-purple-500/20`}>
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <Palette className="text-white" size={24} />
                   </div>
-                ))}
+                  <h3 className="text-2xl font-bold text-purple-600 mb-2">Marketing Tools</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Digital marketing mastery</p>
+                </div>
+                
+                <div className="space-y-6">
+                  {skills.marketing.map((skill, index) => (
+                    <div key={skill.name} className="skill-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">{skill.icon}</span>
+                          <span className="font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
+                        </div>
+                        <span className="text-sm font-bold text-purple-600">{skill.level}%</span>
+                      </div>
+                      <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-purple-500 to-purple-600 rounded-full transition-all duration-1000 ease-out"
+                          style={{ 
+                            width: `${skill.level}%`,
+                            animationDelay: `${index * 0.2}s`
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             
-            <div className="skill-category">
-              <h3 className="text-2xl font-semibold mb-6 text-pink-600">Soft Skills</h3>
-              <div className="space-y-3">
-                {skills.soft.map((skill) => (
-                  <div key={skill} className="skill-item">
-                    <span className="block p-3 bg-pink-50 dark:bg-pink-900/20 rounded-lg hover:bg-pink-100 dark:hover:bg-pink-900/40 transition-colors">
-                      {skill}
-                    </span>
+            {/* Soft Skills */}
+            <div className="skill-category group">
+              <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+                isDark 
+                  ? 'bg-gradient-to-br from-pink-900/30 to-pink-800/20 border-pink-700/30 hover:border-pink-500/50' 
+                  : 'bg-gradient-to-br from-pink-50/80 to-white/80 border-pink-200/50 hover:border-pink-400/50'
+              } hover:shadow-2xl hover:shadow-pink-500/20`}>
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <TrendingUp className="text-white" size={24} />
                   </div>
-                ))}
+                  <h3 className="text-2xl font-bold text-pink-600 mb-2">Strategic Skills</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Business growth expertise</p>
+                </div>
+                
+                <div className="space-y-6">
+                  {skills.soft.map((skill, index) => (
+                    <div key={skill.name} className="skill-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg">{skill.icon}</span>
+                          <span className="font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
+                        </div>
+                        <span className="text-sm font-bold text-pink-600">{skill.level}%</span>
+                      </div>
+                      <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-pink-500 to-pink-600 rounded-full transition-all duration-1000 ease-out"
+                          style={{ 
+                            width: `${skill.level}%`,
+                            animationDelay: `${index * 0.2}s`
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* Skills Summary Stats */}
+          <div className="mt-20 grid md:grid-cols-4 gap-8">
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                <Star className="text-white" size={28} />
+              </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">17+</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium">Skills Mastered</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                <Code2 className="text-white" size={28} />
+              </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">6+</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium">Frontend Technologies</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                <Palette className="text-white" size={28} />
+              </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent mb-2">6+</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium">Marketing Tools</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                <TrendingUp className="text-white" size={28} />
+              </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">90%</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium">Average Proficiency</div>
             </div>
           </div>
         </div>
