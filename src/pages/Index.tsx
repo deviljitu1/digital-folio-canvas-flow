@@ -1,11 +1,22 @@
-
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, MapPin, Github, Linkedin, Instagram, Code2, Palette, TrendingUp, Star } from 'lucide-react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award } from 'lucide-react';
+
+// Import images
+import nahushProfile from "@/assets/nahush-profile.webp";
+import nahushAbout from "@/assets/nahush-about.webp";
+import projectKisan from "@/assets/project-kisan.webp";
+import linkpostAi from "@/assets/linkpost-ai.webp";
+import tindog from "@/assets/tindog.webp";
+import portfolioProject from "@/assets/portfolio-project.webp";
+import poetree from "@/assets/poetree.webp";
+import calmmindAi from "@/assets/calmmind-ai.webp";
 
 const Portfolio = () => {
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('all');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,46 +54,207 @@ const Portfolio = () => {
     document.documentElement.classList.toggle('dark');
   };
 
+  // Project categories with subcategories
+  const projectCategories = {
+    'digital-marketing': {
+      name: 'Digital Marketing',
+      icon: Megaphone,
+      color: 'purple',
+      subcategories: [
+        { id: 'graphic-design', name: 'Graphic Design', icon: PenTool },
+        { id: 'social-media', name: 'Social Media Content', icon: Video },
+        { id: 'seo', name: 'SEO Projects', icon: TrendingUp },
+        { id: 'email-marketing', name: 'Email Marketing', icon: Mail },
+        { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart }
+      ]
+    },
+    'web-development': {
+      name: 'Web Development',
+      icon: Code2,
+      color: 'blue',
+      subcategories: [
+        { id: 'wordpress', name: 'WordPress Sites', icon: Globe },
+        { id: 'react-apps', name: 'React/JavaScript Apps', icon: Code2 },
+        { id: 'landing-pages', name: 'Landing Pages', icon: Sparkles },
+        { id: 'ecommerce', name: 'E-Commerce', icon: ShoppingCart }
+      ]
+    }
+  };
+
   const projects = [
+    // Digital Marketing Projects
     {
-      title: "Personal Portfolio Website",
-      description: "Modern, responsive portfolio built with HTML5, CSS3, and JavaScript featuring dark mode and smooth animations.",
-      tools: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
+      title: "Brand Identity Design",
+      description: "Complete brand identity package including logo, color palette, typography, and brand guidelines for modern businesses.",
+      tools: ["Canva", "Adobe Illustrator", "Brand Strategy"],
+      image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop",
       liveLink: "#",
-      category: "Web Development"
+      category: "digital-marketing",
+      subCategory: "graphic-design"
     },
     {
-      title: "SEO-Optimized Blog",
-      description: "WordPress blog with advanced SEO optimization, achieving 95+ PageSpeed score and top search rankings.",
-      tools: ["WordPress", "Yoast SEO", "Google Analytics", "PageSpeed"],
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=250&fit=crop",
+      title: "Social Media Templates",
+      description: "Professional social media post templates for Instagram, Facebook, and LinkedIn with consistent branding.",
+      tools: ["Canva Pro", "Design Systems", "Social Media"],
+      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&h=300&fit=crop",
       liveLink: "#",
-      category: "SEO & Content"
+      category: "digital-marketing",
+      subCategory: "graphic-design"
+    },
+    {
+      title: "Instagram Reels Strategy",
+      description: "Viral Instagram reels content strategy with engaging hooks, trending audio, and high retention rates.",
+      tools: ["Content Strategy", "Video Editing", "Instagram"],
+      image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "social-media"
+    },
+    {
+      title: "YouTube Content Plan",
+      description: "Comprehensive YouTube content strategy with SEO-optimized titles, thumbnails, and posting schedule.",
+      tools: ["YouTube SEO", "Canva", "Analytics"],
+      image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "social-media"
+    },
+    {
+      title: "Local SEO Optimization",
+      description: "Complete local SEO strategy resulting in 300% increase in local search visibility and Google Maps rankings.",
+      tools: ["Local SEO", "Google My Business", "Schema Markup"],
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "seo"
+    },
+    {
+      title: "Technical SEO Audit",
+      description: "Comprehensive technical SEO audit and optimization improving Core Web Vitals and search rankings.",
+      tools: ["SEO Tools", "Google Search Console", "PageSpeed"],
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "seo"
+    },
+    {
+      title: "Email Automation Flow",
+      description: "Advanced email marketing automation with segmentation, personalization, and conversion tracking.",
+      tools: ["Mailchimp", "n8n Automation", "Email Marketing"],
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "email-marketing"
+    },
+    {
+      title: "Newsletter Design",
+      description: "Responsive email newsletter templates with high open rates and click-through rates.",
+      tools: ["HTML Email", "Responsive Design", "Canva"],
+      image: "https://images.unsplash.com/photo-1586892478025-2b5472316f22?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "email-marketing"
     },
     {
       title: "Google Ads Campaign",
-      description: "Comprehensive PPC campaign setup with conversion tracking, achieving 150% ROI improvement.",
-      tools: ["Google Ads", "Analytics", "Tag Manager", "Conversion Tracking"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop",
+      description: "High-converting Google Ads campaigns with optimized bidding strategies and 200% ROI improvement.",
+      tools: ["Google Ads", "Analytics", "Conversion Tracking"],
+      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=300&fit=crop",
       liveLink: "#",
-      category: "Paid Advertising"
+      category: "digital-marketing",
+      subCategory: "paid-ads"
     },
     {
-      title: "Social Media Strategy",
-      description: "Complete social media marketing plan with content calendar and Meta Ads implementation.",
-      tools: ["Canva", "Meta Ads", "Content Strategy", "Analytics"],
-      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=250&fit=crop",
+      title: "Meta Ads Strategy",
+      description: "Facebook and Instagram ad campaigns with precise audience targeting and high engagement rates.",
+      tools: ["Meta Ads Manager", "Pixel Tracking", "A/B Testing"],
+      image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=500&h=300&fit=crop",
       liveLink: "#",
-      category: "Social Media"
+      category: "digital-marketing",
+      subCategory: "paid-ads"
+    },
+
+    // Web Development Projects
+    {
+      title: "Project Kisan",
+      description: "An AI-powered farming assistant under development for Google Hackathon 2025. Designed to assist farmers with soil analysis, irrigation advice, crop planning, and organic solutions using modern AI technologies.",
+      tools: ["React", "AI/ML", "Tailwind CSS", "API Integration"],
+      image: projectKisan,
+      liveLink: "https://project-kisan-ai-farming-assistant-fawn.vercel.app/",
+      category: "web-development",
+      subCategory: "react-apps"
     },
     {
-      title: "Local Business Optimization",
-      description: "Google My Business optimization project resulting in 200% increase in local visibility.",
-      tools: ["Google My Business", "Local SEO", "Schema Markup", "Citations"],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop",
+      title: "LinkPost AI",
+      description: "An AI-powered LinkedIn post generator built with React and OpenAI/Gemini API. Helps craft engaging, SEO-optimized posts with just a click.",
+      tools: ["React", "OpenAI API", "Gemini API", "JavaScript"],
+      image: linkpostAi,
+      liveLink: "https://linkpostai.netlify.app/",
+      category: "web-development",
+      subCategory: "react-apps"
+    },
+    {
+      title: "Calm Mind AI",
+      description: "An AI-powered mental health support web app providing personalized guidance and resources for mental wellness.",
+      tools: ["React", "AI Integration", "Vite", "Tailwind CSS"],
+      image: calmmindAi,
+      liveLink: "https://calmmindai.netlify.app/",
+      category: "web-development",
+      subCategory: "react-apps"
+    },
+    {
+      title: "ShopEZ E-Commerce",
+      description: "A modern, demo e-commerce platform built with React, Vite, and Tailwind CSS featuring product catalogs and shopping cart.",
+      tools: ["React", "Vite", "Tailwind CSS", "E-Commerce"],
+      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=500&h=300&fit=crop",
       liveLink: "#",
-      category: "Local SEO"
+      category: "web-development",
+      subCategory: "ecommerce"
+    },
+    {
+      title: "Get Web Digital",
+      description: "Professional business website built with WordPress, featuring custom theme, SEO optimization, and contact forms.",
+      tools: ["WordPress", "Custom Theme", "SEO", "Contact Forms"],
+      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "web-development",
+      subCategory: "wordpress"
+    },
+    {
+      title: "Business Portfolio Site",
+      description: "Responsive WordPress business portfolio with custom post types, galleries, and client testimonials.",
+      tools: ["WordPress", "Elementor", "Custom CSS", "Plugins"],
+      image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=500&h=300&fit=crop",
+      liveLink: "#",
+      category: "web-development",
+      subCategory: "wordpress"
+    },
+    {
+      title: "Tindog Landing Page",
+      description: "A responsive Tinder-like landing page for dogs, built with Bootstrap 5. Features responsive navigation, pricing cards, and testimonial sections.",
+      tools: ["HTML5", "CSS3", "Bootstrap 5", "JavaScript"],
+      image: tindog,
+      liveLink: "https://deviljitu1.github.io/Tindog/",
+      category: "web-development",
+      subCategory: "landing-pages"
+    },
+    {
+      title: "Poetree Blog",
+      description: "A minimalist poetry blog with elegant typography and smooth animations, built with HTML, CSS and JavaScript.",
+      tools: ["HTML5", "CSS3", "JavaScript", "Animations"],
+      image: poetree,
+      liveLink: "https://poetreebird.netlify.app/",
+      category: "web-development",
+      subCategory: "landing-pages"
+    },
+    {
+      title: "Personal Portfolio",
+      description: "My responsive personal portfolio website showcasing projects, skills and experience. Built with modern web technologies.",
+      tools: ["React", "Tailwind CSS", "Vite", "TypeScript"],
+      image: portfolioProject,
+      liveLink: "https://nahushpatel.in/",
+      category: "web-development",
+      subCategory: "react-apps"
     }
   ];
 
@@ -90,43 +262,51 @@ const Portfolio = () => {
     frontend: [
       { name: "HTML5", level: 95, icon: "🌐" },
       { name: "CSS3", level: 90, icon: "🎨" },
-      { name: "JavaScript", level: 85, icon: "⚡" },
-      { name: "Bootstrap", level: 80, icon: "📱" },
-      { name: "WordPress", level: 88, icon: "📝" },
-      { name: "Responsive Design", level: 92, icon: "📐" }
+      { name: "JavaScript", level: 88, icon: "⚡" },
+      { name: "React", level: 85, icon: "⚛️" },
+      { name: "WordPress", level: 90, icon: "📝" },
+      { name: "Git & GitHub", level: 82, icon: "📦" }
     ],
     marketing: [
-      { name: "Google Analytics", level: 90, icon: "📊" },
-      { name: "Tag Manager", level: 85, icon: "🏷️" },
-      { name: "Canva", level: 95, icon: "🎪" },
-      { name: "Chatbots", level: 75, icon: "🤖" },
-      { name: "Email Automation", level: 88, icon: "📧" },
-      { name: "Meta Ads", level: 82, icon: "📢" }
+      { name: "SEO", level: 92, icon: "🔍" },
+      { name: "Google Analytics", level: 88, icon: "📊" },
+      { name: "Canva Pro", level: 95, icon: "🎪" },
+      { name: "Social Media Marketing", level: 90, icon: "📱" },
+      { name: "Email Marketing", level: 85, icon: "📧" },
+      { name: "Meta/Google Ads", level: 87, icon: "📢" }
     ],
     soft: [
       { name: "Content Strategy", level: 93, icon: "📋" },
-      { name: "Branding", level: 87, icon: "✨" },
-      { name: "Conversion Optimization", level: 85, icon: "🎯" },
-      { name: "SEO", level: 90, icon: "🔍" },
-      { name: "PPC Management", level: 80, icon: "💰" }
+      { name: "Conversion Optimization", level: 88, icon: "🎯" },
+      { name: "Analytics & Tracking", level: 90, icon: "📈" },
+      { name: "n8n Automation", level: 80, icon: "🤖" },
+      { name: "Problem Solving", level: 95, icon: "💡" }
     ]
   };
 
   const certifications = [
-    { name: "Webfame Digital Marketing Certificate", issuer: "Webfame Academy", year: "2024" },
-    { name: "Google Ads Certified", issuer: "Google", year: "2024" },
-    { name: "SEO Fundamentals", issuer: "SEMrush", year: "2024" },
-    { name: "Canva Pro Design", issuer: "Canva", year: "2024" }
+    { name: "Complete Digital Marketing Guide - 27 Courses", issuer: "Udemy", year: "2024" },
+    { name: "Full-Stack Web Development Bootcamp", issuer: "Udemy", year: "2024" },
+    { name: "6 Month Full Digital Marketing Course", issuer: "Professional Training", year: "2025" },
+    { name: "Medical Coding & Billing", issuer: "Omega Healthcare", year: "2024-2025" }
   ];
+
+  // Filter projects based on selected categories
+  const filteredProjects = projects.filter(project => {
+    if (selectedCategory === 'all') return true;
+    if (selectedCategory !== project.category) return false;
+    if (selectedSubCategory === 'all') return true;
+    return selectedSubCategory === project.subCategory;
+  });
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/90' : 'bg-white/90'} backdrop-blur-sm border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="font-bold text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Portfolio
+            <div className="font-bold text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Nahush Patel
             </div>
             
             {/* Desktop Navigation */}
@@ -135,11 +315,14 @@ const Portfolio = () => {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`hover:text-blue-600 transition-colors duration-200 ${
+                  className={`hover:text-blue-600 transition-colors duration-200 relative ${
                     activeSection === item.toLowerCase() ? 'text-blue-600 font-medium' : ''
                   }`}
                 >
                   {item}
+                  {activeSection === item.toLowerCase() && (
+                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600"></div>
+                  )}
                 </button>
               ))}
             </div>
@@ -165,13 +348,13 @@ const Portfolio = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className={`md:hidden ${isDark ? 'bg-gray-900' : 'bg-white'} border-t ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className={`md:hidden ${isDark ? 'bg-gray-900' : 'bg-white'} border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
             <div className="px-2 pt-2 pb-3 space-y-1">
               {['Hero', 'About', 'Skills', 'Projects', 'Certifications', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className="block px-3 py-2 text-base font-medium hover:text-blue-600 transition-colors"
+                  className="block w-full text-left px-3 py-2 text-base font-medium hover:text-blue-600 transition-colors"
                 >
                   {item}
                 </button>
@@ -182,30 +365,59 @@ const Portfolio = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-gradient-x"></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-fade-in">
-            Hi, I'm Your Name
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-600 dark:text-gray-300 animate-fade-in delay-300">
-            Web Developer & Digital Marketer
-          </p>
-          <p className="text-lg mb-12 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto animate-fade-in delay-500">
-            Creating beautiful, functional websites and driving digital growth through strategic marketing solutions.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-700">
-            <button
-              onClick={() => scrollToSection('projects')}
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
-            >
-              <Eye size={20} />
-              View Projects
-            </button>
-            <button className="px-8 py-4 border border-gray-300 dark:border-gray-600 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
-              <Download size={20} />
-              Download Resume
-            </button>
+      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 animate-gradient-x"></div>
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)',
+        }}></div>
+        
+        <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Profile Image */}
+            <div className="flex-shrink-0 animate-fade-in">
+              <div className="relative">
+                <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl">
+                  <img
+                    src={nahushProfile}
+                    alt="Nahush Patel - Web Developer & Digital Marketer"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold animate-pulse-glow">
+                  👋
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Content */}
+            <div className="flex-1 text-left lg:text-left">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-fade-in">
+                Hi, I'm Nahush Patel
+              </h1>
+              <p className="text-xl md:text-3xl mb-6 text-gray-700 dark:text-gray-200 animate-fade-in delay-300 font-semibold">
+                Web Developer & Digital Marketer
+              </p>
+              <p className="text-lg mb-8 text-gray-600 dark:text-gray-400 max-w-2xl animate-fade-in delay-500 leading-relaxed">
+                Passionate about building responsive, high-performing websites and driving online growth through data-driven digital marketing strategies. A continuous learner dedicated to blending technology and marketing to deliver impactful digital experiences.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-700">
+                <button
+                  onClick={() => scrollToSection('projects')}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <Eye size={20} />
+                  View Projects
+                </button>
+                <a 
+                  href="/Nahush_Patel_Resume.pdf" 
+                  download
+                  className="px-8 py-4 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <Download size={20} />
+                  Download Resume
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -214,40 +426,67 @@ const Portfolio = () => {
       <section id="about" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">About Me</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Passionate about creating digital experiences</p>
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Passionate about creating digital experiences that matter</p>
           </div>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm a passionate web developer and digital marketing specialist with expertise in creating stunning websites and driving online growth. Currently enrolled at <strong>Webfame Digital Marketing Academy</strong>, ranked among the top 10 digital marketing institutes in India.
+                I'm <strong>Nahush Patel</strong>, a passionate Digital Marketer and Web Developer skilled in social media strategy, content creation, SEO, and full-stack web development. I create engaging campaigns that boost online presence and visibility while building responsive, high-performing websites.
+              </p>
+              
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                With experience at <strong>Omega Healthcare</strong> in medical coding and <strong>Sutherland Global</strong> as Customer Care Executive for Amazon, I bring a unique blend of technical expertise and customer-focused communication skills.
               </p>
               
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold mb-3">Core Digital Marketing Modules Mastered:</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-blue-600">Core Competencies:</h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {['SEO Optimization', 'Google Ads', 'Social Media Marketing', 'Content Strategy', 'Email Marketing', 'Analytics & Tracking'].map((module) => (
-                    <div key={module} className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-sm">{module}</span>
+                  {[
+                    'Social Media Strategy',
+                    'Web Development',
+                    'SEO Optimization',
+                    'Meta/Google Ads',
+                    'Email Marketing & Automation',
+                    'Analytics & CRO',
+                    'WordPress Development',
+                    'React & JavaScript',
+                    'Content Creation',
+                    'n8n Automation'
+                  ].map((competency) => (
+                    <div key={competency} className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                      <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
+                      <span className="text-sm font-medium">{competency}</span>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-3 pt-4">
+                <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                  <Award size={18} className="text-blue-600" />
+                  <span className="text-sm font-medium">5+ Languages</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                  <Star size={18} className="text-purple-600" />
+                  <span className="text-sm font-medium">Full-Stack Developer</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-pink-100 dark:bg-pink-900/30 rounded-full">
+                  <TrendingUp size={18} className="text-pink-600" />
+                  <span className="text-sm font-medium">Digital Marketer</span>
                 </div>
               </div>
             </div>
             
             <div className="flex justify-center">
               <div className="relative">
-                <div className="w-80 h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 to-purple-600 shadow-2xl">
+                <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-blue-600 to-purple-600">
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                    alt="Professional headshot"
+                    src={nahushAbout}
+                    alt="Nahush Patel"
                     className="w-full h-full object-cover"
                   />
-                </div>
-                <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  Hello!
                 </div>
               </div>
             </div>
@@ -283,7 +522,7 @@ const Portfolio = () => {
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                     <Code2 className="text-white" size={24} />
                   </div>
-                  <h3 className="text-2xl font-bold text-blue-600 mb-2">Frontend Development</h3>
+                  <h3 className="text-2xl font-bold text-blue-600 mb-2">Web Development</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Building beautiful user experiences</p>
                 </div>
                 
@@ -312,7 +551,7 @@ const Portfolio = () => {
               </div>
             </div>
             
-            {/* Marketing Tools */}
+            {/* Marketing Skills */}
             <div className="skill-category group">
               <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
@@ -323,8 +562,8 @@ const Portfolio = () => {
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                     <Palette className="text-white" size={24} />
                   </div>
-                  <h3 className="text-2xl font-bold text-purple-600 mb-2">Marketing Tools</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Digital marketing mastery</p>
+                  <h3 className="text-2xl font-bold text-purple-600 mb-2">Digital Marketing</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Driving growth through strategy</p>
                 </div>
                 
                 <div className="space-y-6">
@@ -352,7 +591,7 @@ const Portfolio = () => {
               </div>
             </div>
             
-            {/* Soft Skills */}
+            {/* Strategic Skills */}
             <div className="skill-category group">
               <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
@@ -399,7 +638,7 @@ const Portfolio = () => {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                 <Star className="text-white" size={28} />
               </div>
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">17+</div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">16+</div>
               <div className="text-gray-600 dark:text-gray-400 font-medium">Skills Mastered</div>
             </div>
             
@@ -408,7 +647,7 @@ const Portfolio = () => {
                 <Code2 className="text-white" size={28} />
               </div>
               <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">6+</div>
-              <div className="text-gray-600 dark:text-gray-400 font-medium">Frontend Technologies</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium">Development Technologies</div>
             </div>
             
             <div className="text-center group">
@@ -423,7 +662,7 @@ const Portfolio = () => {
               <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="text-white" size={28} />
               </div>
-              <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">90%</div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">89%</div>
               <div className="text-gray-600 dark:text-gray-400 font-medium">Average Proficiency</div>
             </div>
           </div>
@@ -434,44 +673,131 @@ const Portfolio = () => {
       <section id="projects" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Showcasing my best work in web development and digital marketing</p>
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Featured Projects</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Showcasing professional work across digital marketing and web development</p>
           </div>
           
+          {/* Main Category Filter */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <button
+              onClick={() => {
+                setSelectedCategory('all');
+                setSelectedSubCategory('all');
+              }}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                selectedCategory === 'all'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              All Projects ({projects.length})
+            </button>
+            
+            {Object.entries(projectCategories).map(([key, category]) => {
+              const Icon = category.icon;
+              const count = projects.filter(p => p.category === key).length;
+              return (
+                <button
+                  key={key}
+                  onClick={() => {
+                    setSelectedCategory(key);
+                    setSelectedSubCategory('all');
+                  }}
+                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                    selectedCategory === key
+                      ? `bg-gradient-to-r ${category.color === 'blue' ? 'from-blue-600 to-blue-700' : 'from-purple-600 to-purple-700'} text-white shadow-lg scale-105`
+                      : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  <Icon size={18} />
+                  {category.name} ({count})
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Subcategory Filter */}
+          {selectedCategory !== 'all' && (
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
+              <button
+                onClick={() => setSelectedSubCategory('all')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  selectedSubCategory === 'all'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                All
+              </button>
+              
+              {projectCategories[selectedCategory as keyof typeof projectCategories].subcategories.map((sub) => {
+                const SubIcon = sub.icon;
+                const count = projects.filter(p => p.category === selectedCategory && p.subCategory === sub.id).length;
+                return (
+                  <button
+                    key={sub.id}
+                    onClick={() => setSelectedSubCategory(sub.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                      selectedSubCategory === sub.id
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    <SubIcon size={16} />
+                    {sub.name} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          
+          {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <div key={index} className="project-card group">
                 <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-white'} hover:scale-105`}>
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden h-56">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 bg-blue-600 text-white text-xs rounded-full">
-                        {project.category}
+                      <span className={`px-3 py-1 text-white text-xs rounded-full font-medium ${
+                        project.category === 'digital-marketing' 
+                          ? 'bg-purple-600' 
+                          : 'bg-blue-600'
+                      }`}>
+                        {projectCategories[project.category as keyof typeof projectCategories].name}
                       </span>
                     </div>
                   </div>
                   
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                    <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">{project.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
                     
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tools.map((tool) => (
-                        <span key={tool} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-md">
+                      {project.tools.slice(0, 3).map((tool) => (
+                        <span key={tool} className="px-2 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-xs rounded-md font-medium">
                           {tool}
                         </span>
                       ))}
+                      {project.tools.length > 3 && (
+                        <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-md">
+                          +{project.tools.length - 3} more
+                        </span>
+                      )}
                     </div>
                     
                     <a
                       href={project.liveLink}
-                      className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors group-hover:gap-3"
                     >
                       <ExternalLink size={16} />
                       View Project
@@ -481,6 +807,12 @@ const Portfolio = () => {
               </div>
             ))}
           </div>
+
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-500 dark:text-gray-400">No projects found in this category.</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -488,20 +820,20 @@ const Portfolio = () => {
       <section id="certifications" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Certifications</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Professional credentials and achievements</p>
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Certifications & Training</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Professional credentials and continuous learning</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert, index) => (
-              <div key={index} className={`certification-card p-6 rounded-xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-blue-500' : 'border-gray-300 hover:border-blue-500'} hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all duration-300`}>
+              <div key={index} className={`certification-card p-6 rounded-xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-blue-500 hover:bg-blue-900/10' : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'} transition-all duration-300 hover:scale-105`}>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white font-bold text-lg">✓</span>
+                    <Award className="text-white" size={24} />
                   </div>
                   <h3 className="font-semibold mb-2 text-sm">{cert.name}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-xs">{cert.issuer}</p>
-                  <p className="text-gray-500 dark:text-gray-500 text-xs mt-1">{cert.year}</p>
+                  <p className="text-blue-600 dark:text-blue-400 text-xs mt-1 font-medium">{cert.year}</p>
                 </div>
               </div>
             ))}
@@ -513,8 +845,8 @@ const Portfolio = () => {
       <section id="contact" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Let's discuss your next project</p>
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Let's collaborate and create something amazing</p>
           </div>
           
           <div className="grid lg:grid-cols-2 gap-12">
@@ -522,62 +854,66 @@ const Portfolio = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                  <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
                       <Mail className="text-white" size={20} />
                     </div>
                     <div>
                       <p className="font-medium">Email</p>
-                      <a href="mailto:your.email@example.com" className="text-blue-600 hover:underline">
-                        your.email@example.com
+                      <a href="mailto:nahushpatel2@gmail.com" className="text-blue-600 hover:underline">
+                        nahushpatel2@gmail.com
                       </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center flex-shrink-0">
                       <Phone className="text-white" size={20} />
                     </div>
                     <div>
                       <p className="font-medium">WhatsApp</p>
-                      <a href="https://wa.me/1234567890" className="text-green-600 hover:underline">
-                        +1 (234) 567-8900
+                      <a href="https://wa.me/7875783498" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                        +91 787-578-3498
                       </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-                      <MapPin className="text-white" size={20} />
+                  <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Globe className="text-white" size={20} />
                     </div>
                     <div>
-                      <p className="font-medium">Location</p>
-                      <p className="text-gray-600 dark:text-gray-300">Your City, Country</p>
+                      <p className="font-medium">Website</p>
+                      <a href="https://nahushpatel.in" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline">
+                        nahushpatel.in
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
               
               <div className="flex space-x-4">
-                <a href="#" className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                   <Linkedin size={20} />
                 </a>
-                <a href="#" className="w-12 h-12 bg-gray-800 dark:bg-gray-600 rounded-full flex items-center justify-center text-white hover:bg-gray-900 dark:hover:bg-gray-500 transition-colors">
+                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                   <Github size={20} />
                 </a>
-                <a href="#" className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white hover:bg-pink-700 transition-colors">
-                  <Instagram size={20} />
+                <a href="https://wa.me/7875783498" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                  <Phone size={20} />
                 </a>
               </div>
             </div>
             
             <div className={`p-8 rounded-xl ${isDark ? 'bg-gray-900' : 'bg-white'} shadow-lg`}>
               <h3 className="text-2xl font-semibold mb-6">Send Message</h3>
-              <form className="space-y-6">
+              <form className="space-y-6" action="https://formspree.io/f/your-form-id" method="POST">
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
                   <input
                     type="text"
+                    name="name"
+                    required
                     className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
                     placeholder="Your name"
                   />
@@ -586,6 +922,8 @@ const Portfolio = () => {
                   <label className="block text-sm font-medium mb-2">Email</label>
                   <input
                     type="email"
+                    name="email"
+                    required
                     className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
                     placeholder="your@email.com"
                   />
@@ -593,6 +931,8 @@ const Portfolio = () => {
                 <div>
                   <label className="block text-sm font-medium mb-2">Message</label>
                   <textarea
+                    name="message"
+                    required
                     rows={5}
                     className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none`}
                     placeholder="Tell me about your project..."
@@ -600,7 +940,7 @@ const Portfolio = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium"
                 >
                   Send Message
                 </button>
@@ -611,25 +951,25 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className={`py-12 ${isDark ? 'bg-gray-900 border-t border-gray-700' : 'bg-white border-t border-gray-200'}`}>
+      <footer className={`py-12 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-white border-t border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center space-x-6 mb-6">
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">
+              <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">
                 <Linkedin size={24} />
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 <Github size={24} />
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-pink-600 transition-colors">
-                <Instagram size={24} />
+              <a href="https://nahushpatel.in" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors">
+                <Globe size={24} />
               </a>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-2">
-              © 2024 Your Name. All rights reserved.
+              © 2024 Nahush Patel. All rights reserved.
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500">
-              Powered by Your Name - Web Developer & Digital Marketer
+              Web Developer & Digital Marketer | Building Digital Experiences
             </p>
           </div>
         </div>
