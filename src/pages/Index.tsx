@@ -63,6 +63,7 @@ const Portfolio = () => {
       subcategories: [
         { id: 'graphic-design', name: 'Graphic Design', icon: PenTool },
         { id: 'social-media', name: 'Social Media Content', icon: Video },
+        { id: 'case-study', name: 'Case Studies', icon: Award },
         { id: 'seo', name: 'SEO Projects', icon: TrendingUp },
         { id: 'email-marketing', name: 'Email Marketing', icon: Mail },
         { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart }
@@ -76,102 +77,150 @@ const Portfolio = () => {
         { id: 'wordpress', name: 'WordPress Sites', icon: Globe },
         { id: 'react-apps', name: 'React/JavaScript Apps', icon: Code2 },
         { id: 'landing-pages', name: 'Landing Pages', icon: Sparkles },
-        { id: 'ecommerce', name: 'E-Commerce', icon: ShoppingCart }
+        { id: 'ecommerce', name: 'E-Commerce', icon: ShoppingCart },
+        { id: 'case-study', name: 'Case Studies', icon: Award }
       ]
     }
   };
 
   const projects = [
-    // Digital Marketing Projects
+    // Digital Marketing Projects - Graphic Design (images only)
     {
       title: "Brand Identity Design",
       description: "Complete brand identity package including logo, color palette, typography, and brand guidelines for modern businesses.",
       tools: ["Canva", "Adobe Illustrator", "Brand Strategy"],
-      image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "graphic-design"
+      subCategory: "graphic-design",
+      mediaType: "image"
     },
     {
       title: "Social Media Templates",
       description: "Professional social media post templates for Instagram, Facebook, and LinkedIn with consistent branding.",
       tools: ["Canva Pro", "Design Systems", "Social Media"],
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "graphic-design"
+      subCategory: "graphic-design",
+      mediaType: "image"
     },
     {
-      title: "Instagram Reels Strategy",
-      description: "Viral Instagram reels content strategy with engaging hooks, trending audio, and high retention rates.",
-      tools: ["Content Strategy", "Video Editing", "Instagram"],
-      image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=500&h=300&fit=crop",
+      title: "Marketing Collateral",
+      description: "Professional marketing materials including brochures, flyers, and business cards with cohesive design.",
+      tools: ["Adobe Creative Suite", "Print Design", "Typography"],
+      image: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "social-media"
+      subCategory: "graphic-design",
+      mediaType: "image"
+    },
+    
+    // Social Media Content (videos with different aspect ratios)
+    {
+      title: "Instagram Reels - Vertical 9:16",
+      description: "Viral Instagram reels content with engaging hooks, trending audio, and high retention rates.",
+      tools: ["Video Editing", "Instagram", "Content Strategy"],
+      video: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+      aspectRatio: "9:16",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "video"
     },
     {
-      title: "YouTube Content Plan",
-      description: "Comprehensive YouTube content strategy with SEO-optimized titles, thumbnails, and posting schedule.",
-      tools: ["YouTube SEO", "Canva", "Analytics"],
-      image: "https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=500&h=300&fit=crop",
+      title: "YouTube Content - Landscape 16:9",
+      description: "Professional YouTube content with SEO-optimized titles, thumbnails, and posting schedule.",
+      tools: ["YouTube SEO", "Video Production", "Analytics"],
+      video: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+      aspectRatio: "16:9",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "social-media"
+      subCategory: "social-media",
+      mediaType: "video"
+    },
+    {
+      title: "Social Square Posts - 1:1",
+      description: "Square format social media videos optimized for Instagram feed and Facebook posts.",
+      tools: ["Content Creation", "Social Media", "Editing"],
+      video: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+      aspectRatio: "1:1",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "video"
+    },
+    
+    // Case Studies
+    {
+      title: "E-Commerce Growth Strategy",
+      description: "Complete case study: 300% revenue growth through comprehensive digital marketing strategy and optimization.",
+      tools: ["Strategy", "Analytics", "Multi-Channel"],
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "case-study",
+      mediaType: "image"
     },
     {
       title: "Local SEO Optimization",
       description: "Complete local SEO strategy resulting in 300% increase in local search visibility and Google Maps rankings.",
       tools: ["Local SEO", "Google My Business", "Schema Markup"],
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "seo"
+      subCategory: "seo",
+      mediaType: "image"
     },
     {
       title: "Technical SEO Audit",
       description: "Comprehensive technical SEO audit and optimization improving Core Web Vitals and search rankings.",
       tools: ["SEO Tools", "Google Search Console", "PageSpeed"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "seo"
+      subCategory: "seo",
+      mediaType: "image"
     },
     {
       title: "Email Automation Flow",
       description: "Advanced email marketing automation with segmentation, personalization, and conversion tracking.",
       tools: ["Mailchimp", "n8n Automation", "Email Marketing"],
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "email-marketing"
+      subCategory: "email-marketing",
+      mediaType: "image"
     },
     {
       title: "Newsletter Design",
       description: "Responsive email newsletter templates with high open rates and click-through rates.",
       tools: ["HTML Email", "Responsive Design", "Canva"],
-      image: "https://images.unsplash.com/photo-1586892478025-2b5472316f22?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1586892478025-2b5472316f22?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "email-marketing"
+      subCategory: "email-marketing",
+      mediaType: "image"
     },
     {
       title: "Google Ads Campaign",
       description: "High-converting Google Ads campaigns with optimized bidding strategies and 200% ROI improvement.",
       tools: ["Google Ads", "Analytics", "Conversion Tracking"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "paid-ads"
+      subCategory: "paid-ads",
+      mediaType: "image"
     },
     {
       title: "Meta Ads Strategy",
       description: "Facebook and Instagram ad campaigns with precise audience targeting and high engagement rates.",
       tools: ["Meta Ads Manager", "Pixel Tracking", "A/B Testing"],
-      image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "paid-ads"
+      subCategory: "paid-ads",
+      mediaType: "image"
     },
 
     // Web Development Projects
@@ -182,7 +231,8 @@ const Portfolio = () => {
       image: projectKisan,
       liveLink: "https://project-kisan-ai-farming-assistant-fawn.vercel.app/",
       category: "web-development",
-      subCategory: "react-apps"
+      subCategory: "react-apps",
+      mediaType: "image"
     },
     {
       title: "LinkPost AI",
@@ -191,7 +241,8 @@ const Portfolio = () => {
       image: linkpostAi,
       liveLink: "https://linkpostai.netlify.app/",
       category: "web-development",
-      subCategory: "react-apps"
+      subCategory: "react-apps",
+      mediaType: "image"
     },
     {
       title: "Calm Mind AI",
@@ -200,34 +251,38 @@ const Portfolio = () => {
       image: calmmindAi,
       liveLink: "https://calmmindai.netlify.app/",
       category: "web-development",
-      subCategory: "react-apps"
+      subCategory: "react-apps",
+      mediaType: "image"
     },
     {
       title: "ShopEZ E-Commerce",
       description: "A modern, demo e-commerce platform built with React, Vite, and Tailwind CSS featuring product catalogs and shopping cart.",
       tools: ["React", "Vite", "Tailwind CSS", "E-Commerce"],
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "web-development",
-      subCategory: "ecommerce"
+      subCategory: "ecommerce",
+      mediaType: "image"
     },
     {
       title: "Get Web Digital",
       description: "Professional business website built with WordPress, featuring custom theme, SEO optimization, and contact forms.",
       tools: ["WordPress", "Custom Theme", "SEO", "Contact Forms"],
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "web-development",
-      subCategory: "wordpress"
+      subCategory: "wordpress",
+      mediaType: "image"
     },
     {
       title: "Business Portfolio Site",
       description: "Responsive WordPress business portfolio with custom post types, galleries, and client testimonials.",
       tools: ["WordPress", "Elementor", "Custom CSS", "Plugins"],
-      image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=500&h=300&fit=crop",
+      image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "web-development",
-      subCategory: "wordpress"
+      subCategory: "wordpress",
+      mediaType: "image"
     },
     {
       title: "Tindog Landing Page",
@@ -236,7 +291,8 @@ const Portfolio = () => {
       image: tindog,
       liveLink: "https://deviljitu1.github.io/Tindog/",
       category: "web-development",
-      subCategory: "landing-pages"
+      subCategory: "landing-pages",
+      mediaType: "image"
     },
     {
       title: "Poetree Blog",
@@ -245,7 +301,8 @@ const Portfolio = () => {
       image: poetree,
       liveLink: "https://poetreebird.netlify.app/",
       category: "web-development",
-      subCategory: "landing-pages"
+      subCategory: "landing-pages",
+      mediaType: "image"
     },
     {
       title: "Personal Portfolio",
@@ -254,7 +311,18 @@ const Portfolio = () => {
       image: portfolioProject,
       liveLink: "https://nahushpatel.in/",
       category: "web-development",
-      subCategory: "react-apps"
+      subCategory: "react-apps",
+      mediaType: "image"
+    },
+    {
+      title: "Full-Stack App Development",
+      description: "Complete case study: Built scalable full-stack application with React frontend and Node.js backend, handling 10K+ users.",
+      tools: ["Full-Stack", "React", "Node.js", "Database"],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+      liveLink: "#",
+      category: "web-development",
+      subCategory: "case-study",
+      mediaType: "image"
     }
   ];
 
@@ -756,15 +824,42 @@ const Portfolio = () => {
             {filteredProjects.map((project, index) => (
               <div key={index} className="project-card group">
                 <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-white'} hover:scale-105`}>
-                  <div className="relative overflow-hidden h-56">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  {/* Media Container with fixed aspect ratio to prevent shifting */}
+                  <div className="relative overflow-hidden bg-gray-100 dark:bg-gray-800">
+                    {project.mediaType === 'video' ? (
+                      // Video with different aspect ratios
+                      <div className={`relative w-full ${
+                        project.aspectRatio === '9:16' ? 'aspect-[9/16] max-h-96 mx-auto' :
+                        project.aspectRatio === '1:1' ? 'aspect-square' :
+                        'aspect-video'
+                      }`}>
+                        <video
+                          className="w-full h-full object-cover"
+                          controls
+                          poster={`https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&h=600&fit=crop`}
+                        >
+                          <source src={project.video} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                        <div className="absolute top-4 left-4 bg-black/60 text-white px-2 py-1 rounded text-xs font-medium">
+                          {project.aspectRatio}
+                        </div>
+                      </div>
+                    ) : (
+                      // Image with border for graphic design
+                      <div className={`relative ${project.subCategory === 'graphic-design' ? 'p-4' : ''}`}>
+                        <div className={`${project.subCategory === 'graphic-design' ? 'border-4 border-white dark:border-gray-700 rounded-lg shadow-lg' : ''} overflow-hidden aspect-[4/3]`}>
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                     <div className="absolute top-4 right-4">
-                      <span className={`px-3 py-1 text-white text-xs rounded-full font-medium ${
+                      <span className={`px-3 py-1 text-white text-xs rounded-full font-medium shadow-lg ${
                         project.category === 'digital-marketing' 
                           ? 'bg-purple-600' 
                           : 'bg-blue-600'
