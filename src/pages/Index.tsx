@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import LoadingScreen from '@/components/LoadingScreen';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Import images
 import nahushProfile from "@/assets/nahush-profile.webp";
@@ -21,6 +26,14 @@ const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedSubCategory, setSelectedSubCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const heroRef = useRef(null);
+  const aboutRef = useRef(null);
+  const skillsRef = useRef(null);
+  const projectsRef = useRef(null);
+  const certificationsRef = useRef(null);
+  const contactRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +57,125 @@ const Portfolio = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // GSAP Animations on load
+  useEffect(() => {
+    if (!isLoading) {
+      // Hero section animation
+      gsap.from(heroRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: 'power3.out'
+      });
+
+      // About section scroll animation
+      if (aboutRef.current) {
+        gsap.from(aboutRef.current, {
+          scrollTrigger: {
+            trigger: aboutRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          y: 100,
+          duration: 1,
+          ease: 'power3.out'
+        });
+      }
+
+      // Skills section scroll animation
+      if (skillsRef.current) {
+        gsap.from(skillsRef.current, {
+          scrollTrigger: {
+            trigger: skillsRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          y: 100,
+          duration: 1,
+          ease: 'power3.out'
+        });
+
+        // Animate skill cards
+        const skillCards = skillsRef.current.querySelectorAll('.skill-card');
+        gsap.from(skillCards, {
+          scrollTrigger: {
+            trigger: skillsRef.current,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          y: 50,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out'
+        });
+      }
+
+      // Projects section scroll animation
+      if (projectsRef.current) {
+        gsap.from(projectsRef.current, {
+          scrollTrigger: {
+            trigger: projectsRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          y: 100,
+          duration: 1,
+          ease: 'power3.out'
+        });
+
+        // Animate project cards
+        const projectCards = projectsRef.current.querySelectorAll('.project-card');
+        gsap.from(projectCards, {
+          scrollTrigger: {
+            trigger: projectsRef.current,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          scale: 0.9,
+          y: 50,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: 'power2.out'
+        });
+      }
+
+      // Certifications section scroll animation
+      if (certificationsRef.current) {
+        gsap.from(certificationsRef.current, {
+          scrollTrigger: {
+            trigger: certificationsRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          y: 100,
+          duration: 1,
+          ease: 'power3.out'
+        });
+      }
+
+      // Contact section scroll animation
+      if (contactRef.current) {
+        gsap.from(contactRef.current, {
+          scrollTrigger: {
+            trigger: contactRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 0,
+          y: 100,
+          duration: 1,
+          ease: 'power3.out'
+        });
+      }
+    }
+  }, [isLoading]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -408,7 +540,9 @@ const Portfolio = () => {
   });
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <>
+      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -473,7 +607,7 @@ const Portfolio = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+      <section ref={heroRef} id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 animate-gradient-x"></div>
         <div className="absolute inset-0" style={{
           backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)',
@@ -531,7 +665,7 @@ const Portfolio = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={aboutRef} id="about" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
@@ -603,7 +737,7 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 relative overflow-hidden">
+      <section ref={skillsRef} id="skills" className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
@@ -620,7 +754,7 @@ const Portfolio = () => {
           
           <div className="grid lg:grid-cols-3 gap-10">
             {/* Frontend Development */}
-            <div className="skill-category group">
+            <div className="skill-category skill-card group">
               <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
                   ? 'bg-gradient-to-br from-blue-900/30 to-blue-800/20 border-blue-700/30 hover:border-blue-500/50' 
@@ -660,7 +794,7 @@ const Portfolio = () => {
             </div>
             
             {/* Marketing Skills */}
-            <div className="skill-category group">
+            <div className="skill-category skill-card group">
               <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
                   ? 'bg-gradient-to-br from-purple-900/30 to-purple-800/20 border-purple-700/30 hover:border-purple-500/50' 
@@ -700,7 +834,7 @@ const Portfolio = () => {
             </div>
             
             {/* Strategic Skills */}
-            <div className="skill-category group">
+            <div className="skill-category skill-card group">
               <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
                   ? 'bg-gradient-to-br from-pink-900/30 to-pink-800/20 border-pink-700/30 hover:border-pink-500/50' 
@@ -778,7 +912,7 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={projectsRef} id="projects" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Featured Projects</h2>
@@ -952,7 +1086,7 @@ const Portfolio = () => {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="py-20">
+      <section ref={certificationsRef} id="certifications" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Certifications & Training</h2>
@@ -977,7 +1111,7 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={contactRef} id="contact" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
@@ -1111,6 +1245,7 @@ const Portfolio = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 
