@@ -97,6 +97,13 @@
   html {
     scroll-behavior: smooth;
   }
+  
+  /* Custom cursor styles */
+  @media (min-width: 768px) {
+    body, a, button, [role="button"] {
+      cursor: none !important;
+    }
+  }
 }
 
 /* Custom Animations */
