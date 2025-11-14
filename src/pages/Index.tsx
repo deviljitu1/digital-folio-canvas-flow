@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LoadingScreen from '@/components/LoadingScreen';
+import CustomCursor from '@/components/CustomCursor';
+import MouseParallax from '@/components/MouseParallax';
+import FloatingIcons from '@/components/FloatingIcons';
+
+const Scene3D = lazy(() => import('@/components/3d/Scene3D'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -542,7 +547,18 @@ const Portfolio = () => {
   return (
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'dark bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+      
+      {/* Custom Cursor - hidden on mobile */}
+      <div className="hidden md:block">
+        <CustomCursor />
+      </div>
+      
+      {/* 3D Background Scene */}
+      <Suspense fallback={null}>
+        <Scene3D />
+      </Suspense>
+      
+      <div className={`min-h-screen transition-colors duration-300 relative ${isDark ? 'dark bg-gray-900/80 text-white' : 'bg-white/80 text-gray-900'}`}>
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -613,23 +629,25 @@ const Portfolio = () => {
           backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)',
         }}></div>
         
+        <FloatingIcons />
+        
         <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Profile Image */}
-            <div className="flex-shrink-0 animate-fade-in">
+            <MouseParallax speed={0.03} className="flex-shrink-0 animate-fade-in">
               <div className="relative">
-                <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl">
+                <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl hover:scale-105 transition-transform duration-300">
                   <img
                     src={nahushProfile}
                     alt="Nahush Patel - Web Developer & Digital Marketer"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold animate-pulse-glow">
+                <MouseParallax speed={0.08} className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold animate-pulse-glow">
                   👋
-                </div>
+                </MouseParallax>
               </div>
-            </div>
+            </MouseParallax>
 
             {/* Hero Content */}
             <div className="flex-1 text-left lg:text-left">
