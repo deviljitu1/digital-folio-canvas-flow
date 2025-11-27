@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Float } from '@react-three/drei';
+import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 function AnimatedSphere({ position, color }: { position: [number, number, number]; color: string }) {
@@ -8,33 +8,31 @@ function AnimatedSphere({ position, color }: { position: [number, number, number
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime + position[0]) * 0.3;
       meshRef.current.rotation.x += 0.003;
       meshRef.current.rotation.y += 0.003;
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-      <Sphere ref={meshRef} args={[1, 64, 64]} position={position}>
-        <MeshDistortMaterial
-          color={color}
-          attach="material"
-          distort={0.3}
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </Sphere>
-    </Float>
+    <Sphere ref={meshRef} args={[1, 64, 64]} position={position}>
+      <MeshDistortMaterial
+        color={color}
+        attach="material"
+        distort={0.3}
+        speed={2}
+        roughness={0.2}
+        metalness={0.8}
+      />
+    </Sphere>
   );
 }
 
 function Particles() {
   const particlesRef = useRef<THREE.Points>(null);
+  const [initialized, setInitialized] = useState(false);
   
   useEffect(() => {
-    if (particlesRef.current) {
+    if (particlesRef.current && !initialized) {
       const geometry = particlesRef.current.geometry;
       const positions = new Float32Array(200 * 3);
       
@@ -45,11 +43,12 @@ function Particles() {
       }
       
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      setInitialized(true);
     }
-  }, []);
+  }, [initialized]);
 
-  useFrame((state) => {
-    if (particlesRef.current) {
+  useFrame(() => {
+    if (particlesRef.current && initialized) {
       particlesRef.current.rotation.y += 0.0005;
       particlesRef.current.rotation.x += 0.0002;
     }
