@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award } from 'lucide-react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, Box as BoxIcon } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LoadingScreen from '@/components/LoadingScreen';
 import MouseParallax from '@/components/MouseParallax';
 import FloatingIcons from '@/components/FloatingIcons';
+import Portfolio3DGallery from '@/components/3d/Portfolio3DGallery';
 
 const Scene3D = lazy(() => import('@/components/3d/Scene3D'));
 
@@ -31,6 +32,8 @@ const Portfolio = () => {
   const [selectedSubCategory, setSelectedSubCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'grid' | '3d'>('grid');
+  const [activeProject3D, setActiveProject3D] = useState<string>('');
   
   const heroRef = useRef(null);
   const aboutRef = useRef(null);
@@ -677,7 +680,7 @@ const Portfolio = () => {
       </section>
 
       {/* About Section */}
-      <section ref={aboutRef} id="about" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={aboutRef} id="about" className={`py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
@@ -749,7 +752,7 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section ref={skillsRef} id="skills" className="py-20 relative overflow-hidden">
+      <section ref={skillsRef} id="skills" className="py-20 relative z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
@@ -924,7 +927,7 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Section */}
-      <section ref={projectsRef} id="projects" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={projectsRef} id="projects" className={`py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Featured Projects</h2>
@@ -1005,7 +1008,58 @@ const Portfolio = () => {
             </div>
           )}
           
+          {/* View Mode Toggle */}
+          <div className="flex justify-center gap-3 mb-8">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                viewMode === 'grid'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              <Grid3x3 size={18} />
+              Grid View
+            </button>
+            <button
+              onClick={() => setViewMode('3d')}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                viewMode === '3d'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              <BoxIcon size={18} />
+              3D Gallery
+            </button>
+          </div>
+          
+          {/* 3D Gallery View */}
+          {viewMode === '3d' && (
+            <div className="mb-12">
+              <Portfolio3DGallery
+                projects={filteredProjects.map((p, idx) => ({
+                  id: `project-${idx}`,
+                  name: p.title,
+                  color: p.category === 'digital-marketing' ? '#9333ea' : '#2563eb'
+                }))}
+                onProjectClick={(id) => {
+                  setActiveProject3D(id);
+                  const idx = parseInt(id.split('-')[1]);
+                  if (filteredProjects[idx]?.liveLink) {
+                    window.open(filteredProjects[idx].liveLink, '_blank');
+                  }
+                }}
+                activeProjectId={activeProject3D}
+              />
+              <p className="text-center mt-4 text-gray-600 dark:text-gray-400">
+                Click on any card to view the project
+              </p>
+            </div>
+          )}
+          
           {/* Projects Grid */}
+          {viewMode === 'grid' && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
               <div key={index} className="project-card group">
@@ -1088,6 +1142,7 @@ const Portfolio = () => {
               </div>
             ))}
           </div>
+          )}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-12">
@@ -1098,7 +1153,7 @@ const Portfolio = () => {
       </section>
 
       {/* Certifications Section */}
-      <section ref={certificationsRef} id="certifications" className="py-20">
+      <section ref={certificationsRef} id="certifications" className={`py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Certifications & Training</h2>
@@ -1123,7 +1178,7 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section ref={contactRef} id="contact" className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={contactRef} id="contact" className={`py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
@@ -1233,7 +1288,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className={`py-12 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-white border-t border-gray-200'}`}>
+      <footer className={`py-12 relative z-10 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-white border-t border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center space-x-6 mb-6">
