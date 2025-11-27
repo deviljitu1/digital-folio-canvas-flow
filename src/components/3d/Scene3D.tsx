@@ -1,6 +1,5 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 function AnimatedSphere({ position, color }: { position: [number, number, number]; color: string }) {
@@ -14,49 +13,42 @@ function AnimatedSphere({ position, color }: { position: [number, number, number
   });
 
   return (
-    <Sphere ref={meshRef} args={[1, 32, 32]} position={position}>
-      <MeshDistortMaterial
+    <mesh ref={meshRef} position={position}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial
         color={color}
-        attach="material"
-        distort={0.3}
-        speed={1.5}
         roughness={0.2}
         metalness={0.8}
+        emissive={color}
+        emissiveIntensity={0.2}
       />
-    </Sphere>
+    </mesh>
   );
 }
 
 function Particles() {
   const particlesRef = useRef<THREE.Points>(null);
-  const [ready, setReady] = useState(false);
   
-  useEffect(() => {
-    if (particlesRef.current && !ready) {
-      const geometry = particlesRef.current.geometry;
-      const positions = new Float32Array(150 * 3);
-      
-      for (let i = 0; i < 150; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 15;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
-      }
-      
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      setReady(true);
-    }
-  }, [ready]);
+  const particlesGeometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(150 * 3);
+  
+  for (let i = 0; i < 150; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 15;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+  }
+  
+  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
   useFrame(() => {
-    if (particlesRef.current && ready) {
+    if (particlesRef.current) {
       particlesRef.current.rotation.y += 0.0003;
       particlesRef.current.rotation.x += 0.0001;
     }
   });
 
   return (
-    <points ref={particlesRef}>
-      <bufferGeometry />
+    <points ref={particlesRef} geometry={particlesGeometry}>
       <pointsMaterial
         size={0.04}
         color="#ffffff"
@@ -68,6 +60,23 @@ function Particles() {
   );
 }
 
+function Scene() {
+  return (
+    <>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[10, 10, 5]} intensity={0.8} />
+      <pointLight position={[-10, -10, -5]} intensity={0.4} color="#3b82f6" />
+      <pointLight position={[10, 10, 5]} intensity={0.4} color="#a855f7" />
+      
+      <AnimatedSphere position={[-3, 0, 0]} color="#3b82f6" />
+      <AnimatedSphere position={[3, 0, -2]} color="#a855f7" />
+      <AnimatedSphere position={[0, 2, -3]} color="#ec4899" />
+      
+      <Particles />
+    </>
+  );
+}
+
 export default function Scene3D() {
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -76,25 +85,7 @@ export default function Scene3D() {
         style={{ background: 'transparent' }}
         gl={{ alpha: true, antialias: true }}
       >
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[10, 10, 5]} intensity={0.8} />
-        <pointLight position={[-10, -10, -5]} intensity={0.4} color="#3b82f6" />
-        <pointLight position={[10, 10, 5]} intensity={0.4} color="#a855f7" />
-        
-        <AnimatedSphere position={[-3, 0, 0]} color="#3b82f6" />
-        <AnimatedSphere position={[3, 0, -2]} color="#a855f7" />
-        <AnimatedSphere position={[0, 2, -3]} color="#ec4899" />
-        
-        <Particles />
-        
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.3}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
+        <Scene />
       </Canvas>
     </div>
   );
