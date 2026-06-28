@@ -692,18 +692,18 @@ const Portfolio = () => {
         <FloatingIcons />
         
         <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
             {/* Profile Image */}
             <MouseParallax speed={0.03} className="flex-shrink-0 animate-fade-in">
               <div className="relative">
-                <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl hover:scale-105 transition-transform duration-300">
+                <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl hover:scale-105 transition-transform duration-300">
                   <img
                     src={kiranProfile}
                     alt="Kiran Srivastava - Digital Marketing Professional"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <MouseParallax speed={0.08} className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-4xl animate-bounce">
+                <MouseParallax speed={0.08} className="absolute -bottom-2 -right-2 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-2xl md:text-4xl animate-bounce">
                   👋
                 </MouseParallax>
               </div>
@@ -711,19 +711,19 @@ const Portfolio = () => {
 
             {/* Hero Content */}
             <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-fade-in">
+              <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-fade-in">
                 Hi, I'm Kiran Srivastava
               </h1>
-              <p className="text-xl md:text-3xl mb-6 text-gray-700 dark:text-gray-200 animate-fade-in delay-300 font-semibold">
+              <p className="text-lg md:text-3xl mb-3 md:mb-6 text-gray-700 dark:text-gray-200 animate-fade-in delay-300 font-semibold">
                 Digital Marketing Professional
               </p>
-              <p className="text-base md:text-lg mb-8 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 animate-fade-in delay-500 leading-relaxed">
+              <p className="text-sm md:text-lg mb-5 md:mb-8 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 animate-fade-in delay-500 leading-relaxed">
                 Creative and detail-oriented Digital Marketing Professional with hands-on experience in social media management, content strategy, Meta Ads, graphic design, WhatsApp marketing, e-commerce coordination, and website management.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in delay-700">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start animate-fade-in delay-700">
                 <button
                   onClick={() => scrollToSection('projects')}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+                  className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm md:text-base"
                 >
                   <Eye size={20} />
                   View Experience
@@ -731,7 +731,7 @@ const Portfolio = () => {
                 <a 
                   href="/Kiran_Srivastava_Resume.pdf" 
                   download
-                  className="px-8 py-4 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+                  className="px-6 py-3 md:px-8 md:py-4 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm md:text-base"
                 >
                   <Download size={20} />
                   Download Resume
@@ -743,26 +743,26 @@ const Portfolio = () => {
       </section>
 
       {/* About Section */}
-      <section ref={aboutRef} id="about" className={`py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={aboutRef} id="about" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Passionate about creating digital experiences that matter</p>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
+            <p className="text-base md:text-xl text-gray-600 dark:text-gray-300">Passionate about creating digital experiences that matter</p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-4 md:space-y-6">
+              <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 I'm <strong>Kiran Srivastava</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
               </p>
               
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 With experience at <strong>ORGALIFE</strong>, <strong>CHOUHAN HOUSING</strong>, <strong>GATE ACADEMY</strong>, and <strong>GENIQUE EDUCATION</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
               </p>
               
               <div className="space-y-4">
-                <h3 className="text-2xl font-semibold mb-4 text-blue-600">Core Competencies:</h3>
-                <div className="grid grid-cols-2 gap-3">
+                <h3 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 text-blue-600">Core Competencies:</h3>
+                <div className="grid grid-cols-2 gap-1 md:gap-3">
                   {[
                     'Social Media Strategy',
                     'Content Creation',
@@ -775,33 +775,33 @@ const Portfolio = () => {
                     'Influencer Marketing',
                     'Email Marketing'
                   ].map((competency) => (
-                    <div key={competency} className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
-                      <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
-                      <span className="text-sm font-medium">{competency}</span>
+                    <div key={competency} className="flex items-center space-x-2 p-1.5 md:p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                      <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex-shrink-0"></div>
+                      <span className="text-xs md:text-sm font-medium">{competency}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3 pt-4">
-                <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-                  <Award size={18} className="text-blue-600" />
-                  <span className="text-sm font-medium">Digital Marketer</span>
+              <div className="flex flex-wrap gap-2 md:gap-3 pt-3 md:pt-4">
+                <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                  <Award size={16} className="text-blue-600" />
+                  <span className="text-xs md:text-sm font-medium">Digital Marketer</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
-                  <Star size={18} className="text-purple-600" />
-                  <span className="text-sm font-medium">Content Creator</span>
+                <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                  <Star size={16} className="text-purple-600" />
+                  <span className="text-xs md:text-sm font-medium">Content Creator</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-pink-100 dark:bg-pink-900/30 rounded-full">
-                  <TrendingUp size={18} className="text-pink-600" />
-                  <span className="text-sm font-medium">SEO Specialist</span>
+                <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-pink-100 dark:bg-pink-900/30 rounded-full">
+                  <TrendingUp size={16} className="text-pink-600" />
+                  <span className="text-xs md:text-sm font-medium">SEO Specialist</span>
                 </div>
               </div>
             </div>
             
             <div className="flex justify-center">
               <div className="relative">
-                <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-blue-600 to-purple-600">
+                <div className="w-full max-w-xs md:max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-blue-600 to-purple-600">
                   <img
                     src={kiranProfile}
                     alt="Kiran Srivastava"
@@ -815,38 +815,38 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section ref={skillsRef} id="skills" className="py-20 relative z-10 overflow-hidden">
+      <section ref={skillsRef} id="skills" className="py-10 md:py-20 relative z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <div className="text-center mb-10 md:mb-20">
+            <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Skills & Expertise
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Mastering the art of digital creation through cutting-edge technologies and strategic marketing excellence
             </p>
-            <div className="mt-8 flex justify-center">
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
+            <div className="mt-4 md:mt-8 flex justify-center">
+              <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
             </div>
           </div>
           
-          <div className="grid lg:grid-cols-3 gap-10">
+          <div className="grid lg:grid-cols-3 gap-5 md:gap-10">
             {/* Frontend Development */}
             <div className="skill-category skill-card group">
-              <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+              <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
                   ? 'bg-gradient-to-br from-blue-900/30 to-blue-800/20 border-blue-700/30 hover:border-blue-500/50' 
                   : 'bg-gradient-to-br from-blue-50/80 to-white/80 border-blue-200/50 hover:border-blue-400/50'
               } hover:shadow-2xl hover:shadow-blue-500/20`}>
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                    <Code2 className="text-white" size={24} />
+                <div className="text-center mb-5 md:mb-8">
+                  <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <Code2 className="text-white" size={20} />
                   </div>
-                  <h3 className="text-2xl font-bold text-blue-600 mb-2">Content & Design</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Building engaging assets</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-1 md:mb-2">Content & Design</h3>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Building engaging assets</p>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   {skills.frontend.map((skill, index) => (
                     <div key={skill.name} className="skill-item" style={{ animationDelay: `${index * 0.1}s` }}>
                       <div className="flex items-center justify-between mb-2">
@@ -873,17 +873,17 @@ const Portfolio = () => {
             
             {/* Marketing Skills */}
             <div className="skill-category skill-card group">
-              <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+              <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
                   ? 'bg-gradient-to-br from-purple-900/30 to-purple-800/20 border-purple-700/30 hover:border-purple-500/50' 
                   : 'bg-gradient-to-br from-purple-50/80 to-white/80 border-purple-200/50 hover:border-purple-400/50'
               } hover:shadow-2xl hover:shadow-purple-500/20`}>
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                    <Palette className="text-white" size={24} />
+                <div className="text-center mb-5 md:mb-8">
+                  <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <Palette className="text-white" size={20} />
                   </div>
-                  <h3 className="text-2xl font-bold text-purple-600 mb-2">Digital Marketing</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Driving growth through strategy</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-600 mb-1 md:mb-2">Digital Marketing</h3>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Driving growth through strategy</p>
                 </div>
                 
                 <div className="space-y-6">
@@ -913,17 +913,17 @@ const Portfolio = () => {
             
             {/* Strategic Skills */}
             <div className="skill-category skill-card group">
-              <div className={`h-full p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+              <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
                   ? 'bg-gradient-to-br from-pink-900/30 to-pink-800/20 border-pink-700/30 hover:border-pink-500/50' 
                   : 'bg-gradient-to-br from-pink-50/80 to-white/80 border-pink-200/50 hover:border-pink-400/50'
               } hover:shadow-2xl hover:shadow-pink-500/20`}>
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                    <TrendingUp className="text-white" size={24} />
+                <div className="text-center mb-5 md:mb-8">
+                  <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <TrendingUp className="text-white" size={20} />
                   </div>
-                  <h3 className="text-2xl font-bold text-pink-600 mb-2">Strategic Skills</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Business growth expertise</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-pink-600 mb-1 md:mb-2">Strategic Skills</h3>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Business growth expertise</p>
                 </div>
                 
                 <div className="space-y-6">
@@ -953,7 +953,7 @@ const Portfolio = () => {
           </div>
 
           {/* Skills Summary Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="text-center group">
               <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                 <Star className="text-white" size={24} />
@@ -990,21 +990,21 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Section */}
-      <section ref={projectsRef} id="projects" className={`py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={projectsRef} id="projects" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Featured Projects</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Showcasing professional work across digital marketing and web development</p>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Featured Projects</h2>
+            <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Showcasing professional work across digital marketing and web development</p>
           </div>
           
           {/* Main Category Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-6 md:mb-8">
             <button
               onClick={() => {
                 setSelectedCategory('all');
                 setSelectedSubCategory('all');
               }}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 ${
                 selectedCategory === 'all'
                   ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
                   : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
@@ -1023,7 +1023,7 @@ const Portfolio = () => {
                     setSelectedCategory(key);
                     setSelectedSubCategory('all');
                   }}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                  className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${
                     selectedCategory === key
                       ? `bg-gradient-to-r ${category.color === 'blue' ? 'from-blue-600 to-blue-700' : 'from-purple-600 to-purple-700'} text-white shadow-lg scale-105`
                       : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
@@ -1072,7 +1072,7 @@ const Portfolio = () => {
           )}
           
           {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
             {filteredProjects.map((project, index) => (
               <div key={index} className="project-card group">
                 <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-white'} hover:scale-105`}>
@@ -1121,7 +1121,7 @@ const Portfolio = () => {
                     </div>
                   </div>
                   
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">{project.title}</h3>
                     <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
                       {project.description}
@@ -1164,20 +1164,20 @@ const Portfolio = () => {
       </section>
 
       {/* Experience Section */}
-      <section ref={experienceRef} id="experience" className={`py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+      <section ref={experienceRef} id="experience" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Experience & Education</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Professional journey and academic background</p>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Experience & Education</h2>
+            <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Professional journey and academic background</p>
           </div>
           
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold mb-8 text-center">Work Experiences</h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="mb-10 md:mb-16">
+            <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center">Work Experiences</h3>
+            <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
               {experiences.filter(e => e.category === 'work-experience').map((exp, index) => (
-                <div key={index} className={`p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-blue-500' : 'border-gray-200 bg-gray-50 hover:border-blue-500'} transition-all duration-300 hover:shadow-lg`}>
-                  <h4 className="font-bold text-xl mb-2">{exp.title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">{exp.description}</p>
+                <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-blue-500' : 'border-gray-200 bg-gray-50 hover:border-blue-500'} transition-all duration-300 hover:shadow-lg`}>
+                  <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2">{exp.title}</h4>
+                  <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {exp.tools.map(tool => (
                       <span key={tool} className="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">{tool}</span>
@@ -1188,13 +1188,13 @@ const Portfolio = () => {
             </div>
           </div>
 
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold mb-8 text-center">Project-Based Experience</h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="mb-10 md:mb-16">
+            <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center">Project-Based Experience</h3>
+            <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
               {experiences.filter(e => e.category === 'project-based').map((exp, index) => (
-                <div key={index} className={`p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-purple-500' : 'border-gray-200 bg-gray-50 hover:border-purple-500'} transition-all duration-300 hover:shadow-lg`}>
-                  <h4 className="font-bold text-xl mb-2">{exp.title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">{exp.description}</p>
+                <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-purple-500' : 'border-gray-200 bg-gray-50 hover:border-purple-500'} transition-all duration-300 hover:shadow-lg`}>
+                  <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2">{exp.title}</h4>
+                  <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {exp.tools.map(tool => (
                       <span key={tool} className="px-3 py-1 bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-xs rounded-full font-medium">{tool}</span>
@@ -1206,17 +1206,17 @@ const Portfolio = () => {
           </div>
 
           <div>
-            <h3 className="text-3xl font-bold mb-8 text-center">Education & Certifications</h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center">Education & Certifications</h3>
+            <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
               {certifications.map((cert, index) => (
-                <div key={index} className={`certification-card p-8 rounded-2xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-blue-500 hover:bg-blue-900/10' : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'} transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-lg`}>
+                <div key={index} className={`certification-card p-5 md:p-8 rounded-2xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-blue-500 hover:bg-blue-900/10' : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'} transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-lg`}>
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Award className="text-white" size={32} />
+                    <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                      <Award className="text-white" size={24} />
                     </div>
-                    <h3 className="font-bold mb-3 text-xl">{cert.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-base mb-2 font-medium">{cert.issuer}</p>
-                    <p className="text-blue-600 dark:text-blue-400 font-semibold">{cert.year}</p>
+                    <h3 className="font-bold mb-2 md:mb-3 text-base md:text-xl">{cert.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs md:text-base mb-1.5 md:mb-2 font-medium">{cert.issuer}</p>
+                    <p className="text-blue-600 dark:text-blue-400 text-sm md:text-base font-semibold">{cert.year}</p>
                   </div>
                 </div>
               ))}
@@ -1226,21 +1226,21 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section ref={contactRef} id="contact" className={`py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+      <section ref={contactRef} id="contact" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Let's collaborate and create something amazing</p>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Get In Touch</h2>
+            <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Let's collaborate and create something amazing</p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div className="space-y-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            <div className="space-y-6 md:space-y-8">
               <div>
-                <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Contact Information</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail className="text-white" size={20} />
+                  <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail className="text-white" size={18} />
                     </div>
                     <div>
                       <p className="font-medium">Email</p>
@@ -1250,9 +1250,9 @@ const Portfolio = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Phone className="text-white" size={20} />
+                  <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Phone className="text-white" size={18} />
                     </div>
                     <div>
                       <p className="font-medium">WhatsApp</p>
@@ -1262,9 +1262,9 @@ const Portfolio = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Globe className="text-white" size={20} />
+                  <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Globe className="text-white" size={18} />
                     </div>
                     <div>
                       <p className="font-medium">Website</p>
@@ -1276,22 +1276,22 @@ const Portfolio = () => {
                 </div>
               </div>
               
-              <div className="flex space-x-4">
-                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
-                  <Linkedin size={20} />
+              <div className="flex space-x-3 md:space-x-4">
+                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                  <Linkedin size={18} />
                 </a>
-                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
-                  <Github size={20} />
+                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                  <Github size={18} />
                 </a>
-                <a href="https://wa.me/7875783498" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
-                  <Phone size={20} />
+                <a href="https://wa.me/7875783498" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                  <Phone size={18} />
                 </a>
               </div>
             </div>
             
-            <div className={`p-8 rounded-xl ${isDark ? 'bg-gray-900' : 'bg-white'} shadow-lg`}>
-              <h3 className="text-2xl font-semibold mb-6">Send Message</h3>
-              <form className="space-y-6" onSubmit={handleContactSubmit}>
+            <div className={`p-5 md:p-8 rounded-xl ${isDark ? 'bg-gray-900' : 'bg-white'} shadow-lg`}>
+              <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Send Message</h3>
+              <form className="space-y-4 md:space-y-6" onSubmit={handleContactSubmit}>
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
                   <input
@@ -1336,7 +1336,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className={`py-12 relative z-10 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-white border-t border-gray-200'}`}>
+      <footer className={`py-8 md:py-12 relative z-10 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-white border-t border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center space-x-6 mb-6">
