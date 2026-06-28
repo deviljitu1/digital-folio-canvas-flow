@@ -7,10 +7,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LoadingScreen from '@/components/LoadingScreen';
 import MouseParallax from '@/components/MouseParallax';
 import FloatingIcons from '@/components/FloatingIcons';
+import Portfolio3DGallery from '@/components/3d/Portfolio3DGallery';
+
+const Scene3D = lazy(() => import('@/components/3d/Scene3D'));
+
 gsap.registerPlugin(ScrollTrigger);
 
 // Import images
-import kiranProfile from "@/assets/kiran-profile.jpeg";
+import nahushProfile from "@/assets/nahush-profile.webp";
+import nahushAbout from "@/assets/nahush-about.webp";
 import projectKisan from "@/assets/project-kisan.webp";
 import linkpostAi from "@/assets/linkpost-ai.webp";
 import tindog from "@/assets/tindog.webp";
@@ -34,12 +39,12 @@ const Portfolio = () => {
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
   const projectsRef = useRef(null);
-  const experienceRef = useRef(null);
+  const certificationsRef = useRef(null);
   const contactRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
+      const sections = ['hero', 'about', 'skills', 'projects', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -147,11 +152,11 @@ const Portfolio = () => {
         });
       }
 
-      // Experience section scroll animation
-      if (experienceRef.current) {
-        gsap.from(experienceRef.current, {
+      // Certifications section scroll animation
+      if (certificationsRef.current) {
+        gsap.from(certificationsRef.current, {
           scrollTrigger: {
-            trigger: experienceRef.current,
+            trigger: certificationsRef.current,
             start: 'top 80%',
             toggleActions: 'play none none reverse'
           },
@@ -500,108 +505,37 @@ const Portfolio = () => {
     }
   ];
 
-  const experiences = [
-    {
-      title: "Digital Marketing Manager @ ORGALIFE",
-      description: "Managed social media platforms, content planning, and audience engagement. Executed Meta Ads campaigns and WhatsApp marketing activities. Planned product launch campaigns and designed graphics.",
-      tools: ["Meta Ads", "WhatsApp Marketing", "Graphic Design"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "work-experience",
-      subCategory: "management",
-      mediaType: "image"
-    },
-    {
-      title: "Social Media Executive @ CHOUHAN HOUSING",
-      description: "Managed Instagram, Facebook, and LinkedIn to increase brand awareness. Executed marketing campaigns, designed promotional creatives, and generated leads. Monitored insights and prepared reports.",
-      tools: ["Instagram", "Facebook", "Lead Gen", "Reporting"],
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "work-experience",
-      subCategory: "executive",
-      mediaType: "image"
-    },
-    {
-      title: "Digital Marketing Executive @ GATE ACADEMY X UNACADEMY",
-      description: "Oversaw YouTube channel, executed Meta Ads campaigns, designed thumbnails, and implemented on-page and off-page SEO strategies to improve organic traffic.",
-      tools: ["YouTube SEO", "Meta Ads", "SEO"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "work-experience",
-      subCategory: "executive",
-      mediaType: "image"
-    },
-    {
-      title: "Social Media Manager @ GENIQUE EDUCATION",
-      description: "Managed and grew social media accounts across platforms. Handled YouTube SEO, audience engagement, and analyzed performance insights to improve reach.",
-      tools: ["Social Media", "Analytics", "Strategy"],
-      image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "work-experience",
-      subCategory: "management",
-      mediaType: "image"
-    },
-    {
-      title: "Rajim Kumbh (Jan 2026 - Feb 2026)",
-      description: "Managed end-to-end social media marketing for the event. Planned content calendars, designed promotional posters, and increased event visibility.",
-      tools: ["Content Calendar", "Design", "Event Marketing"],
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "project-based",
-      subCategory: "marketing",
-      mediaType: "image"
-    },
-    {
-      title: "Agrawal Samaj Event (2025)",
-      description: "Planned and managed social media promotions for the event. Designed digital creatives and executed content strategies to maximize audience engagement.",
-      tools: ["Social Media", "Graphic Design"],
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "project-based",
-      subCategory: "marketing",
-      mediaType: "image"
-    },
-    {
-      title: "Saras Mela (2024)",
-      description: "Managed social media platforms and event promotions. Designed banners, posters, and promotional creatives to maintain consistent branding.",
-      tools: ["Graphic Design", "Social Media", "Branding"],
-      image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "project-based",
-      subCategory: "design",
-      mediaType: "image"
-    }
-  ];
-
   const skills = {
     frontend: [
-      { name: "Content Creation", level: 95, icon: "✍️" },
-      { name: "Graphic Design", level: 90, icon: "🎨" },
-      { name: "Email Marketing", level: 88, icon: "📧" },
-      { name: "Campaign Planning", level: 85, icon: "📅" },
-      { name: "Marketing Automation", level: 90, icon: "🤖" },
-      { name: "E-commerce Marketing", level: 82, icon: "🛒" }
+      { name: "HTML5", level: 95, icon: "🌐" },
+      { name: "CSS3", level: 90, icon: "🎨" },
+      { name: "JavaScript", level: 88, icon: "⚡" },
+      { name: "React", level: 85, icon: "⚛️" },
+      { name: "WordPress", level: 90, icon: "📝" },
+      { name: "Git & GitHub", level: 82, icon: "📦" }
     ],
     marketing: [
-      { name: "Social Media Mgt", level: 95, icon: "📱" },
-      { name: "Meta Ads Manager", level: 92, icon: "📢" },
-      { name: "SEO Optimization", level: 88, icon: "🔍" },
-      { name: "Digital Strategy", level: 90, icon: "📈" },
-      { name: "Influencer Marketing", level: 85, icon: "🤝" },
-      { name: "Google Analytics", level: 87, icon: "📊" }
+      { name: "SEO", level: 92, icon: "🔍" },
+      { name: "Google Analytics", level: 88, icon: "📊" },
+      { name: "Canva Pro", level: 95, icon: "🎪" },
+      { name: "Social Media Marketing", level: 90, icon: "📱" },
+      { name: "Email Marketing", level: 85, icon: "📧" },
+      { name: "Meta/Google Ads", level: 87, icon: "📢" }
     ],
     soft: [
-      { name: "Meta Business Suite", level: 93, icon: "💼" },
-      { name: "YouTube Studio", level: 88, icon: "▶️" },
-      { name: "Canva & Photoshop", level: 90, icon: "🖼️" },
-      { name: "Shopify", level: 80, icon: "🛍️" },
-      { name: "SEMrush & Yoast", level: 85, icon: "🎯" }
+      { name: "Content Strategy", level: 93, icon: "📋" },
+      { name: "Conversion Optimization", level: 88, icon: "🎯" },
+      { name: "Analytics & Tracking", level: 90, icon: "📈" },
+      { name: "n8n Automation", level: 80, icon: "🤖" },
+      { name: "Problem Solving", level: 95, icon: "💡" }
     ]
   };
 
   const certifications = [
-    { name: "Bachelor of Commerce", issuer: "Sri Agrasen Kanya Mahavialaya, Korba, Chhattisgarh", year: "2026" },
-    { name: "Digital Marketing Course", issuer: "Bizgurukul (Online)", year: "October 2022" }
+    { name: "Complete Digital Marketing Guide - 27 Courses", issuer: "Udemy", year: "2024" },
+    { name: "Full-Stack Web Development Bootcamp", issuer: "Udemy", year: "2024" },
+    { name: "6 Month Full Digital Marketing Course", issuer: "Professional Training", year: "2025" },
+    { name: "Medical Coding & Billing", issuer: "Omega Healthcare", year: "2024-2025" }
   ];
 
   // Filter projects based on selected categories
@@ -616,7 +550,10 @@ const Portfolio = () => {
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       
-
+      {/* 3D Background Scene */}
+      <Suspense fallback={null}>
+        <Scene3D />
+      </Suspense>
       
       <div className={`min-h-screen transition-colors duration-300 relative ${isDark ? 'dark bg-gray-900/80 text-white' : 'bg-white/80 text-gray-900'}`}>
       {/* Navigation */}
@@ -624,12 +561,12 @@ const Portfolio = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="font-bold text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Kiran Srivastava
+              Nahush Patel
             </div>
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
+              {['Hero', 'About', 'Skills', 'Projects', 'Certifications', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -668,7 +605,7 @@ const Portfolio = () => {
         {isMenuOpen && (
           <div className={`md:hidden ${isDark ? 'bg-gray-900' : 'bg-white'} border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
+              {['Hero', 'About', 'Skills', 'Projects', 'Certifications', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -698,8 +635,8 @@ const Portfolio = () => {
               <div className="relative">
                 <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl hover:scale-105 transition-transform duration-300">
                   <img
-                    src={kiranProfile}
-                    alt="Kiran Srivastava - Digital Marketing Professional"
+                    src={nahushProfile}
+                    alt="Nahush Patel - Web Developer & Digital Marketer"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -712,13 +649,13 @@ const Portfolio = () => {
             {/* Hero Content */}
             <div className="flex-1 text-left lg:text-left">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-fade-in">
-                Hi, I'm Kiran Srivastava
+                Hi, I'm Nahush Patel
               </h1>
               <p className="text-xl md:text-3xl mb-6 text-gray-700 dark:text-gray-200 animate-fade-in delay-300 font-semibold">
-                Digital Marketing Professional
+                Web Developer & Digital Marketer
               </p>
               <p className="text-lg mb-8 text-gray-600 dark:text-gray-400 max-w-2xl animate-fade-in delay-500 leading-relaxed">
-                Creative and detail-oriented Digital Marketing Professional with hands-on experience in social media management, content strategy, Meta Ads, graphic design, WhatsApp marketing, e-commerce coordination, and website management.
+                Passionate about building responsive, high-performing websites and driving online growth through data-driven digital marketing strategies. A continuous learner dedicated to blending technology and marketing to deliver impactful digital experiences.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-700">
                 <button
@@ -726,10 +663,10 @@ const Portfolio = () => {
                   className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
                 >
                   <Eye size={20} />
-                  View Experience
+                  View Projects
                 </button>
                 <a 
-                  href="/Kiran_Srivastava_Resume.pdf" 
+                  href="/Nahush_Patel_Resume.pdf" 
                   download
                   className="px-8 py-4 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
                 >
@@ -753,11 +690,11 @@ const Portfolio = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm <strong>Kiran Srivastava</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
+                I'm <strong>Nahush Patel</strong>, a passionate Digital Marketer and Web Developer skilled in social media strategy, content creation, SEO, and full-stack web development. I create engaging campaigns that boost online presence and visibility while building responsive, high-performing websites.
               </p>
               
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                With experience at <strong>ORGALIFE</strong>, <strong>CHOUHAN HOUSING</strong>, <strong>GATE ACADEMY</strong>, and <strong>GENIQUE EDUCATION</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
+                With experience at <strong>Omega Healthcare</strong> in medical coding and <strong>Sutherland Global</strong> as Customer Care Executive for Amazon, I bring a unique blend of technical expertise and customer-focused communication skills.
               </p>
               
               <div className="space-y-4">
@@ -765,15 +702,15 @@ const Portfolio = () => {
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     'Social Media Strategy',
-                    'Content Creation',
+                    'Web Development',
                     'SEO Optimization',
-                    'Meta Ads Manager',
-                    'Graphic Design',
-                    'Analytics & Tracking',
-                    'Campaign Planning',
-                    'E-commerce Marketing',
-                    'Influencer Marketing',
-                    'Email Marketing'
+                    'Meta/Google Ads',
+                    'Email Marketing & Automation',
+                    'Analytics & CRO',
+                    'WordPress Development',
+                    'React & JavaScript',
+                    'Content Creation',
+                    'n8n Automation'
                   ].map((competency) => (
                     <div key={competency} className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                       <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
@@ -786,15 +723,15 @@ const Portfolio = () => {
               <div className="flex flex-wrap gap-3 pt-4">
                 <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
                   <Award size={18} className="text-blue-600" />
-                  <span className="text-sm font-medium">Digital Marketer</span>
+                  <span className="text-sm font-medium">5+ Languages</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
                   <Star size={18} className="text-purple-600" />
-                  <span className="text-sm font-medium">Content Creator</span>
+                  <span className="text-sm font-medium">Full-Stack Developer</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-pink-100 dark:bg-pink-900/30 rounded-full">
                   <TrendingUp size={18} className="text-pink-600" />
-                  <span className="text-sm font-medium">SEO Specialist</span>
+                  <span className="text-sm font-medium">Digital Marketer</span>
                 </div>
               </div>
             </div>
@@ -803,8 +740,8 @@ const Portfolio = () => {
               <div className="relative">
                 <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-blue-600 to-purple-600">
                   <img
-                    src={kiranProfile}
-                    alt="Kiran Srivastava"
+                    src={nahushAbout}
+                    alt="Nahush Patel"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -842,8 +779,8 @@ const Portfolio = () => {
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                     <Code2 className="text-white" size={24} />
                   </div>
-                  <h3 className="text-2xl font-bold text-blue-600 mb-2">Content & Design</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Building engaging assets</p>
+                  <h3 className="text-2xl font-bold text-blue-600 mb-2">Web Development</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Building beautiful user experiences</p>
                 </div>
                 
                 <div className="space-y-6">
@@ -1071,7 +1008,58 @@ const Portfolio = () => {
             </div>
           )}
           
+          {/* View Mode Toggle */}
+          <div className="flex justify-center gap-3 mb-8">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                viewMode === 'grid'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              <Grid3x3 size={18} />
+              Grid View
+            </button>
+            <button
+              onClick={() => setViewMode('3d')}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                viewMode === '3d'
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105'
+                  : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
+            >
+              <BoxIcon size={18} />
+              3D Gallery
+            </button>
+          </div>
+          
+          {/* 3D Gallery View */}
+          {viewMode === '3d' && (
+            <div className="mb-12">
+              <Portfolio3DGallery
+                projects={filteredProjects.map((p, idx) => ({
+                  id: `project-${idx}`,
+                  name: p.title,
+                  color: p.category === 'digital-marketing' ? '#9333ea' : '#2563eb'
+                }))}
+                onProjectClick={(id) => {
+                  setActiveProject3D(id);
+                  const idx = parseInt(id.split('-')[1]);
+                  if (filteredProjects[idx]?.liveLink) {
+                    window.open(filteredProjects[idx].liveLink, '_blank');
+                  }
+                }}
+                activeProjectId={activeProject3D}
+              />
+              <p className="text-center mt-4 text-gray-600 dark:text-gray-400">
+                Click on any card to view the project
+              </p>
+            </div>
+          )}
+          
           {/* Projects Grid */}
+          {viewMode === 'grid' && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
               <div key={index} className="project-card group">
@@ -1154,6 +1142,7 @@ const Portfolio = () => {
               </div>
             ))}
           </div>
+          )}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-12">
@@ -1163,64 +1152,27 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section ref={experienceRef} id="experience" className={`py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+      {/* Certifications Section */}
+      <section ref={certificationsRef} id="certifications" className={`py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Experience & Education</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">Professional journey and academic background</p>
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Certifications & Training</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Professional credentials and continuous learning</p>
           </div>
           
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold mb-8 text-center">Work Experiences</h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {experiences.filter(e => e.category === 'work-experience').map((exp, index) => (
-                <div key={index} className={`p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-blue-500' : 'border-gray-200 bg-gray-50 hover:border-blue-500'} transition-all duration-300 hover:shadow-lg`}>
-                  <h4 className="font-bold text-xl mb-2">{exp.title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">{exp.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tools.map(tool => (
-                      <span key={tool} className="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium">{tool}</span>
-                    ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {certifications.map((cert, index) => (
+              <div key={index} className={`certification-card p-6 rounded-xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-blue-500 hover:bg-blue-900/10' : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'} transition-all duration-300 hover:scale-105`}>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Award className="text-white" size={24} />
                   </div>
+                  <h3 className="font-semibold mb-2 text-sm">{cert.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-xs">{cert.issuer}</p>
+                  <p className="text-blue-600 dark:text-blue-400 text-xs mt-1 font-medium">{cert.year}</p>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold mb-8 text-center">Project-Based Experience</h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {experiences.filter(e => e.category === 'project-based').map((exp, index) => (
-                <div key={index} className={`p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-purple-500' : 'border-gray-200 bg-gray-50 hover:border-purple-500'} transition-all duration-300 hover:shadow-lg`}>
-                  <h4 className="font-bold text-xl mb-2">{exp.title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">{exp.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tools.map(tool => (
-                      <span key={tool} className="px-3 py-1 bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-xs rounded-full font-medium">{tool}</span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-3xl font-bold mb-8 text-center">Education & Certifications</h3>
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {certifications.map((cert, index) => (
-                <div key={index} className={`certification-card p-8 rounded-2xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-blue-500 hover:bg-blue-900/10' : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'} transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-lg`}>
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Award className="text-white" size={32} />
-                    </div>
-                    <h3 className="font-bold mb-3 text-xl">{cert.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-base mb-2 font-medium">{cert.issuer}</p>
-                    <p className="text-blue-600 dark:text-blue-400 font-semibold">{cert.year}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1244,8 +1196,8 @@ const Portfolio = () => {
                     </div>
                     <div>
                       <p className="font-medium">Email</p>
-                      <a href="mailto:srivastavakirann012@gmail.com" className="text-blue-600 hover:underline">
-                        srivastavakirann012@gmail.com
+                      <a href="mailto:nahushpatel2@gmail.com" className="text-blue-600 hover:underline">
+                        nahushpatel2@gmail.com
                       </a>
                     </div>
                   </div>
@@ -1256,8 +1208,8 @@ const Portfolio = () => {
                     </div>
                     <div>
                       <p className="font-medium">WhatsApp</p>
-                      <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
-                        +91 934-063-0254
+                      <a href="https://wa.me/7875783498" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                        +91 787-578-3498
                       </a>
                     </div>
                   </div>
@@ -1268,8 +1220,8 @@ const Portfolio = () => {
                     </div>
                     <div>
                       <p className="font-medium">Website</p>
-                      <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline">
-                        reallygreatsite.com
+                      <a href="https://nahushpatel.in" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline">
+                        nahushpatel.in
                       </a>
                     </div>
                   </div>
@@ -1346,15 +1298,15 @@ const Portfolio = () => {
               <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 <Github size={24} />
               </a>
-              <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors">
+              <a href="https://nahushpatel.in" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors">
                 <Globe size={24} />
               </a>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-2">
-              © 2026 Kiran Srivastava. All rights reserved.
+              © 2024 Nahush Patel. All rights reserved.
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500">
-              Digital Marketing Professional | Building Digital Experiences
+              Web Developer & Digital Marketer | Building Digital Experiences
             </p>
           </div>
         </div>
