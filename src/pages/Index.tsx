@@ -422,9 +422,9 @@ const Portfolio = () => {
 
   const experiences = [
     {
-      title: "Digital Marketing Manager @ ORGALIFE",
-      description: "Managed social media platforms, content planning, and audience engagement. Executed Meta Ads campaigns and WhatsApp marketing activities. Planned product launch campaigns and designed graphics.",
-      tools: ["Meta Ads", "WhatsApp Marketing", "Graphic Design"],
+      title: "Digital Marketing Manager @ ORGALIFE (Dec 2023 - Present)",
+      description: "Managed social media platforms, content strategy, and audience engagement. Executed Meta Ads, WhatsApp marketing, and product launch campaigns. Planned content calendars and managed influencer marketing, barter collaborations, and brand partnerships. Managed day-to-day e-commerce and digital marketing operations. Designed social media creatives, ad graphics, and promotional materials. Managed SEO activities and optimized Google Business Profile (GMB) to improve online visibility and local search performance.",
+      tools: ["Meta Ads", "WhatsApp Marketing", "Graphic Design", "SEO"],
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -432,9 +432,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Social Media Executive @ CHOUHAN HOUSING",
-      description: "Managed Instagram, Facebook, and LinkedIn to increase brand awareness. Executed marketing campaigns, designed promotional creatives, and generated leads. Monitored insights and prepared reports.",
-      tools: ["Instagram", "Facebook", "Lead Gen", "Reporting"],
+      title: "Social Media Executive @ CHOUHAN HOUSING (May 2023 - Nov 2023)",
+      description: "Managed Instagram, Facebook, and Youtube accounts to increase brand awareness and engagement. Planned and executed social media content and marketing campaigns. Designed graphics, posts, banners, and promotional creatives for digital platforms. Created and edited reels and visual content for property promotions. Generated leads through social media campaigns and optimized performance. Monitored insights and prepared reports to improve campaign results.",
+      tools: ["Instagram", "Facebook", "Youtube", "Lead Gen", "Reporting"],
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -442,9 +442,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Digital Marketing Executive @ GATE ACADEMY X UNACADEMY",
-      description: "Oversaw YouTube channel, executed Meta Ads campaigns, designed thumbnails, and implemented on-page and off-page SEO strategies to improve organic traffic.",
-      tools: ["YouTube SEO", "Meta Ads", "SEO"],
+      title: "Digital Marketing Executive @ GATE ACADEMY X UNACADEMY (Apr 2022 - Apr 2023)",
+      description: "Managed social media platforms and YouTube channel operations. Executed Meta Ads campaigns to drive leads and conversions. Designed social media creatives, thumbnails, and ad graphics. Implemented SEO strategies to improve website visibility and rankings. Analyzed campaign performance and optimized marketing efforts.",
+      tools: ["YouTube", "Meta Ads", "SEO"],
       image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -452,9 +452,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Social Media Manager @ GENIQUE EDUCATION",
-      description: "Managed and grew social media accounts across platforms. Handled YouTube SEO, audience engagement, and analyzed performance insights to improve reach.",
-      tools: ["Social Media", "Analytics", "Strategy"],
+      title: "Social Media Manager @ GENIQUE EDUCATION (Sept 2020 - Mar 2022)",
+      description: "Managed and grew social media accounts across Facebook, Instagram, LinkedIn, and Twitter. Handled YT channel management, including content planning, video SEO, thumbnails, & audience engagement. Designed creative graphics for posts, stories, ads, and promotional campaigns. Analyzed performance insights and implemented strategies to improve reach and engagement. Collaborated with teams to create effective digital marketing campaigns.",
+      tools: ["Social Media", "Video SEO", "Analytics"],
       image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -463,7 +463,7 @@ const Portfolio = () => {
     },
     {
       title: "Rajim Kumbh (Jan 2026 - Feb 2026)",
-      description: "Managed end-to-end social media marketing for the event. Planned content calendars, designed promotional posters, and increased event visibility.",
+      description: "Managed end-to-end social media marketing for the event. Planned and executed content calendars across digital platforms. Designed promotional creatives, posters, and campaign graphics. Increased event visibility through engaging social media campaigns. Coordinated with the team to ensure timely campaign execution.",
       tools: ["Content Calendar", "Design", "Event Marketing"],
       image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
       liveLink: "#",
@@ -472,9 +472,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Agrawal Samaj Event (2025)",
-      description: "Planned and managed social media promotions for the event. Designed digital creatives and executed content strategies to maximize audience engagement.",
-      tools: ["Social Media", "Graphic Design"],
+      title: "Rashtriye Kavi Sammelan (Jan 2026)",
+      description: "Planned and managed social media promotions for the event. Designed digital creatives and promotional content. Executed content strategy to maximize audience engagement. Coordinated with organizers for campaign planning.",
+      tools: ["Social Media", "Graphic Design", "Content Strategy"],
       image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "project-based",
@@ -482,8 +482,8 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Saras Mela (2024)",
-      description: "Managed social media platforms and event promotions. Designed banners, posters, and promotional creatives to maintain consistent branding.",
+      title: "Saras Mela (Feb 2024)",
+      description: "Managed social media platforms and event promotions. Designed banners, posters, and promotional creatives. Created engaging content to increase audience reach. Maintained consistent branding across digital channels. Supported online marketing activities throughout the event.",
       tools: ["Graphic Design", "Social Media", "Branding"],
       image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop",
       liveLink: "#",
@@ -1197,13 +1197,13 @@ const Portfolio = () => {
               </div>
               
               <div className="flex space-x-3 md:space-x-4">
-                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                   <Linkedin size={18} />
                 </a>
                 <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                   <Github size={18} />
                 </a>
-                <a href="https://wa.me/7875783498" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                   <Phone size={18} />
                 </a>
               </div>
