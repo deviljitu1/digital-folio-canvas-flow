@@ -9,7 +9,7 @@ import FloatingIcons from '@/components/FloatingIcons';
 gsap.registerPlugin(ScrollTrigger);
 
 // Import images
-import kiranProfile from "@/assets/kiran-profile.jpeg";
+import kiranProfile from "@/assets/hero.jpeg";
 import projectKisan from "@/assets/project-kisan.webp";
 import linkpostAi from "@/assets/linkpost-ai.webp";
 import tindog from "@/assets/tindog.webp";
@@ -29,6 +29,7 @@ type Project = {
   video?: string;
   aspectRatio?: string;
   iframeSrc?: string;
+  graphicCategory?: string;
 };
 
 const Portfolio = () => {
@@ -38,6 +39,7 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedSubCategory, setSelectedSubCategory] = useState('all');
+  const [selectedGraphicCategory, setSelectedGraphicCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | '3d'>('grid');
@@ -263,9 +265,12 @@ const Portfolio = () => {
       liveLink: "#",
       category: "digital-marketing",
       subCategory: "graphic-design",
-      mediaType: "image"
+      mediaType: "image",
+      graphicCategory: folderName
     };
   });
+
+  const graphicCategories = Array.from(new Set(generatedProjects.map(p => p.graphicCategory))).filter(Boolean) as string[];
 
   const projects: Project[] = [
     {
@@ -575,10 +580,10 @@ const Portfolio = () => {
 
   // Filter projects based on selected categories
   const filteredProjects = projects.filter(project => {
-    if (selectedCategory === 'all') return true;
-    if (selectedCategory !== project.category) return false;
-    if (selectedSubCategory === 'all') return true;
-    return selectedSubCategory === project.subCategory;
+    if (selectedCategory !== 'all' && selectedCategory !== project.category) return false;
+    if (selectedSubCategory !== 'all' && selectedSubCategory !== project.subCategory) return false;
+    if (selectedSubCategory === 'graphic-design' && selectedGraphicCategory !== 'all' && project.graphicCategory !== selectedGraphicCategory) return false;
+    return true;
   });
 
   return (
@@ -759,7 +764,7 @@ const Portfolio = () => {
                 </div>
                 <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
                   <Star size={16} className="text-purple-600" />
-                  <span className="text-xs md:text-sm font-medium">Content Creator</span>
+                  <span className="text-xs md:text-sm font-medium">Content Creation</span>
                 </div>
                 <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-pink-100 dark:bg-pink-900/30 rounded-full">
                   <TrendingUp size={16} className="text-pink-600" />
@@ -1034,6 +1039,40 @@ const Portfolio = () => {
                   >
                     <SubIcon size={16} />
                     {sub.name} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Graphic Category Filter */}
+          {selectedCategory !== 'all' && selectedSubCategory === 'graphic-design' && graphicCategories.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
+              <button
+                onClick={() => setSelectedGraphicCategory('all')}
+                className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
+                  selectedGraphicCategory === 'all'
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                All Designs
+              </button>
+              
+              {graphicCategories.map((gCat) => {
+                const count = projects.filter(p => p.category === selectedCategory && p.subCategory === 'graphic-design' && p.graphicCategory === gCat).length;
+                return (
+                  <button
+                    key={gCat}
+                    onClick={() => setSelectedGraphicCategory(gCat)}
+                    className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 ${
+                      selectedGraphicCategory === gCat
+                        ? 'bg-purple-600 text-white shadow-md'
+                        : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    <Palette size={14} />
+                    {gCat} ({count})
                   </button>
                 );
               })}
