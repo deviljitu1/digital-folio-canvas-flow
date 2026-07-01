@@ -18,6 +18,19 @@ import portfolioProject from "@/assets/portfolio-project.webp";
 import poetree from "@/assets/poetree.webp";
 import calmmindAi from "@/assets/calmmind-ai.webp";
 
+type Project = {
+  title: string;
+  description: string;
+  tools: string[];
+  liveLink: string;
+  category: string;
+  subCategory: string;
+  mediaType: string;
+  image?: string;
+  video?: string;
+  aspectRatio?: string;
+};
+
 const Portfolio = () => {
   const { toast } = useToast();
   const [isDark, setIsDark] = useState(false);
@@ -242,22 +255,31 @@ const Portfolio = () => {
         { id: 'email-marketing', name: 'Email Marketing', icon: Mail },
         { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart }
       ]
-    },
-    'web-development': {
-      name: 'Web Development',
-      icon: Code2,
-      color: 'blue',
-      subcategories: [
-        { id: 'wordpress', name: 'WordPress Sites', icon: Globe },
-        { id: 'react-apps', name: 'React/JavaScript Apps', icon: Code2 },
-        { id: 'landing-pages', name: 'Landing Pages', icon: Sparkles },
-        { id: 'ecommerce', name: 'E-Commerce', icon: ShoppingCart },
-        { id: 'case-study', name: 'Case Studies', icon: Award }
-      ]
     }
   };
 
-  const projects = [
+  const portfolioImports = import.meta.glob('@/assets/My Portfolio/**/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
+
+  const generatedProjects: Project[] = Object.entries(portfolioImports).map(([path, url]) => {
+    const parts = path.split('/');
+    const fileName = parts.pop() || '';
+    const folderName = parts.pop() || '';
+    const title = fileName.replace(/\.[^/.]+$/, "");
+
+    return {
+      title: title,
+      description: `Creative design work for ${folderName}`,
+      tools: ["Graphic Design", "Photoshop", "Illustrator"],
+      image: url as string,
+      liveLink: "#",
+      category: "digital-marketing",
+      subCategory: "graphic-design",
+      mediaType: "image"
+    };
+  });
+
+  const projects: Project[] = [
+    ...generatedProjects,
     // Digital Marketing Projects - Graphic Design (images only)
     {
       title: "Brand Identity Design",
@@ -394,108 +416,6 @@ const Portfolio = () => {
       liveLink: "#",
       category: "digital-marketing",
       subCategory: "paid-ads",
-      mediaType: "image"
-    },
-
-    // Web Development Projects
-    {
-      title: "Project Kisan",
-      description: "An AI-powered farming assistant under development for Google Hackathon 2025. Designed to assist farmers with soil analysis, irrigation advice, crop planning, and organic solutions using modern AI technologies.",
-      tools: ["React", "AI/ML", "Tailwind CSS", "API Integration"],
-      image: projectKisan,
-      liveLink: "https://project-kisan-ai-farming-assistant-fawn.vercel.app/",
-      category: "web-development",
-      subCategory: "react-apps",
-      mediaType: "image"
-    },
-    {
-      title: "LinkPost AI",
-      description: "An AI-powered LinkedIn post generator built with React and OpenAI/Gemini API. Helps craft engaging, SEO-optimized posts with just a click.",
-      tools: ["React", "OpenAI API", "Gemini API", "JavaScript"],
-      image: linkpostAi,
-      liveLink: "https://linkpostai.netlify.app/",
-      category: "web-development",
-      subCategory: "react-apps",
-      mediaType: "image"
-    },
-    {
-      title: "Calm Mind AI",
-      description: "An AI-powered mental health support web app providing personalized guidance and resources for mental wellness.",
-      tools: ["React", "AI Integration", "Vite", "Tailwind CSS"],
-      image: calmmindAi,
-      liveLink: "https://calmmindai.netlify.app/",
-      category: "web-development",
-      subCategory: "react-apps",
-      mediaType: "image"
-    },
-    {
-      title: "ShopEZ E-Commerce",
-      description: "A modern, demo e-commerce platform built with React, Vite, and Tailwind CSS featuring product catalogs and shopping cart.",
-      tools: ["React", "Vite", "Tailwind CSS", "E-Commerce"],
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "web-development",
-      subCategory: "ecommerce",
-      mediaType: "image"
-    },
-    {
-      title: "Get Web Digital",
-      description: "Professional business website built with WordPress, featuring custom theme, SEO optimization, and contact forms.",
-      tools: ["WordPress", "Custom Theme", "SEO", "Contact Forms"],
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "web-development",
-      subCategory: "wordpress",
-      mediaType: "image"
-    },
-    {
-      title: "Business Portfolio Site",
-      description: "Responsive WordPress business portfolio with custom post types, galleries, and client testimonials.",
-      tools: ["WordPress", "Elementor", "Custom CSS", "Plugins"],
-      image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "web-development",
-      subCategory: "wordpress",
-      mediaType: "image"
-    },
-    {
-      title: "Tindog Landing Page",
-      description: "A responsive Tinder-like landing page for dogs, built with Bootstrap 5. Features responsive navigation, pricing cards, and testimonial sections.",
-      tools: ["HTML5", "CSS3", "Bootstrap 5", "JavaScript"],
-      image: tindog,
-      liveLink: "https://deviljitu1.github.io/Tindog/",
-      category: "web-development",
-      subCategory: "landing-pages",
-      mediaType: "image"
-    },
-    {
-      title: "Poetree Blog",
-      description: "A minimalist poetry blog with elegant typography and smooth animations, built with HTML, CSS and JavaScript.",
-      tools: ["HTML5", "CSS3", "JavaScript", "Animations"],
-      image: poetree,
-      liveLink: "https://poetreebird.netlify.app/",
-      category: "web-development",
-      subCategory: "landing-pages",
-      mediaType: "image"
-    },
-    {
-      title: "Personal Portfolio",
-      description: "My responsive personal portfolio website showcasing projects, skills and experience. Built with modern web technologies.",
-      tools: ["React", "Tailwind CSS", "Vite", "TypeScript"],
-      image: portfolioProject,
-      liveLink: "https://nahushpatel.in/",
-      category: "web-development",
-      subCategory: "react-apps",
-      mediaType: "image"
-    },
-    {
-      title: "Full-Stack App Development",
-      description: "Complete case study: Built scalable full-stack application with React frontend and Node.js backend, handling 10K+ users.",
-      tools: ["Full-Stack", "React", "Node.js", "Database"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "web-development",
-      subCategory: "case-study",
       mediaType: "image"
     }
   ];
