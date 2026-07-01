@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, Box as BoxIcon } from 'lucide-react';
-import { supabase } from "@/integrations/supabase/client";
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, Box as BoxIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -29,6 +28,7 @@ type Project = {
   image?: string;
   video?: string;
   aspectRatio?: string;
+  iframeSrc?: string;
 };
 
 const Portfolio = () => {
@@ -42,6 +42,7 @@ const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | '3d'>('grid');
   const [activeProject3D, setActiveProject3D] = useState<string>('');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   
   const heroRef = useRef(null);
   const aboutRef = useRef(null);
@@ -210,35 +211,23 @@ const Portfolio = () => {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      message: formData.get('message') as string,
-    };
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const message = formData.get('message') as string;
 
-    try {
-      const { data: response, error } = await supabase.functions.invoke('send-contact-email', {
-        body: data,
-      });
+    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    
+    // Open default mail client
+    window.location.href = `mailto:srivastavakirann012@gmail.com?subject=${subject}&body=${body}`;
 
-      if (error) throw error;
+    toast({
+      title: "Opening email client...",
+      description: "Please complete sending the email from your email application.",
+    });
 
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
-
-      e.currentTarget.reset();
-    } catch (error: any) {
-      console.error('Error sending message:', error);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or email me directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    e.currentTarget.reset();
+    setIsSubmitting(false);
   };
 
   // Project categories with subcategories
@@ -279,6 +268,66 @@ const Portfolio = () => {
   });
 
   const projects: Project[] = [
+    {
+      title: "Orgalife Food Reel 1",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DSFMZfYDKY1/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DSFMZfYDKY1/embed"
+    },
+    {
+      title: "Orgalife Food Reel 2",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DTHnQl5DAyi/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DTHnQl5DAyi/embed"
+    },
+    {
+      title: "Orgalife Food Reel 3",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DO8fqHmjsb6/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DO8fqHmjsb6/embed"
+    },
+    {
+      title: "Digital Pallavi Reel",
+      description: "Social media reel for Digital Pallavi.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DOOJbE2CaJr/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DOOJbE2CaJr/embed"
+    },
+    {
+      title: "Orgalife Food Reel 4",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DLL-6OwxKpi/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DLL-6OwxKpi/embed"
+    },
+    {
+      title: "Orgalife Food Reel 5",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DLo8Fr0TdBL/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DLo8Fr0TdBL/embed"
+    },
     ...generatedProjects,
     // Digital Marketing Projects - Graphic Design (images only)
     {
@@ -1017,9 +1066,21 @@ const Portfolio = () => {
                           {project.aspectRatio}
                         </div>
                       </div>
+                    ) : project.mediaType === 'iframe' ? (
+                      <div className="relative w-full overflow-hidden" style={{ paddingTop: '150%' }}>
+                        <iframe 
+                          src={project.iframeSrc} 
+                          className="absolute inset-0 w-full h-full border-0" 
+                          allowTransparency={true} 
+                          allow="encrypted-media"
+                        />
+                      </div>
                     ) : (
                       // Image with border for graphic design
-                      <div className={`relative ${project.subCategory === 'graphic-design' ? 'p-4' : ''}`}>
+                      <div 
+                        className={`relative ${project.subCategory === 'graphic-design' ? 'p-4 cursor-pointer' : ''}`}
+                        onClick={() => project.subCategory === 'graphic-design' && setLightboxIndex(index)}
+                      >
                         <div className={`${project.subCategory === 'graphic-design' ? 'border-4 border-white dark:border-gray-700 rounded-lg shadow-lg' : ''} overflow-hidden aspect-[4/3]`}>
                           <img
                             src={project.image}
@@ -1281,6 +1342,67 @@ const Portfolio = () => {
           </div>
         </div>
       </footer>
+
+      {/* Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm" onClick={() => setLightboxIndex(null)}>
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 z-[101]"
+            onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }}
+          >
+            <X size={32} />
+          </button>
+          
+          <button 
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors p-2 z-[101]"
+            onClick={(e) => {
+              e.stopPropagation();
+              let prevIndex = lightboxIndex - 1;
+              while (prevIndex >= 0 && filteredProjects[prevIndex].subCategory !== 'graphic-design') {
+                prevIndex--;
+              }
+              if (prevIndex < 0) {
+                prevIndex = filteredProjects.length - 1;
+                while (prevIndex >= 0 && filteredProjects[prevIndex].subCategory !== 'graphic-design') {
+                  prevIndex--;
+                }
+              }
+              setLightboxIndex(Math.max(0, prevIndex));
+            }}
+          >
+            <ChevronLeft size={48} />
+          </button>
+          
+          <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center p-4">
+            <img 
+              src={filteredProjects[lightboxIndex].image} 
+              alt={filteredProjects[lightboxIndex].title}
+              className="max-w-full max-h-full object-contain select-none"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+          
+          <button 
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-colors p-2 z-[101]"
+            onClick={(e) => {
+              e.stopPropagation();
+              let nextIndex = lightboxIndex + 1;
+              while (nextIndex < filteredProjects.length && filteredProjects[nextIndex].subCategory !== 'graphic-design') {
+                nextIndex++;
+              }
+              if (nextIndex >= filteredProjects.length) {
+                nextIndex = 0;
+                while (nextIndex < filteredProjects.length && filteredProjects[nextIndex].subCategory !== 'graphic-design') {
+                  nextIndex++;
+                }
+              }
+              setLightboxIndex(Math.min(filteredProjects.length - 1, nextIndex));
+            }}
+          >
+            <ChevronRight size={48} />
+          </button>
+        </div>
+      )}
     </div>
     </>
   );
