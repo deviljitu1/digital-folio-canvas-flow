@@ -984,7 +984,7 @@ const Portfolio = () => {
                   : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
               }`}
             >
-              All Projects ({projects.length})
+              All
             </button>
             
             {Object.entries(projectCategories).map(([key, category]) => {
@@ -1106,7 +1106,7 @@ const Portfolio = () => {
                         </div>
                       </div>
                     ) : project.mediaType === 'iframe' ? (
-                      <div className="relative w-full overflow-hidden" style={{ paddingTop: '150%' }}>
+                      <div className="relative w-full overflow-hidden aspect-[9/16]">
                         <iframe 
                           src={project.iframeSrc} 
                           className="absolute inset-0 w-full h-full border-0" 
