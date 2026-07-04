@@ -44,7 +44,7 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedCategory, setSelectedCategory] = useState('digital-marketing');
-  const [selectedSubCategory, setSelectedSubCategory] = useState('all');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('graphic-design');
   const [selectedGraphicCategory, setSelectedGraphicCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -842,15 +842,6 @@ const Portfolio = () => {
 
             {/* Category Filter */}
             <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-              <button
-                onClick={() => setSelectedSubCategory('all')}
-                className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 ${selectedSubCategory === 'all'
-                    ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black shadow-lg scale-105'
-                    : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
-              >
-                All
-              </button>
 
               {projectCategories['digital-marketing'].subcategories.map((sub) => {
                 const SubIcon = sub.icon;
