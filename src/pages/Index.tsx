@@ -40,7 +40,7 @@ type Project = {
 
 const Portfolio = () => {
   const { toast } = useToast();
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedCategory, setSelectedCategory] = useState('digital-marketing');
