@@ -461,7 +461,7 @@ const Portfolio = () => {
 
 
 
-      <div className={`min-h-screen transition-colors duration-300 relative dark bg-black text-white`}>
+      <div className={`min-h-screen transition-colors duration-300 relative ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
         {/* Navigation */}
         <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-gray-900/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -724,8 +724,8 @@ const Portfolio = () => {
                     <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-[0_0_20px_rgba(234,179,8,0.5)] flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                       <Palette className="text-white" size={24} />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Digital Marketing</h3>
-                    <p className="text-xs md:text-sm text-gray-400 mb-4">Driving growth through strategy</p>
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-1">Digital Marketing</h3>
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">Driving growth through strategy</p>
                     <div className="w-12 h-1 bg-yellow-500 rounded-full mx-auto"></div>
                   </div>
 
@@ -764,8 +764,8 @@ const Portfolio = () => {
                     <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 shadow-[0_0_20px_rgba(6,182,212,0.5)] flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                       <TrendingUp className="text-white" size={24} />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Strategic Skills</h3>
-                    <p className="text-xs md:text-sm text-gray-400 mb-4">Business growth expertise</p>
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-1">Strategic Skills</h3>
+                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">Business growth expertise</p>
                     <div className="w-12 h-1 bg-cyan-500 rounded-full mx-auto"></div>
                   </div>
 
@@ -797,36 +797,36 @@ const Portfolio = () => {
 
             {/* Skills Summary Stats */}
             <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-              <div className="text-center group">
+              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
                 <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <Star className="text-white" size={24} />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">16+</div>
-                <div className="text-sm md:text-base text-gray-400 dark:text-gray-400 font-medium">Skills Mastered</div>
+                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Skills Mastered</div>
               </div>
 
-              <div className="text-center group">
+              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
                 <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <Code2 className="text-white" size={24} />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent mb-2">6+</div>
-                <div className="text-sm md:text-base text-gray-400 dark:text-gray-400 font-medium">Tech Stack</div>
+                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Tech Stack</div>
               </div>
 
-              <div className="text-center group">
+              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
                 <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-red-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <Palette className="text-white" size={24} />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-red-600 bg-clip-text text-transparent mb-2">6+</div>
-                <div className="text-sm md:text-base text-gray-400 dark:text-gray-400 font-medium">Design Tools</div>
+                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Design Tools</div>
               </div>
 
-              <div className="text-center group">
+              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
                 <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-blue-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <TrendingUp className="text-white" size={24} />
                 </div>
                 <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-blue-600 bg-clip-text text-transparent mb-2">89%</div>
-                <div className="text-sm md:text-base text-gray-400 dark:text-gray-400 font-medium">Avg Proficiency</div>
+                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Avg Proficiency</div>
               </div>
             </div>
           </div>
