@@ -17,6 +17,12 @@ import portfolioProject from "@/assets/portfolio-project.webp";
 import poetree from "@/assets/poetree.webp";
 import calmmindAi from "@/assets/calmmind-ai.webp";
 
+// Import icons
+import instagramIcon from "@/assets/Icons/instagram.svg";
+import metaIcon from "@/assets/Icons/meta.svg";
+import shopifyIcon from "@/assets/Icons/shopify.svg";
+import whatsappIcon from "@/assets/Icons/whatsapp.svg";
+
 type Project = {
   title: string;
   description: string;
@@ -558,17 +564,17 @@ const Portfolio = () => {
     ],
     marketing: [
       { name: "Social Media Mgt", level: 95, icon: "📱" },
-      { name: "Meta Ads Manager", level: 92, icon: "📢" },
+      { name: "Meta Ads Manager", level: 92, icon: <img src={metaIcon} alt="Meta" className="w-5 h-5" /> },
       { name: "SEO Optimization", level: 88, icon: "🔍" },
       { name: "Digital Strategy", level: 90, icon: "📈" },
       { name: "Influencer Marketing", level: 85, icon: "🤝" },
       { name: "Google Analytics", level: 87, icon: "📊" }
     ],
     soft: [
-      { name: "Meta Business Suite", level: 93, icon: "💼" },
+      { name: "Meta Business Suite", level: 93, icon: <img src={metaIcon} alt="Meta" className="w-5 h-5" /> },
       { name: "YouTube Studio", level: 88, icon: "▶️" },
       { name: "Canva & Photoshop", level: 90, icon: "🖼️" },
-      { name: "Shopify", level: 80, icon: "🛍️" },
+      { name: "Shopify", level: 80, icon: <img src={shopifyIcon} alt="Shopify" className="w-5 h-5" /> },
       { name: "SEMrush & Yoast", level: 85, icon: "🎯" }
     ]
   };
@@ -1273,8 +1279,8 @@ const Portfolio = () => {
                   </div>
                   
                   <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Phone className="text-white" size={18} />
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                      <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
                     </div>
                     <div>
                       <p className="font-medium">WhatsApp</p>
@@ -1305,8 +1311,8 @@ const Portfolio = () => {
                 <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                   <Github size={18} />
                 </a>
-                <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
-                  <Phone size={18} />
+                <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform shadow-sm border border-gray-100">
+                  <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
                 </a>
               </div>
             </div>
@@ -1367,6 +1373,9 @@ const Portfolio = () => {
               </a>
               <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 <Github size={24} />
+              </a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:scale-110 transition-transform inline-block">
+                <img src={instagramIcon} alt="Instagram" className="w-6 h-6" />
               </a>
               <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors">
                 <Globe size={24} />
