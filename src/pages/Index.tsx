@@ -678,8 +678,8 @@ const Portfolio = () => {
             <div className="skill-category skill-card group">
               <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
-                  ? 'bg-gradient-to-br from-yellow-400/30 to-blue-800/20 border-yellow-500/30 hover:border-yellow-500/50' 
-                  : 'bg-gradient-to-br from-yellow-400/80 to-white/80 border-yellow-500/50 hover:border-yellow-500/50'
+                  ? 'bg-black/40 border-yellow-500/30 hover:border-yellow-500/50' 
+                  : 'bg-white border-yellow-500/50 hover:border-yellow-500/50'
               } hover:shadow-2xl hover:shadow-blue-500/20`}>
                 <div className="text-center mb-5 md:mb-8">
                   <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-blue-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
@@ -718,8 +718,8 @@ const Portfolio = () => {
             <div className="skill-category skill-card group">
               <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
-                  ? 'bg-gradient-to-br from-yellow-500/30 to-yellow-600/20 border-yellow-500/30 hover:border-yellow-500/50' 
-                  : 'bg-gradient-to-br from-yellow-500/80 to-white/80 border-yellow-500/50 hover:border-yellow-500/50'
+                  ? 'bg-black/40 border-yellow-500/30 hover:border-yellow-500/50' 
+                  : 'bg-white border-yellow-500/50 hover:border-yellow-500/50'
               } hover:shadow-2xl hover:shadow-purple-500/20`}>
                 <div className="text-center mb-5 md:mb-8">
                   <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
@@ -758,8 +758,8 @@ const Portfolio = () => {
             <div className="skill-category skill-card group">
               <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
                 isDark 
-                  ? 'bg-gradient-to-br from-yellow-400/30 to-yellow-600/20 border-yellow-500/30 hover:border-yellow-500/50' 
-                  : 'bg-gradient-to-br from-yellow-400/80 to-white/80 border-yellow-500/50 hover:border-yellow-500/50'
+                  ? 'bg-black/40 border-yellow-500/30 hover:border-yellow-500/50' 
+                  : 'bg-white border-yellow-500/50 hover:border-yellow-500/50'
               } hover:shadow-2xl hover:shadow-pink-500/20`}>
                 <div className="text-center mb-5 md:mb-8">
                   <div className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
