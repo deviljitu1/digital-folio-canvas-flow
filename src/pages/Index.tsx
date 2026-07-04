@@ -463,7 +463,7 @@ const Portfolio = () => {
 
       <div className={`min-h-screen transition-colors duration-300 relative ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
         {/* Navigation */}
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-gray-900/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="font-bold text-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
@@ -508,7 +508,7 @@ const Portfolio = () => {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className={`md:hidden ${isDark ? 'bg-gray-900' : 'bg-gray-900'} border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
+            <div className={`md:hidden ${isDark ? 'bg-gray-900' : 'bg-white'} border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
                   <button
@@ -585,20 +585,20 @@ const Portfolio = () => {
         </section>
 
         {/* About Section */}
-        <section ref={aboutRef} id="about" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-900'}`}>
+        <section ref={aboutRef} id="about" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">About Me</h2>
-              <p className="text-base md:text-xl text-gray-400 dark:text-gray-300">Passionate about creating digital experiences that matter</p>
+              <p className="text-base md:text-xl text-gray-600 dark:text-gray-300">Passionate about creating digital experiences that matter</p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-6">
-                <p className="text-sm md:text-lg text-gray-400 dark:text-gray-300 leading-relaxed">
+                <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                   I'm <strong>Kiran Srivastava</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
                 </p>
 
-                <p className="text-sm md:text-lg text-gray-400 dark:text-gray-300 leading-relaxed">
+                <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                   With experience at <strong>ORGALIFE</strong>, <strong>CHOUHAN HOUSING</strong>, <strong>GATE ACADEMY</strong>, and <strong>GENIQUE EDUCATION</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
                 </p>
 
@@ -833,11 +833,11 @@ const Portfolio = () => {
         </section>
 
         {/* Projects Section */}
-        <section ref={projectsRef} id="projects" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-900'}`}>
+        <section ref={projectsRef} id="projects" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Featured Projects</h2>
-              <p className="text-sm md:text-xl text-gray-400 dark:text-gray-300">Showcasing professional work across digital marketing and web development</p>
+              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Showcasing professional work across digital marketing and web development</p>
             </div>
 
             {/* Category Filter */}
@@ -846,7 +846,7 @@ const Portfolio = () => {
                 onClick={() => setSelectedSubCategory('all')}
                 className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 ${selectedSubCategory === 'all'
                     ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black shadow-lg scale-105'
-                    : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+                    : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
               >
                 All
@@ -861,7 +861,7 @@ const Portfolio = () => {
                     onClick={() => setSelectedSubCategory(sub.id)}
                     className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${selectedSubCategory === sub.id
                         ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black shadow-lg scale-105'
-                        : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
+                        : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
                       }`}
                   >
                     <SubIcon size={18} />
@@ -878,7 +878,7 @@ const Portfolio = () => {
                   onClick={() => setSelectedGraphicCategory('all')}
                   className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${selectedGraphicCategory === 'all'
                       ? 'bg-yellow-500 text-black shadow-md'
-                      : 'bg-gray-800 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                 >
                   All Designs
@@ -892,7 +892,7 @@ const Portfolio = () => {
                       onClick={() => setSelectedGraphicCategory(gCat)}
                       className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 ${selectedGraphicCategory === gCat
                           ? 'bg-yellow-500 text-black shadow-md'
-                          : 'bg-gray-800 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                          : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
                         }`}
                     >
                       <Palette size={14} />
@@ -907,7 +907,7 @@ const Portfolio = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
               {filteredProjects.map((project, index) => (
                 <div key={index} className="project-card group">
-                  <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-gray-900'} hover:scale-105`}>
+                  <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-gray-50'} hover:scale-105`}>
                     {/* Media Container with fixed aspect ratio to prevent shifting */}
                     <div className="relative overflow-hidden bg-gray-800 dark:bg-gray-800">
                       {project.mediaType === 'video' ? (
@@ -960,8 +960,8 @@ const Portfolio = () => {
 
                     {project.subCategory !== 'graphic-design' && (
                       <div className="p-4 md:p-6">
-                        <h3 className="text-xl font-semibold mb-3 group-hover:text-yellow-500 transition-colors">{project.title}</h3>
-                        <p className="text-gray-400 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
+                        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors">{project.title}</h3>
+                        <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
                           {project.description}
                         </p>
 
@@ -972,7 +972,7 @@ const Portfolio = () => {
                             </span>
                           ))}
                           {project.tools.length > 3 && (
-                            <span className="px-2 py-1 bg-gray-800 dark:bg-gray-700 text-xs rounded-md">
+                            <span className="px-2 py-1 bg-gray-200 text-gray-700 dark:text-gray-300 dark:bg-gray-700 text-xs rounded-md">
                               +{project.tools.length - 3} more
                             </span>
                           )}
@@ -996,27 +996,27 @@ const Portfolio = () => {
 
             {filteredProjects.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-xl text-gray-500 dark:text-gray-400">No projects found in this category.</p>
+                <p className="text-xl text-gray-600 dark:text-gray-400">No projects found in this category.</p>
               </div>
             )}
           </div>
         </section>
 
         {/* Experience Section */}
-        <section ref={experienceRef} id="experience" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-gray-900'}`}>
+        <section ref={experienceRef} id="experience" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Experience & Education</h2>
-              <p className="text-sm md:text-xl text-gray-400 dark:text-gray-300">Professional journey and academic background</p>
+              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Professional journey and academic background</p>
             </div>
 
             <div className="mb-10 md:mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center">Work Experiences</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Work Experiences</h3>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
                 {experiences.filter(e => e.category === 'work-experience').map((exp, index) => (
-                  <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-gray-900 hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg`}>
-                    <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2">{exp.title}</h4>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
+                  <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg`}>
+                    <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2 text-gray-900 dark:text-white">{exp.title}</h4>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {exp.tools.map(tool => (
                         <span key={tool} className="px-3 py-1 bg-yellow-500 dark:bg-yellow-500/40 text-yellow-500 dark:text-yellow-500 text-xs rounded-full font-medium">{tool}</span>
@@ -1028,12 +1028,12 @@ const Portfolio = () => {
             </div>
 
             <div className="mb-10 md:mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center">Project-Based Experience</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Project-Based Experience</h3>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
                 {experiences.filter(e => e.category === 'project-based').map((exp, index) => (
-                  <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-gray-900 hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg`}>
-                    <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2">{exp.title}</h4>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
+                  <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg`}>
+                    <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2 text-gray-900 dark:text-white">{exp.title}</h4>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {exp.tools.map(tool => (
                         <span key={tool} className="px-3 py-1 bg-yellow-500 dark:bg-yellow-500/40 text-yellow-500 dark:text-yellow-500 text-xs rounded-full font-medium">{tool}</span>
@@ -1045,7 +1045,7 @@ const Portfolio = () => {
             </div>
 
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center">Education & Certifications</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Education & Certifications</h3>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
                 {certifications.map((cert, index) => (
                   <div key={index} className={`certification-card p-5 md:p-8 rounded-2xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-yellow-500 hover:bg-yellow-500/10' : 'border-gray-300 hover:border-yellow-500 hover:bg-yellow-500'} transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-lg`}>
@@ -1053,8 +1053,8 @@ const Portfolio = () => {
                       <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
                         <Award className="text-white" size={24} />
                       </div>
-                      <h3 className="font-bold mb-2 md:mb-3 text-base md:text-xl">{cert.name}</h3>
-                      <p className="text-gray-400 dark:text-gray-400 text-xs md:text-base mb-1.5 md:mb-2 font-medium">{cert.issuer}</p>
+                      <h3 className="font-bold mb-2 md:mb-3 text-base md:text-xl text-gray-900 dark:text-white">{cert.name}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-xs md:text-base mb-1.5 md:mb-2 font-medium">{cert.issuer}</p>
                       <p className="text-yellow-500 dark:text-yellow-500 text-sm md:text-base font-semibold">{cert.year}</p>
                     </div>
                   </div>
@@ -1065,11 +1065,11 @@ const Portfolio = () => {
         </section>
 
         {/* Contact Section */}
-        <section ref={contactRef} id="contact" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-900'}`}>
+        <section ref={contactRef} id="contact" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Get In Touch</h2>
-              <p className="text-sm md:text-xl text-gray-400 dark:text-gray-300">Let's collaborate and create something amazing</p>
+              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Let's discuss how we can work together</p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
@@ -1077,58 +1077,46 @@ const Portfolio = () => {
                 <div>
                   <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Contact Information</h3>
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-yellow-500 dark:hover:bg-yellow-500/20 transition-colors">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Mail className="text-white" size={18} />
+                    <div className={`p-4 md:p-6 rounded-2xl flex items-center gap-4 ${isDark ? 'bg-gray-900 hover:bg-gray-700' : 'bg-gray-50 hover:bg-gray-100'} transition-all duration-300 hover:scale-105 shadow-md`}>
+                      <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <Mail size={20} className="text-black" />
                       </div>
                       <div>
-                        <p className="font-medium">Email</p>
-                        <a href="mailto:srivastavakirann012@gmail.com" className="text-yellow-500 hover:underline">
+                        <h3 className="font-bold text-sm md:text-lg mb-1 text-gray-900 dark:text-white">Email</h3>
+                        <a href="mailto:srivastavakirann012@gmail.com" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
                           srivastavakirann012@gmail.com
                         </a>
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-yellow-500 dark:hover:bg-yellow-500/20 transition-colors">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                    <div className={`p-4 md:p-6 rounded-2xl flex items-center gap-4 ${isDark ? 'bg-gray-900 hover:bg-gray-700' : 'bg-gray-50 hover:bg-gray-100'} transition-all duration-300 hover:scale-105 shadow-md`}>
+                      <div className="w-10 h-10 md:w-14 md:h-14 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
                         <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
                       </div>
                       <div>
-                        <p className="font-medium">WhatsApp</p>
-                        <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="text-yellow-500 hover:underline">
+                        <h3 className="font-bold text-sm md:text-lg mb-1 text-gray-900 dark:text-white">WhatsApp</h3>
+                        <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
                           +91 934-063-0254
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-3 md:space-x-4 p-3 md:p-4 rounded-lg hover:bg-yellow-500 dark:hover:bg-yellow-500/20 transition-colors">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Globe className="text-white" size={18} />
-                      </div>
-                      <div>
-                        <p className="font-medium">Website</p>
-                        <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-yellow-500 hover:underline">
-                          reallygreatsite.com
                         </a>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex space-x-3 md:space-x-4">
-                  <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                <div className="flex gap-4 md:gap-6 mt-6 md:mt-8">
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
                     <Linkedin size={18} />
                   </a>
-                  <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                  <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
                     <Github size={18} />
                   </a>
-                  <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-900 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform shadow-sm border border-gray-100">
+                  <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
                     <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
                   </a>
                 </div>
               </div>
 
-              <div className={`p-5 md:p-8 rounded-xl ${isDark ? 'bg-gray-900' : 'bg-gray-900'} shadow-lg`}>
+              <div className={`p-6 md:p-10 rounded-2xl shadow-xl ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
                 <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Send Message</h3>
                 <form className="space-y-4 md:space-y-6" onSubmit={handleContactSubmit}>
                   <div>
@@ -1137,7 +1125,7 @@ const Portfolio = () => {
                       type="text"
                       name="name"
                       required
-                      className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-600' : 'bg-gray-900 border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
+                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border ${isDark ? 'border-gray-700' : 'border-gray-300'} focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors text-sm md:text-base text-gray-900 dark:text-white outline-none`}
                       placeholder="Your name"
                     />
                   </div>
@@ -1147,7 +1135,7 @@ const Portfolio = () => {
                       type="email"
                       name="email"
                       required
-                      className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-600' : 'bg-gray-900 border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
+                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border ${isDark ? 'border-gray-700' : 'border-gray-300'} focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors text-sm md:text-base text-gray-900 dark:text-white outline-none`}
                       placeholder="your@email.com"
                     />
                   </div>
@@ -1157,7 +1145,7 @@ const Portfolio = () => {
                       name="message"
                       required
                       rows={5}
-                      className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-600' : 'bg-gray-900 border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none`}
+                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border ${isDark ? 'border-gray-700' : 'border-gray-300'} focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors text-sm md:text-base text-gray-900 dark:text-white outline-none`}
                       placeholder="Tell me about your project..."
                     ></textarea>
                   </div>
@@ -1175,24 +1163,24 @@ const Portfolio = () => {
         </section>
 
         {/* Footer */}
-        <footer className={`py-8 md:py-12 relative z-10 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-gray-900 border-t border-gray-200'}`}>
+        <footer className={`py-8 md:py-12 relative z-10 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-gray-50 border-t border-gray-200'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <div className="flex justify-center space-x-6 mb-6">
-                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-400 hover:text-yellow-500 transition-colors">
+                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-yellow-500 transition-colors">
                   <Linkedin size={24} />
                 </a>
-                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-400 hover:text-gray-100 dark:hover:text-white transition-colors">
+                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                   <Github size={24} />
                 </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-400 hover:scale-110 transition-transform inline-block">
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:scale-110 transition-transform inline-block">
                   <img src={instagramIcon} alt="Instagram" className="w-6 h-6" />
                 </a>
-                <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-400 hover:text-yellow-500 transition-colors">
+                <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-yellow-500 transition-colors">
                   <Globe size={24} />
                 </a>
               </div>
-              <p className="text-gray-400 dark:text-gray-400 mb-2">
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
                 © 2026 Kiran Srivastava. All rights reserved.
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-500">
