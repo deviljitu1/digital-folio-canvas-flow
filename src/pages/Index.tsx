@@ -209,9 +209,16 @@ const Portfolio = () => {
     setIsMenuOpen(false);
   };
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   const toggleTheme = () => {
     setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
   };
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -526,13 +533,6 @@ const Portfolio = () => {
 
         {/* Hero Section */}
         <section ref={heroRef} id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-yellow-500/10 to-yellow-600/10 animate-gradient-x"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)',
-          }}></div>
-
-          <FloatingIcons />
-
           <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
             <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
               {/* Profile Image */}
