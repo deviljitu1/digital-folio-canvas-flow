@@ -454,6 +454,20 @@ const Portfolio = () => {
     { name: "Digital Marketing Course", issuer: "Bizgurukul (Online)", year: "October 2022" }
   ];
 
+  const managedAccounts = [
+    { name: "Orgalife Food", url: "https://www.instagram.com/orgalifefood?igsh=MTRhdGk2YWVwbHVjMw==" },
+    { name: "Chouhan Housing", url: "https://www.instagram.com/chouhan_housing_commercial?igsh=bDM3bnM2MmFtb2Iw" },
+    { name: "Gate Academy", url: "https://www.instagram.com/gate_acadmey?igsh=MTJzcDIycmQ0NTIxZw==" },
+    { name: "Genique Education", url: "https://www.instagram.com/geniqueeducation?igsh=Y2ZrNWh0Zm1lMTk2" },
+    { name: "Ethos Link", url: "https://www.instagram.com/ethoslinksolutions?igsh=MXZvemc2MHluOGNxNQ==" },
+    { name: "Harmoniq Studio", url: "https://www.instagram.com/harmoniq.studioz?igsh=YXJpMnM2bnV5bm42" },
+    { name: "Imperial Fitness", url: "https://www.instagram.com/imperial_fitness01?igsh=ZWJuYWUzbmZ2b2g1" },
+    { name: "Rajim Kumbh 2026", url: "https://www.instagram.com/rajimkumbhkalp2026?igsh=MTFkeGMzaXh3c2Y2ag==" },
+    { name: "Vedas Institute", url: "#" },
+    { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" },
+    { name: "Saras Mela 2024", url: "#" }
+  ];
+
   // Filter projects based on selected categories
   const filteredProjects = projects.filter(project => {
     if (selectedCategory !== 'all' && selectedCategory !== project.category) return false;
@@ -1031,6 +1045,24 @@ const Portfolio = () => {
                       ))}
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-10 md:mb-16">
+              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Social Media Accounts Managed</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+                {managedAccounts.map((account, index) => (
+                  <a
+                    key={index}
+                    href={account.url}
+                    target={account.url !== '#' ? "_blank" : undefined}
+                    rel={account.url !== '#' ? "noopener noreferrer" : undefined}
+                    className={`p-4 rounded-xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg flex items-center justify-between group ${account.url === '#' ? 'cursor-default' : 'cursor-pointer'}`}
+                  >
+                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors">{account.name}</span>
+                    {account.url !== '#' && <ExternalLink size={16} className="text-gray-400 group-hover:text-yellow-500 transition-colors flex-shrink-0 ml-2" />}
+                  </a>
                 ))}
               </div>
             </div>
