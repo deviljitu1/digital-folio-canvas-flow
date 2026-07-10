@@ -420,16 +420,6 @@ const Portfolio = () => {
       category: "project-based",
       subCategory: "marketing",
       mediaType: "image"
-    },
-    {
-      title: "Saras Mela (Feb 2024)",
-      description: "Managed social media platforms and event promotions. Designed banners, posters, and promotional creatives. Created engaging content to increase audience reach. Maintained consistent branding across digital channels. Supported online marketing activities throughout the event.",
-      tools: ["Graphic Design", "Social Media", "Branding"],
-      image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "project-based",
-      subCategory: "design",
-      mediaType: "image"
     }
   ];
 
@@ -468,16 +458,8 @@ const Portfolio = () => {
 
   const managedAccounts = [
     { name: "Orgalife Food", url: "https://www.instagram.com/orgalifefood?igsh=MTRhdGk2YWVwbHVjMw==" },
-    { name: "Chouhan Housing", url: "https://www.instagram.com/chouhan_housing_commercial?igsh=bDM3bnM2MmFtb2Iw" },
-    { name: "Gate Academy", url: "https://www.instagram.com/gate_acadmey?igsh=MTJzcDIycmQ0NTIxZw==" },
-    { name: "Genique Education", url: "https://www.instagram.com/geniqueeducation?igsh=Y2ZrNWh0Zm1lMTk2" },
-    { name: "Ethos Link", url: "https://www.instagram.com/ethoslinksolutions?igsh=MXZvemc2MHluOGNxNQ==" },
-    { name: "Harmoniq Studio", url: "https://www.instagram.com/harmoniq.studioz?igsh=YXJpMnM2bnV5bm42" },
-    { name: "Imperial Fitness", url: "https://www.instagram.com/imperial_fitness01?igsh=ZWJuYWUzbmZ2b2g1" },
     { name: "Rajim Kumbh 2026", url: "https://www.instagram.com/rajimkumbhkalp2026?igsh=MTFkeGMzaXh3c2Y2ag==" },
-    { name: "Vedas Institute", url: "#" },
-    { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" },
-    { name: "Saras Mela 2024", url: "#" }
+    { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" }
   ];
 
   // Filter projects based on selected categories
