@@ -9,7 +9,7 @@ import FloatingIcons from '@/components/FloatingIcons';
 gsap.registerPlugin(ScrollTrigger);
 
 // Import images
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hero.webp";
 import aboutImg from "@/assets/nahush-about.webp";
 import projectKisan from "@/assets/project-kisan.webp";
 import linkpostAi from "@/assets/linkpost-ai.webp";
