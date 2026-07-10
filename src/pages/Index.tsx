@@ -246,7 +246,7 @@ const Portfolio = () => {
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
 
     // Open default mail client
-    window.location.href = `mailto:srivastavakirann012@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:nahushpatel880@gmail.com?subject=${subject}&body=${body}`;
 
     toast({
       title: "Opening email client...",
@@ -361,7 +361,7 @@ const Portfolio = () => {
 
   const experiences = [
     {
-      title: "Digital Marketing Manager @ ORGALIFE (Dec 2023 - Present)",
+      title: "Digital Marketing Executive @ ORGALIFE (Oct 2025 - Present)",
       description: "Managed social media platforms, content strategy, and audience engagement. Executed Meta Ads, WhatsApp marketing, and product launch campaigns. Planned content calendars and managed influencer marketing, barter collaborations, and brand partnerships. Managed day-to-day e-commerce and digital marketing operations. Designed social media creatives, ad graphics, and promotional materials. Managed SEO activities and optimized Google Business Profile (GMB) to improve online visibility and local search performance.",
       tools: ["Meta Ads", "WhatsApp Marketing", "Graphic Design", "SEO"],
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
@@ -371,9 +371,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Social Media Executive @ CHOUHAN HOUSING (May 2023 - Nov 2023)",
-      description: "Managed Instagram, Facebook, and Youtube accounts to increase brand awareness and engagement. Planned and executed social media content and marketing campaigns. Designed graphics, posts, banners, and promotional creatives for digital platforms. Created and edited reels and visual content for property promotions. Generated leads through social media campaigns and optimized performance. Monitored insights and prepared reports to improve campaign results.",
-      tools: ["Instagram", "Facebook", "Youtube", "Lead Gen", "Reporting"],
+      title: "Freelance Digital Marketer @ GrahSiddhi Constructions",
+      description: "Managed social media platforms. Executed Meta Ads campaigns to drive leads and conversions. Designed social media creatives, thumbnails, and ad graphics. Implemented SEO strategies to improve website visibility and rankings. Analyzed campaign performance and optimized marketing efforts.",
+      tools: ["Meta Ads", "SEO", "Graphic Design"],
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -381,9 +381,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Digital Marketing Executive @ GATE ACADEMY X UNACADEMY (Apr 2022 - Apr 2023)",
-      description: "Managed social media platforms and YouTube channel operations. Executed Meta Ads campaigns to drive leads and conversions. Designed social media creatives, thumbnails, and ad graphics. Implemented SEO strategies to improve website visibility and rankings. Analyzed campaign performance and optimized marketing efforts.",
-      tools: ["YouTube", "Meta Ads", "SEO"],
+      title: "Medical Coding & Billing @ Omega Healthcare (April 2024 - March 2025)",
+      description: "Built data accuracy habits in high-volume record processing - directly applied to campaign tracking, UTM analysis, and SEO reporting.",
+      tools: ["Data Accuracy", "UTM Analysis", "Reporting"],
       image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -391,9 +391,9 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Social Media Manager @ GENIQUE EDUCATION (Sept 2020 - Mar 2022)",
-      description: "Managed and grew social media accounts across Facebook, Instagram, LinkedIn, and Twitter. Handled YT channel management, including content planning, video SEO, thumbnails, & audience engagement. Designed creative graphics for posts, stories, ads, and promotional campaigns. Analyzed performance insights and implemented strategies to improve reach and engagement. Collaborated with teams to create effective digital marketing campaigns.",
-      tools: ["Social Media", "Video SEO", "Analytics"],
+      title: "Customer Care Executive @ Sutherland Global (August 2023 - April 2024)",
+      description: "Developed persuasive communication, audience empathy, and objection handling - skills directly transferred to ad copywriting and targeting strategy.",
+      tools: ["Communication", "Empathy", "Copywriting"],
       image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop",
       liveLink: "#",
       category: "work-experience",
@@ -459,8 +459,10 @@ const Portfolio = () => {
   };
 
   const certifications = [
-    { name: "Bachelor of Commerce", issuer: "Sri Agrasen Kanya Mahavialaya, Korba, Chhattisgarh", year: "2026" },
-    { name: "Digital Marketing Course", issuer: "Bizgurukul (Online)", year: "October 2022" }
+    { name: "6-Month Full Digital Marketing Course", issuer: "Webfame Digital Marketing Institute", year: "2025" },
+    { name: "Diploma in Pharmacy (D.Pharm)", issuer: "The Pharmaceutical College, Barpali", year: "2022" },
+    { name: "Higher Secondary (12th Science - CBSE)", issuer: "Padampur Public School, Bargarh", year: "2019" },
+    { name: "Secondary (10th - BSE Odisha)", issuer: "C.S. High School, Jagdalpur", year: "2017" }
   ];
 
   const managedAccounts = [
@@ -499,7 +501,7 @@ const Portfolio = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="font-bold text-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-                Kiran Srivastava
+                Nahush Patel
               </div>
 
               {/* Desktop Navigation */}
@@ -566,7 +568,7 @@ const Portfolio = () => {
                   <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 shadow-2xl hover:scale-105 transition-transform duration-300">
                     <img
                       src={kiranProfile}
-                      alt="Kiran Srivastava - Digital Marketing Professional"
+                      alt="Nahush Patel - Digital Marketing Professional"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -579,7 +581,7 @@ const Portfolio = () => {
               {/* Hero Content */}
               <div className="flex-1 text-center lg:text-left">
                 <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-fade-in">
-                  Hi, I'm Kiran Srivastava
+                  Hi, I'm Nahush Patel
                 </h1>
                 <p className="text-lg md:text-3xl mb-3 md:mb-6 text-gray-700 dark:text-gray-200 animate-fade-in delay-300 font-semibold">
                   Digital Marketing Professional
@@ -596,7 +598,7 @@ const Portfolio = () => {
                     View Experience
                   </button>
                   <a
-                    href="/Kiran_Srivastava_Resume.pdf"
+                    href="/Nahush_Patel_Resume.pdf"
                     download
                     className="px-6 py-3 md:px-8 md:py-4 border-2 border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-black transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm md:text-base"
                   >
@@ -620,11 +622,11 @@ const Portfolio = () => {
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-6">
                 <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I'm <strong>Kiran Srivastava</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
+                  I'm <strong>Nahush Patel</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
                 </p>
 
                 <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                  With experience at <strong>ORGALIFE</strong>, <strong>CHOUHAN HOUSING</strong>, <strong>GATE ACADEMY</strong>, and <strong>GENIQUE EDUCATION</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
+                  With experience at <strong>ORGALIFE</strong>, <strong>GrahSiddhi Constructions</strong>, <strong>Omega Healthcare</strong>, and <strong>Sutherland Global</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
                 </p>
 
                 <div className="space-y-4">
@@ -671,7 +673,7 @@ const Portfolio = () => {
                   <div className="w-full max-w-xs md:max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-yellow-400 to-yellow-600">
                     <img
                       src={kiranProfile}
-                      alt="Kiran Srivastava"
+                      alt="Nahush Patel"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -1129,8 +1131,8 @@ const Portfolio = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-sm md:text-lg mb-1 text-gray-900 dark:text-white">Email</h3>
-                        <a href="mailto:srivastavakirann012@gmail.com" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
-                          srivastavakirann012@gmail.com
+                        <a href="mailto:nahushpatel880@gmail.com" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
+                          nahushpatel880@gmail.com
                         </a>
                       </div>
                     </div>
@@ -1141,8 +1143,8 @@ const Portfolio = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-sm md:text-lg mb-1 text-gray-900 dark:text-white">WhatsApp</h3>
-                        <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
-                          +91 934-063-0254
+                        <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
+                          +91 787-578-3498
                         </a>
                       </div>
                     </div>
@@ -1150,13 +1152,13 @@ const Portfolio = () => {
                 </div>
 
                 <div className="flex gap-4 md:gap-6 mt-6 md:mt-8">
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
+                  <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
                     <Linkedin size={18} />
                   </a>
                   <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
                     <Github size={18} />
                   </a>
-                  <a href="https://wa.me/919340630254" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
+                  <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
                     <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
                   </a>
                 </div>
@@ -1227,7 +1229,7 @@ const Portfolio = () => {
                 </a>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-2">
-                © 2026 Kiran Srivastava. All rights reserved.
+                © 2026 Nahush Patel. All rights reserved.
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-500">
                 Digital Marketing Professional | Building Digital Experiences
