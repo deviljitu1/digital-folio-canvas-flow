@@ -51,6 +51,7 @@ const Portfolio = () => {
   const [viewMode, setViewMode] = useState<'grid' | '3d'>('grid');
   const [activeProject3D, setActiveProject3D] = useState<string>('');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
 
   const heroRef = useRef(null);
   const aboutRef = useRef(null);
@@ -58,6 +59,10 @@ const Portfolio = () => {
   const projectsRef = useRef(null);
   const experienceRef = useRef(null);
   const contactRef = useRef(null);
+
+  useEffect(() => {
+    setVisibleProjectsCount(6);
+  }, [selectedCategory, selectedSubCategory, selectedGraphicCategory]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -475,6 +480,8 @@ const Portfolio = () => {
     if (selectedSubCategory === 'graphic-design' && selectedGraphicCategory !== 'all' && project.graphicCategory !== selectedGraphicCategory) return false;
     return true;
   });
+
+  const displayedProjects = filteredProjects.slice(0, visibleProjectsCount);
 
   return (
     <>
@@ -910,7 +917,7 @@ const Portfolio = () => {
 
             {/* Projects Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
-              {filteredProjects.map((project, index) => (
+              {displayedProjects.map((project, index) => (
                 <div key={index} className="project-card group">
                   <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-gray-50'} hover:scale-105`}>
                     {/* Media Container with fixed aspect ratio to prevent shifting */}
@@ -954,6 +961,7 @@ const Portfolio = () => {
                             <img
                               src={project.image}
                               alt={project.title}
+                              loading="lazy"
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                           </div>
@@ -998,6 +1006,17 @@ const Portfolio = () => {
                 </div>
               ))}
             </div>
+
+            {visibleProjectsCount < filteredProjects.length && (
+              <div className="text-center mt-10 md:mt-16">
+                <button
+                  onClick={() => setVisibleProjectsCount(prev => prev + 6)}
+                  className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium shadow-md"
+                >
+                  See More Projects
+                </button>
+              </div>
+            )}
 
             {filteredProjects.length === 0 && (
               <div className="text-center py-12">
