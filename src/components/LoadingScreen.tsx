@@ -52,7 +52,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
       <div className="text-center space-y-8">
         <div ref={textRef} className="space-y-4">
           <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-wider text-yellow-400">
-            Kiran Srivastava
+            Nahush Patel
           </h2>
           <p className="text-xl font-medium text-yellow-500/80">
             Loading Portfolio...

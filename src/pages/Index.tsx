@@ -9,7 +9,8 @@ import FloatingIcons from '@/components/FloatingIcons';
 gsap.registerPlugin(ScrollTrigger);
 
 // Import images
-import kiranProfile from "@/assets/hero.jpeg";
+import heroImg from "@/assets/hero.jpg";
+import aboutImg from "@/assets/nahush-about.webp";
 import projectKisan from "@/assets/project-kisan.webp";
 import linkpostAi from "@/assets/linkpost-ai.webp";
 import tindog from "@/assets/tindog.webp";
@@ -567,7 +568,7 @@ const Portfolio = () => {
                 <div className="relative">
                   <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 shadow-2xl hover:scale-105 transition-transform duration-300">
                     <img
-                      src={kiranProfile}
+                      src={heroImg}
                       alt="Nahush Patel - Digital Marketing Professional"
                       className="w-full h-full object-cover"
                     />
@@ -672,7 +673,7 @@ const Portfolio = () => {
                 <div className="relative">
                   <div className="w-full max-w-xs md:max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-yellow-400 to-yellow-600">
                     <img
-                      src={kiranProfile}
+                      src={aboutImg}
                       alt="Nahush Patel"
                       className="w-full h-full object-cover"
                     />
