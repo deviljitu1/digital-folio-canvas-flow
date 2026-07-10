@@ -1026,34 +1026,82 @@ const Portfolio = () => {
             <div className="mb-10 md:mb-16">
               <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Work Experiences</h3>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-                {experiences.filter(e => e.category === 'work-experience').map((exp, index) => (
-                  <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg`}>
-                    <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2 text-gray-900 dark:text-white">{exp.title}</h4>
-                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.tools.map(tool => (
-                        <span key={tool} className="px-3 py-1 bg-yellow-500 dark:bg-yellow-500/40 text-yellow-500 dark:text-yellow-500 text-xs rounded-full font-medium">{tool}</span>
-                      ))}
+                {experiences.filter(e => e.category === 'work-experience').map((exp, index) => {
+                  const titleParts = exp.title.split(' @ ');
+                  const role = titleParts[0].replace(/\s*\(.*?\)\s*/g, '');
+                  const company = titleParts[1] ? titleParts[1].split(' (')[0] : '';
+                  const dateMatch = exp.title.match(/\((.*?)\)/);
+                  const date = dateMatch ? dateMatch[1] : '';
+                  
+                  return (
+                    <div key={index} className={`relative p-6 md:p-8 rounded-3xl border ${isDark ? 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-yellow-500/50' : 'border-gray-200 bg-white hover:shadow-xl hover:border-yellow-400'} backdrop-blur-sm transition-all duration-500 group overflow-hidden hover:-translate-y-1`}>
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 to-yellow-600/0 group-hover:from-yellow-400/5 group-hover:to-yellow-600/5 transition-all duration-500 z-0"></div>
+                      <div className="relative z-10 flex flex-col h-full">
+                        <h4 className="font-extrabold text-lg md:text-xl lg:text-2xl mb-2 text-gray-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-yellow-600 transition-all duration-300">
+                          {role}
+                        </h4>
+                        {(company || date) && (
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
+                            {company && <span className="text-yellow-600 dark:text-yellow-400 font-bold text-sm md:text-base tracking-wide uppercase">{company}</span>}
+                            {company && date && <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>}
+                            {date && <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium font-mono bg-gray-100 dark:bg-gray-800/50 px-2 py-1 rounded-md inline-block w-fit">{date}</span>}
+                          </div>
+                        )}
+                        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors flex-grow">
+                          {exp.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mt-auto">
+                          {exp.tools.map(tool => (
+                            <span key={tool} className="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/20 text-xs rounded-full font-semibold shadow-sm group-hover:border-yellow-400/50 transition-colors">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
             <div className="mb-10 md:mb-16">
               <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Project-Based Experience</h3>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-                {experiences.filter(e => e.category === 'project-based').map((exp, index) => (
-                  <div key={index} className={`p-5 md:p-8 rounded-2xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg`}>
-                    <h4 className="font-bold text-base md:text-xl mb-1.5 md:mb-2 text-gray-900 dark:text-white">{exp.title}</h4>
-                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">{exp.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.tools.map(tool => (
-                        <span key={tool} className="px-3 py-1 bg-yellow-500 dark:bg-yellow-500/40 text-yellow-500 dark:text-yellow-500 text-xs rounded-full font-medium">{tool}</span>
-                      ))}
+                {experiences.filter(e => e.category === 'project-based').map((exp, index) => {
+                  const titleParts = exp.title.split(' @ ');
+                  const role = titleParts[0].replace(/\s*\(.*?\)\s*/g, '');
+                  const company = titleParts[1] ? titleParts[1].split(' (')[0] : '';
+                  const dateMatch = exp.title.match(/\((.*?)\)/);
+                  const date = dateMatch ? dateMatch[1] : '';
+                  
+                  return (
+                    <div key={index} className={`relative p-6 md:p-8 rounded-3xl border ${isDark ? 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-yellow-500/50' : 'border-gray-200 bg-white hover:shadow-xl hover:border-yellow-400'} backdrop-blur-sm transition-all duration-500 group overflow-hidden hover:-translate-y-1`}>
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 to-yellow-600/0 group-hover:from-yellow-400/5 group-hover:to-yellow-600/5 transition-all duration-500 z-0"></div>
+                      <div className="relative z-10 flex flex-col h-full">
+                        <h4 className="font-extrabold text-lg md:text-xl lg:text-2xl mb-2 text-gray-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-yellow-600 transition-all duration-300">
+                          {role}
+                        </h4>
+                        {(company || date) && (
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
+                            {company && <span className="text-yellow-600 dark:text-yellow-400 font-bold text-sm md:text-base tracking-wide uppercase">{company}</span>}
+                            {company && date && <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>}
+                            {date && <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium font-mono bg-gray-100 dark:bg-gray-800/50 px-2 py-1 rounded-md inline-block w-fit">{date}</span>}
+                          </div>
+                        )}
+                        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors flex-grow">
+                          {exp.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mt-auto">
+                          {exp.tools.map(tool => (
+                            <span key={tool} className="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/20 text-xs rounded-full font-semibold shadow-sm group-hover:border-yellow-400/50 transition-colors">
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
