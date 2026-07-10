@@ -1107,14 +1107,14 @@ const Portfolio = () => {
 
             <div className="mb-10 md:mb-16">
               <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Social Media Accounts Managed</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
                 {managedAccounts.map((account, index) => (
                   <a
                     key={index}
                     href={account.url}
                     target={account.url !== '#' ? "_blank" : undefined}
                     rel={account.url !== '#' ? "noopener noreferrer" : undefined}
-                    className={`p-4 rounded-xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg flex items-center justify-between group ${account.url === '#' ? 'cursor-default' : 'cursor-pointer'}`}
+                    className={`w-full sm:w-[calc(50%-0.5rem)] md:w-72 lg:w-80 p-4 rounded-xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg flex items-center justify-between group ${account.url === '#' ? 'cursor-default' : 'cursor-pointer'}`}
                   >
                     <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors">{account.name}</span>
                     {account.url !== '#' && <ExternalLink size={16} className="text-gray-400 group-hover:text-yellow-500 transition-colors flex-shrink-0 ml-2" />}
