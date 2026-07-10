@@ -104,7 +104,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: aboutRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           y: 100,
@@ -119,7 +120,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: skillsRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           y: 100,
@@ -133,7 +135,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: skillsRef.current,
             start: 'top 70%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           y: 50,
@@ -149,7 +152,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: projectsRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           y: 100,
@@ -163,7 +167,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: projectsRef.current,
             start: 'top 70%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           scale: 0.9,
@@ -180,7 +185,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: experienceRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           y: 100,
@@ -195,7 +201,8 @@ const Portfolio = () => {
           scrollTrigger: {
             trigger: contactRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none',
+            once: true
           },
           opacity: 0,
           y: 100,
@@ -259,9 +266,6 @@ const Portfolio = () => {
       subcategories: [
         { id: 'graphic-design', name: 'Graphic Design', icon: PenTool },
         { id: 'social-media', name: 'Social Media Content', icon: Video },
-        { id: 'case-study', name: 'Case Studies', icon: Award },
-        { id: 'seo', name: 'SEO Projects', icon: TrendingUp },
-        { id: 'email-marketing', name: 'Email Marketing', icon: Mail },
         { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart }
       ]
     }
