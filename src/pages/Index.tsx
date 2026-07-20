@@ -16,7 +16,7 @@ import portfolioProject from "@/assets/portfolio-project.webp";
 import poetree from "@/assets/poetree.webp";
 import calmmindAi from "@/assets/calmmind-ai.webp";
 
-// Import icons
+import certificateIcon from "@/assets/Icons/certificate-award-trophy-svgrepo-com.svg";
 import instagramIcon from "@/assets/Icons/instagram.svg";
 import metaIcon from "@/assets/Icons/meta.svg";
 import shopifyIconOld from "@/assets/Icons/shopify.svg";
@@ -29,6 +29,11 @@ import reactJsIcon from "@/assets/Icons/react-js-icon.svg";
 import semrushIcon from "@/assets/Icons/semrush-icon.svg";
 import shopifyIcon from "@/assets/Icons/shopify-icon.svg";
 import whatsappIcon from "@/assets/Icons/wa-whatsapp-icon.svg";
+import canvaIcon from "@/assets/Icons/canva-icon-graphic-design.svg";
+import ecommerceIcon from "@/assets/Icons/e-commerce.svg";
+import mailchimpIcon from "@/assets/Icons/mailchimp-email-marketing.svg";
+import seoIcon from "@/assets/Icons/seo.svg";
+import youtubeStudioIcon from "@/assets/Icons/youtube-studio-icon.svg";
 
 type Project = {
   title: string;
@@ -764,15 +769,15 @@ const Portfolio = () => {
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 md:divide-x divide-gray-100 my-auto">
                   {[
                     { icon: <Megaphone size={16} className="text-slate-800" />, l1: 'Social Media', l2: 'Strategy' },
-                    { icon: <PenTool size={16} className="text-slate-800" />, l1: 'Content', l2: 'Creation' },
-                    { icon: <Search size={16} className="text-slate-800" />, l1: 'SEO', l2: 'Optimization' },
-                    { icon: <img src="/src/assets/Icons/meta-icon.svg" alt="Meta" className="w-4 h-4 opacity-80" />, l1: 'Meta Ads', l2: 'Manager' },
-                    { icon: <Palette size={16} className="text-slate-800" />, l1: 'Graphic', l2: 'Design' },
+                    { icon: <img src={youtubeStudioIcon} alt="Content" className="w-5 h-5 opacity-90" />, l1: 'Content', l2: 'Creation' },
+                    { icon: <img src={seoIcon} alt="SEO" className="w-5 h-5 opacity-90" />, l1: 'SEO', l2: 'Optimization' },
+                    { icon: <img src="/src/assets/Icons/meta-icon.svg" alt="Meta" className="w-5 h-5 opacity-90" />, l1: 'Meta Ads', l2: 'Manager' },
+                    { icon: <img src={canvaIcon} alt="Graphic Design" className="w-5 h-5 opacity-90" />, l1: 'Graphic', l2: 'Design' },
                     { icon: <Calendar size={16} className="text-slate-800" />, l1: 'Campaign', l2: 'Planning' },
                     { icon: <BarChart2 size={16} className="text-slate-800" />, l1: 'Analytics &', l2: 'Tracking' },
-                    { icon: <ShoppingCart size={16} className="text-slate-800" />, l1: 'E-commerce', l2: 'Marketing' },
+                    { icon: <img src={ecommerceIcon} alt="E-commerce" className="w-5 h-5 opacity-90" />, l1: 'E-commerce', l2: 'Marketing' },
                     { icon: <Users size={16} className="text-slate-800" />, l1: 'Influencer', l2: 'Marketing' },
-                    { icon: <Hourglass size={16} className="text-slate-800" />, l1: 'Email', l2: 'Marketing' }
+                    { icon: <img src={mailchimpIcon} alt="Email Marketing" className="w-5 h-5 opacity-90" />, l1: 'Email', l2: 'Marketing' }
                   ].map((c) => (
                     <div key={c.l1} className="flex flex-col items-center justify-center text-center px-1">
                       <div className="w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center mb-1.5">
@@ -1156,8 +1161,8 @@ const Portfolio = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {certifications.map((cert, index) => (
                   <div key={index} className={`certification-card p-4 rounded-2xl border text-center transition-all duration-300 hover:scale-105 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
-                    <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Award className="text-white" size={16} />
+                    <div className="flex items-center justify-center mx-auto mb-3 h-12 w-12">
+                      <img src={certificateIcon} alt="Certificate" className="w-full h-full object-contain" />
                     </div>
                     <h4 className="font-bold text-xs md:text-sm mb-1">{cert.name}</h4>
                     <p className={`text-[10px] md:text-xs mb-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{cert.issuer}</p>
