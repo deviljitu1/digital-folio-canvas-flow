@@ -392,7 +392,7 @@ const Portfolio = () => {
       title: "Digital Marketing Executive @ ORGALIFE (Oct 2025 - Present)",
       description: "Managed social media platforms, content strategy, and audience engagement. Executed Meta Ads, WhatsApp marketing, and product launch campaigns. Planned content calendars and managed influencer marketing, barter collaborations, and brand partnerships. Managed day-to-day e-commerce and digital marketing operations. Designed social media creatives, ad graphics, and promotional materials. Managed SEO activities and optimized Google Business Profile (GMB) to improve online visibility and local search performance.",
       tools: ["Meta Ads", "WhatsApp Marketing", "Graphic Design", "SEO"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      image: "https://orgalife.in/cdn/shop/files/Orgalife_Logo_2.png?v=1748346273&width=352",
       liveLink: "#",
       category: "work-experience",
       subCategory: "management",
@@ -412,7 +412,7 @@ const Portfolio = () => {
       title: "Medical Coding & Billing @ Omega Healthcare (April 2024 - March 2025)",
       description: "Built data accuracy habits in high-volume record processing - directly applied to campaign tracking, UTM analysis, and SEO reporting.",
       tools: ["Data Accuracy", "UTM Analysis", "Reporting"],
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+      image: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_459/https://www.omegahms.com/wp-content/uploads/2025/10/Omega_Logo_220w-01.png",
       liveLink: "#",
       category: "work-experience",
       subCategory: "executive",
@@ -422,7 +422,7 @@ const Portfolio = () => {
       title: "Customer Care Executive @ Sutherland Global (August 2023 - April 2024)",
       description: "Developed persuasive communication, audience empathy, and objection handling - skills directly transferred to ad copywriting and targeting strategy.",
       tools: ["Communication", "Empathy", "Copywriting"],
-      image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop",
+      image: "https://irp.cdn-website.com/76755cce/dms3rep/multi/super.svg",
       liveLink: "#",
       category: "work-experience",
       subCategory: "management",
@@ -508,7 +508,8 @@ const Portfolio = () => {
     { name: "Rajim Kumbh 2026", url: "https://www.instagram.com/rajimkumbhkalp2026?igsh=MTFkeGMzaXh3c2Y2ag==" },
     { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" },
     { name: "Nexafloors", url: "https://www.instagram.com/nexafloors/" },
-    { name: "GrahSiddhi Constructions", url: "https://www.instagram.com/grahsiddhiconstruction/" }
+    { name: "GrahSiddhi Constructions", url: "https://www.instagram.com/grahsiddhiconstruction/" },
+    { name: "Praxes Official", url: "https://www.instagram.com/praxes.official_?igsh=MW4wcjNmZzR5cndvYg%3D%3D&utm_source=qr" }
   ];
 
   // Filter projects
@@ -1040,11 +1041,20 @@ const Portfolio = () => {
                   const { role, company, date } = parseExpTitle(exp.title);
                   return (
                     <div key={index} className="timeline-item">
-                      <div className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
-                        <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
-                          {company && <span className="text-yellow-500 text-xs font-bold uppercase tracking-wide">{company}</span>}
-                          {date && <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
+                      <div className={`p-4 md:p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
+                        <div className="flex justify-between items-start gap-2 mb-2">
+                          <div className="flex-1 pr-2">
+                            <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              {company && <span className="text-yellow-500 text-[10px] md:text-xs font-bold uppercase tracking-wide">{company}</span>}
+                              {date && <span className={`text-[9px] md:text-[10px] font-mono px-1.5 py-0.5 rounded ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
+                            </div>
+                          </div>
+                          {exp.image && !exp.image.includes('unsplash') && (
+                            <div className={`w-12 h-12 rounded flex items-center justify-center p-1 border shrink-0 bg-white ${isDark ? 'border-white/10' : 'border-gray-100 shadow-sm'}`}>
+                              <img src={exp.image} alt={company || role} className="max-w-full max-h-full object-contain" />
+                            </div>
+                          )}
                         </div>
                         <p className={`text-xs leading-relaxed mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{exp.description}</p>
                         <div className="flex flex-wrap gap-1.5 timeline-tags">
