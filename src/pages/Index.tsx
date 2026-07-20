@@ -43,6 +43,9 @@ import geminiIcon from "@/assets/Icons/google-gemini.svg";
 import huggingFaceIcon from "@/assets/Icons/hugging-face-icon.svg";
 import nanoBananaIcon from "@/assets/Icons/nanobanana.svg";
 import openaiIcon from "@/assets/Icons/openai-icon.svg";
+import linkedinAppIcon from "@/assets/Icons/linkedin-app-icon.svg";
+import googleAdsIcon from "@/assets/Icons/google-ads.svg";
+import githubIcon from "@/assets/Icons/github-icon.svg";
 
 type Project = {
   title: string;
@@ -491,7 +494,8 @@ const Portfolio = () => {
       { name: "Email Marketing", level: 88, icon: <img src={mailchimpIcon} alt="Email Marketing" className="w-5 h-5" /> },
       { name: "Marketing Automation", level: 90, icon: <img src={n8nIcon} alt="n8n" className="w-5 h-5" /> },
       { name: "React JS", level: 82, icon: <img src={reactJsIcon} alt="React" className="w-5 h-5" /> },
-      { name: "E-commerce Marketing", level: 82, icon: <img src={eCommerceIcon} alt="E-commerce" className="w-5 h-5" /> }
+      { name: "E-commerce Marketing", level: 82, icon: <img src={eCommerceIcon} alt="E-commerce" className="w-5 h-5" /> },
+      { name: "GitHub & Git", level: 85, icon: <img src={githubIcon} alt="GitHub" className="w-5 h-5" /> }
     ],
     marketing: [
       { name: "Social Media Mgt", level: 95, icon: <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" /> },
@@ -499,7 +503,9 @@ const Portfolio = () => {
       { name: "SEO Optimization", level: 88, icon: <img src={seoIcon} alt="SEO" className="w-5 h-5" /> },
       { name: "Google My Business", level: 90, icon: <img src={googleMyBusinessIcon} alt="GMB" className="w-5 h-5" /> },
       { name: "Influencer Marketing", level: 85, icon: "🤝" },
-      { name: "Google Analytics", level: 87, icon: <img src={googleAnalyticsIcon} alt="Analytics" className="w-5 h-5" /> }
+      { name: "Google Analytics", level: 87, icon: <img src={googleAnalyticsIcon} alt="Analytics" className="w-5 h-5" /> },
+      { name: "Google Ads", level: 90, icon: <img src={googleAdsIcon} alt="Google Ads" className="w-5 h-5" /> },
+      { name: "LinkedIn Marketing", level: 88, icon: <img src={linkedinAppIcon} alt="LinkedIn" className="w-5 h-5" /> }
     ],
     soft: [
       { name: "Meta Business Suite", level: 93, icon: <img src={metaIconNew} alt="Meta" className="w-5 h-5" /> },
@@ -1232,11 +1238,11 @@ const Portfolio = () => {
                 </div>
 
                 <div className="flex gap-3 pt-2">
-                  <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500 text-gray-400 hover:text-black' : 'bg-gray-100 hover:bg-yellow-500 text-gray-500 hover:text-black'}`}>
-                    <Linkedin size={16} />
+                  <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500' : 'bg-gray-100 hover:bg-yellow-500'}`}>
+                    <img src={linkedinAppIcon} alt="LinkedIn" className="w-5 h-5" />
                   </a>
-                  <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500 text-gray-400 hover:text-black' : 'bg-gray-100 hover:bg-yellow-500 text-gray-500 hover:text-black'}`}>
-                    <Github size={16} />
+                  <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500' : 'bg-gray-100 hover:bg-yellow-500'}`}>
+                    <img src={githubIcon} alt="GitHub" className="w-5 h-5" />
                   </a>
                   <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500' : 'bg-gray-100 hover:bg-yellow-500'}`}>
                     <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
