@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users, User, Target, Rocket, Search, Calendar, BarChart2, Hourglass } from 'lucide-react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users, User, Target, Rocket, Search, Calendar, BarChart2, Hourglass, Cpu } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -35,6 +35,14 @@ import mailchimpIcon from "@/assets/Icons/mailchimp-email-marketing.svg";
 import seoIcon from "@/assets/Icons/seo.svg";
 import youtubeStudioIcon from "@/assets/Icons/youtube-studio-icon.svg";
 import metaAdsManagerIcon from "@/assets/Icons/meta-ads-manager-icon.svg";
+import gmailIcon from "@/assets/Icons/gmail-icon.svg";
+import bufferIcon from "@/assets/Icons/buffer.svg";
+import claudeIcon from "@/assets/Icons/claude-icon.svg";
+import antigravityIcon from "@/assets/Icons/Google_Antigravity_Logo_2025_icon.svg";
+import geminiIcon from "@/assets/Icons/google-gemini.svg";
+import huggingFaceIcon from "@/assets/Icons/hugging-face-icon.svg";
+import nanoBananaIcon from "@/assets/Icons/nanobanana.svg";
+import openaiIcon from "@/assets/Icons/openai-icon.svg";
 
 type Project = {
   title: string;
@@ -498,7 +506,18 @@ const Portfolio = () => {
       { name: "YouTube Studio", level: 88, icon: <img src={youtubeStudioIcon} alt="YouTube Studio" className="w-5 h-5" /> },
       { name: "Canva & Photoshop", level: 90, icon: <img src={canvaIcon} alt="Canva & Photoshop" className="w-5 h-5" /> },
       { name: "Shopify", level: 80, icon: <img src={shopifyIcon} alt="Shopify" className="w-5 h-5" /> },
+      { name: "Buffer", level: 88, icon: <img src={bufferIcon} alt="Buffer" className="w-5 h-5" /> },
       { name: "SEMrush & Yoast", level: 85, icon: <img src={semrushIcon} alt="SEMrush" className="w-5 h-5" /> }
+    ],
+    ai: [
+      { name: "ChatGPT", level: 95, icon: <img src={openaiIcon} alt="OpenAI" className="w-5 h-5" /> },
+      { name: "Google Gemini", level: 92, icon: <img src={geminiIcon} alt="Gemini" className="w-5 h-5" /> },
+      { name: "Claude", level: 90, icon: <img src={claudeIcon} alt="Claude" className="w-5 h-5" /> },
+      { name: "Hugging Face", level: 88, icon: <img src={huggingFaceIcon} alt="Hugging Face" className="w-5 h-5" /> },
+      { name: "Google Antigravity", level: 85, icon: <img src={antigravityIcon} alt="Antigravity" className="w-5 h-5" /> },
+      { name: "Midjourney", level: 85, icon: "🎨" },
+      { name: "Nano Banana", level: 90, icon: <img src={nanoBananaIcon} alt="Nano Banana" className="w-5 h-5" /> },
+      { name: "Veo3", level: 88, icon: "🎥" }
     ]
   };
 
@@ -540,10 +559,11 @@ const Portfolio = () => {
     return { role, company, date };
   };
 
-  const skillColors = {
+  const skillColors: Record<string, any> = {
     frontend: { accent: 'blue', gradient: 'from-blue-500 to-blue-400', dot: 'bg-blue-500', bg: 'bg-blue-500/10', text: 'text-blue-500', border: 'border-blue-500/20' },
     marketing: { accent: 'yellow', gradient: 'from-yellow-500 to-yellow-400', dot: 'bg-yellow-500', bg: 'bg-yellow-500/10', text: 'text-yellow-500', border: 'border-yellow-500/20' },
     soft: { accent: 'cyan', gradient: 'from-cyan-500 to-cyan-400', dot: 'bg-cyan-500', bg: 'bg-cyan-500/10', text: 'text-cyan-500', border: 'border-cyan-500/20' },
+    ai: { accent: 'purple', gradient: 'from-purple-500 to-purple-400', dot: 'bg-purple-500', bg: 'bg-purple-500/10', text: 'text-purple-500', border: 'border-purple-500/20' },
   };
 
   return (
@@ -830,11 +850,11 @@ const Portfolio = () => {
               <div className="section-divider" />
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               {(Object.entries(skills) as [keyof typeof skills, typeof skills.frontend][]).map(([key, skillList]) => {
                 const colors = skillColors[key];
-                const titles = { frontend: 'Content & Design', marketing: 'Digital Marketing', soft: 'Strategic Tools' };
-                const icons = { frontend: <Code2 size={20} />, marketing: <Palette size={20} />, soft: <TrendingUp size={20} /> };
+                const titles: Record<string, string> = { frontend: 'Content & Design', marketing: 'Digital Marketing', soft: 'Strategic Tools', ai: 'AI Tools & Workflows' };
+                const icons: Record<string, any> = { frontend: <Code2 size={20} />, marketing: <Palette size={20} />, soft: <TrendingUp size={20} />, ai: <Cpu size={20} /> };
 
                 return (
                   <div key={key} className={`rounded-2xl p-4 md:p-5 border transition-all duration-300 hover:scale-[1.02] ${isDark
@@ -1188,8 +1208,8 @@ const Portfolio = () => {
               {/* Contact info */}
               <div className="space-y-4">
                 <div className={`p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-gray-50 border border-gray-100'}`}>
-                  <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Mail size={18} className="text-black" />
+                  <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 border border-gray-700">
+                    <img src={gmailIcon} alt="Email" className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className="font-bold text-sm">Email</h4>
