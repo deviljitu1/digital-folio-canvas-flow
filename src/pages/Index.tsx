@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, Box as BoxIcon, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LoadingScreen from '@/components/LoadingScreen';
-import MouseParallax from '@/components/MouseParallax';
-import FloatingIcons from '@/components/FloatingIcons';
 gsap.registerPlugin(ScrollTrigger);
 
 // Import images
@@ -21,8 +19,16 @@ import calmmindAi from "@/assets/calmmind-ai.webp";
 // Import icons
 import instagramIcon from "@/assets/Icons/instagram.svg";
 import metaIcon from "@/assets/Icons/meta.svg";
-import shopifyIcon from "@/assets/Icons/shopify.svg";
-import whatsappIcon from "@/assets/Icons/whatsapp.svg";
+import shopifyIconOld from "@/assets/Icons/shopify.svg";
+import whatsappIconOld from "@/assets/Icons/whatsapp.svg";
+import googleAnalyticsIcon from "@/assets/Icons/google-analytics-icon.svg";
+import googleMyBusinessIcon from "@/assets/Icons/google-my-business-icon.svg";
+import metaIconNew from "@/assets/Icons/meta-icon.svg";
+import n8nIcon from "@/assets/Icons/n8n-icon.svg";
+import reactJsIcon from "@/assets/Icons/react-js-icon.svg";
+import semrushIcon from "@/assets/Icons/semrush-icon.svg";
+import shopifyIcon from "@/assets/Icons/shopify-icon.svg";
+import whatsappIcon from "@/assets/Icons/wa-whatsapp-icon.svg";
 
 type Project = {
   title: string;
@@ -39,6 +45,69 @@ type Project = {
   graphicCategory?: string;
 };
 
+// Typewriter hook
+function useTypewriter(words: string[], speed = 100, pause = 2000) {
+  const [text, setText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = words[wordIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!isDeleting && text === current) {
+      timeout = setTimeout(() => setIsDeleting(true), pause);
+    } else if (isDeleting && text === '') {
+      setIsDeleting(false);
+      setWordIndex((prev) => (prev + 1) % words.length);
+    } else {
+      timeout = setTimeout(() => {
+        setText(current.substring(0, text.length + (isDeleting ? -1 : 1)));
+      }, isDeleting ? speed / 2 : speed);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, wordIndex, isDeleting, words, speed, pause]);
+
+  return text;
+}
+
+// Particles component for hero
+function HeroParticles() {
+  const particles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+    duration: `${4 + Math.random() * 6}s`,
+    delay: `${Math.random() * 4}s`,
+    dx: `${(Math.random() - 0.5) * 60}px`,
+    dy: `${(Math.random() - 0.5) * 60}px`,
+    size: `${2 + Math.random() * 3}px`,
+  }));
+
+  return (
+    <div className="hero-particles">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="hero-particle"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            '--duration': p.duration,
+            '--delay': p.delay,
+            '--dx': p.dx,
+            '--dy': p.dy,
+          } as React.CSSProperties}
+        />
+      ))}
+    </div>
+  );
+}
+
+
 const Portfolio = () => {
   const { toast } = useToast();
   const [isDark, setIsDark] = useState(true);
@@ -49,10 +118,13 @@ const Portfolio = () => {
   const [selectedGraphicCategory, setSelectedGraphicCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [viewMode, setViewMode] = useState<'grid' | '3d'>('grid');
-  const [activeProject3D, setActiveProject3D] = useState<string>('');
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
+  const [navHidden, setNavHidden] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [expandedTimeline, setExpandedTimeline] = useState<Record<string, boolean>>({
+    'project-based': true,
+    'managed': true,
+  });
 
   const heroRef = useRef(null);
   const aboutRef = useRef(null);
@@ -60,11 +132,19 @@ const Portfolio = () => {
   const projectsRef = useRef(null);
   const experienceRef = useRef(null);
   const contactRef = useRef(null);
+  const lastScrollY = useRef(0);
+
+  const typedText = useTypewriter(
+    ['Digital Marketer', 'SEO Specialist', 'Meta Ads Expert', 'Graphic Designer'],
+    80,
+    1800
+  );
 
   useEffect(() => {
     setVisibleProjectsCount(6);
   }, [selectedCategory, selectedSubCategory, selectedGraphicCategory]);
 
+  // Scroll tracking for active section & nav hide
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
@@ -75,140 +155,70 @@ const Portfolio = () => {
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section);
             break;
           }
         }
       }
+
+      // Auto-hide nav on mobile scroll down
+      if (window.innerWidth < 768) {
+        if (window.scrollY > lastScrollY.current && window.scrollY > 100) {
+          setNavHidden(true);
+        } else {
+          setNavHidden(false);
+        }
+      } else {
+        setNavHidden(false);
+      }
+      lastScrollY.current = window.scrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // GSAP Animations on load
   useEffect(() => {
-    if (!isLoading) {
-      // Hero section animation
-      gsap.from(heroRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power3.out'
-      });
-
-      // About section scroll animation
+    if (!isLoading && typeof window !== 'undefined') {
+      // Hero
+      if (heroRef.current) {
+        gsap.from(heroRef.current, { opacity: 0, y: 60, duration: 1, ease: 'power3.out' });
+      }
+      // About
       if (aboutRef.current) {
         gsap.from(aboutRef.current, {
-          scrollTrigger: {
-            trigger: aboutRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power3.out'
+          scrollTrigger: { trigger: aboutRef.current, start: 'top 85%', once: true },
+          opacity: 0, y: 80, duration: 0.8, ease: 'power3.out'
         });
       }
-
-      // Skills section scroll animation
+      // Skills
       if (skillsRef.current) {
         gsap.from(skillsRef.current, {
-          scrollTrigger: {
-            trigger: skillsRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power3.out'
-        });
-
-        // Animate skill cards
-        const skillCards = skillsRef.current.querySelectorAll('.skill-card');
-        gsap.from(skillCards, {
-          scrollTrigger: {
-            trigger: skillsRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          y: 50,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power2.out'
+          scrollTrigger: { trigger: skillsRef.current, start: 'top 85%', once: true },
+          opacity: 0, y: 80, duration: 0.8, ease: 'power3.out'
         });
       }
-
-      // Projects section scroll animation
+      // Projects
       if (projectsRef.current) {
         gsap.from(projectsRef.current, {
-          scrollTrigger: {
-            trigger: projectsRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power3.out'
-        });
-
-        // Animate project cards
-        const projectCards = projectsRef.current.querySelectorAll('.project-card');
-        gsap.from(projectCards, {
-          scrollTrigger: {
-            trigger: projectsRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          scale: 0.9,
-          y: 50,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: 'power2.out'
+          scrollTrigger: { trigger: projectsRef.current, start: 'top 85%', once: true },
+          opacity: 0, y: 80, duration: 0.8, ease: 'power3.out'
         });
       }
-
-      // Experience section scroll animation
+      // Experience
       if (experienceRef.current) {
         gsap.from(experienceRef.current, {
-          scrollTrigger: {
-            trigger: experienceRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power3.out'
+          scrollTrigger: { trigger: experienceRef.current, start: 'top 85%', once: true },
+          opacity: 0, y: 80, duration: 0.8, ease: 'power3.out'
         });
       }
-
-      // Contact section scroll animation
+      // Contact
       if (contactRef.current) {
         gsap.from(contactRef.current, {
-          scrollTrigger: {
-            trigger: contactRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-            once: true
-          },
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power3.out'
+          scrollTrigger: { trigger: contactRef.current, start: 'top 85%', once: true },
+          opacity: 0, y: 80, duration: 0.8, ease: 'power3.out'
         });
       }
     }
@@ -230,35 +240,24 @@ const Portfolio = () => {
     }
   }, [isDark]);
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
+  const toggleTheme = () => setIsDark(!isDark);
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const message = formData.get('message') as string;
-
     const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-
-    // Open default mail client
     window.location.href = `mailto:nahushpatel880@gmail.com?subject=${subject}&body=${body}`;
-
-    toast({
-      title: "Opening email client...",
-      description: "Please complete sending the email from your email application.",
-    });
-
+    toast({ title: "Opening email client...", description: "Please complete sending the email from your email application." });
     e.currentTarget.reset();
     setIsSubmitting(false);
   };
 
-  // Project categories with subcategories
+  // Project categories
   const projectCategories = {
     'digital-marketing': {
       name: 'Digital Marketing',
@@ -279,9 +278,8 @@ const Portfolio = () => {
     const fileName = parts.pop() || '';
     const folderName = parts.pop() || '';
     const title = fileName.replace(/\.[^/.]+$/, "");
-
     return {
-      title: title,
+      title,
       description: `Creative design work for ${folderName}`,
       tools: ["Graphic Design", "Photoshop", "Illustrator"],
       image: url as string,
@@ -356,8 +354,37 @@ const Portfolio = () => {
       mediaType: "iframe",
       iframeSrc: "https://www.instagram.com/reel/DLo8Fr0TdBL/embed"
     },
+    {
+      title: "Nexafloors Reel 1",
+      description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring 📍Chennai",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DayBEjzKyyM/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DayBEjzKyyM/embed"
+    },
+    {
+      title: "Nexafloors Reel 2",
+      description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring 📍Chennai",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DaX81vLKsfn/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DaX81vLKsfn/embed"
+    },
+    {
+      title: "Nexafloors Reel 3",
+      description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring 📍Chennai",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DaF8w--iD8U/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DaF8w--iD8U/embed"
+    },
     ...generatedProjects,
-
   ];
 
   const experiences = [
@@ -376,8 +403,8 @@ const Portfolio = () => {
       description: "Managed social media platforms. Executed Meta Ads campaigns to drive leads and conversions. Designed social media creatives, thumbnails, and ad graphics. Implemented SEO strategies to improve website visibility and rankings. Analyzed campaign performance and optimized marketing efforts.",
       tools: ["Meta Ads", "SEO", "Graphic Design"],
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "work-experience",
+      liveLink: "https://www.instagram.com/grahsiddhiconstruction/",
+      category: "project-based",
       subCategory: "executive",
       mediaType: "image"
     },
@@ -420,6 +447,16 @@ const Portfolio = () => {
       category: "project-based",
       subCategory: "marketing",
       mediaType: "image"
+    },
+    {
+      title: "Nexafloors",
+      description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring",
+      tools: ["Social Media", "Content Creation"],
+      image: "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&h=600&fit=crop",
+      liveLink: "https://www.instagram.com/nexafloors/",
+      category: "project-based",
+      subCategory: "marketing",
+      mediaType: "image"
     }
   ];
 
@@ -428,24 +465,24 @@ const Portfolio = () => {
       { name: "Content Creation", level: 95, icon: "✍️" },
       { name: "Graphic Design", level: 90, icon: "🎨" },
       { name: "Email Marketing", level: 88, icon: "📧" },
-      { name: "Campaign Planning", level: 85, icon: "📅" },
-      { name: "Marketing Automation", level: 90, icon: "🤖" },
+      { name: "Marketing Automation", level: 90, icon: <img src={n8nIcon} alt="n8n" className="w-5 h-5" /> },
+      { name: "React JS", level: 82, icon: <img src={reactJsIcon} alt="React" className="w-5 h-5" /> },
       { name: "E-commerce Marketing", level: 82, icon: "🛒" }
     ],
     marketing: [
-      { name: "Social Media Mgt", level: 95, icon: "📱" },
-      { name: "Meta Ads Manager", level: 92, icon: <img src={metaIcon} alt="Meta" className="w-5 h-5" /> },
+      { name: "Social Media Mgt", level: 95, icon: <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" /> },
+      { name: "Meta Ads Manager", level: 92, icon: <img src={metaIconNew} alt="Meta" className="w-5 h-5" /> },
       { name: "SEO Optimization", level: 88, icon: "🔍" },
-      { name: "Digital Strategy", level: 90, icon: "📈" },
+      { name: "Google My Business", level: 90, icon: <img src={googleMyBusinessIcon} alt="GMB" className="w-5 h-5" /> },
       { name: "Influencer Marketing", level: 85, icon: "🤝" },
-      { name: "Google Analytics", level: 87, icon: "📊" }
+      { name: "Google Analytics", level: 87, icon: <img src={googleAnalyticsIcon} alt="Analytics" className="w-5 h-5" /> }
     ],
     soft: [
-      { name: "Meta Business Suite", level: 93, icon: <img src={metaIcon} alt="Meta" className="w-5 h-5" /> },
+      { name: "Meta Business Suite", level: 93, icon: <img src={metaIconNew} alt="Meta" className="w-5 h-5" /> },
       { name: "YouTube Studio", level: 88, icon: "▶️" },
       { name: "Canva & Photoshop", level: 90, icon: "🖼️" },
       { name: "Shopify", level: 80, icon: <img src={shopifyIcon} alt="Shopify" className="w-5 h-5" /> },
-      { name: "SEMrush & Yoast", level: 85, icon: "🎯" }
+      { name: "SEMrush & Yoast", level: 85, icon: <img src={semrushIcon} alt="SEMrush" className="w-5 h-5" /> }
     ]
   };
 
@@ -459,10 +496,12 @@ const Portfolio = () => {
   const managedAccounts = [
     { name: "Orgalife Food", url: "https://www.instagram.com/orgalifefood?igsh=MTRhdGk2YWVwbHVjMw==" },
     { name: "Rajim Kumbh 2026", url: "https://www.instagram.com/rajimkumbhkalp2026?igsh=MTFkeGMzaXh3c2Y2ag==" },
-    { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" }
+    { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" },
+    { name: "Nexafloors", url: "https://www.instagram.com/nexafloors/" },
+    { name: "GrahSiddhi Constructions", url: "https://www.instagram.com/grahsiddhiconstruction/" }
   ];
 
-  // Filter projects based on selected categories
+  // Filter projects
   const filteredProjects = projects.filter(project => {
     if (selectedCategory !== 'all' && selectedCategory !== project.category) return false;
     if (selectedSubCategory !== 'all' && selectedSubCategory !== project.subCategory) return false;
@@ -472,120 +511,128 @@ const Portfolio = () => {
 
   const displayedProjects = filteredProjects.slice(0, visibleProjectsCount);
 
+  const navItems = ['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
+
+  // Helper to parse experience title
+  const parseExpTitle = (title: string) => {
+    const titleParts = title.split(' @ ');
+    const role = titleParts[0].replace(/\s*\(.*?\)\s*/g, '');
+    const company = titleParts[1] ? titleParts[1].split(' (')[0] : '';
+    const dateMatch = title.match(/\((.*?)\)/);
+    const date = dateMatch ? dateMatch[1] : '';
+    return { role, company, date };
+  };
+
+  const skillColors = {
+    frontend: { accent: 'blue', gradient: 'from-blue-500 to-blue-400', dot: 'bg-blue-500', bg: 'bg-blue-500/10', text: 'text-blue-500', border: 'border-blue-500/20' },
+    marketing: { accent: 'yellow', gradient: 'from-yellow-500 to-yellow-400', dot: 'bg-yellow-500', bg: 'bg-yellow-500/10', text: 'text-yellow-500', border: 'border-yellow-500/20' },
+    soft: { accent: 'cyan', gradient: 'from-cyan-500 to-cyan-400', dot: 'bg-cyan-500', bg: 'bg-cyan-500/10', text: 'text-cyan-500', border: 'border-cyan-500/20' },
+  };
+
   return (
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
 
+      <div className={`min-h-screen transition-colors duration-300 relative ${isDark ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
 
+        {/* ===== FLOATING NAV ===== */}
+        <nav className={`nav-floating ${isDark ? 'dark-mode' : 'light-mode'} ${navHidden ? 'nav-hidden' : ''}`}>
+          <div className="flex items-center gap-1">
+            {/* Logo - visible on desktop */}
+            <span className="hidden md:inline-block font-bold text-sm bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mr-4 whitespace-nowrap">
+              NP
+            </span>
 
-      <div className={`min-h-screen transition-colors duration-300 relative ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
-        {/* Navigation */}
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-md border-b ${isDark ? 'border-gray-800' : 'border-gray-200'} shadow-sm`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="font-bold text-xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-                Nahush Patel
-              </div>
-
-              {/* Desktop Navigation */}
-              <div className="hidden md:flex space-x-8">
-                {['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item.toLowerCase())}
-                    className={`hover:text-yellow-500 transition-colors duration-200 relative ${activeSection === item.toLowerCase() ? 'text-yellow-500 font-medium' : ''
-                      }`}
-                  >
-                    {item}
-                    {activeSection === item.toLowerCase() && (
-                      <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600"></div>
-                    )}
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center space-x-4">
+            {/* Desktop links */}
+            <div className="hidden md:flex items-center gap-0.5">
+              {navItems.map((item) => (
                 <button
-                  onClick={toggleTheme}
-                  className="p-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-800 transition-colors"
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className={`nav-link ${activeSection === item.toLowerCase() ? 'active' : ''} ${isDark ? 'text-gray-300 hover:text-yellow-400' : 'text-gray-600 hover:text-yellow-600'}`}
                 >
-                  {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                  {item}
                 </button>
-
-                {/* Mobile menu button */}
-                <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="md:hidden p-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-800"
-                >
-                  {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                </button>
-              </div>
+              ))}
             </div>
+
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-full transition-colors ml-2 ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'}`}
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`md:hidden p-2 rounded-full transition-colors ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'}`}
+            >
+              {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
-
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className={`md:hidden ${isDark ? 'bg-gray-900' : 'bg-white'} border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                {['Hero', 'About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item.toLowerCase())}
-                    className="block w-full text-left px-3 py-2 text-base font-medium hover:text-yellow-500 transition-colors"
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </nav>
 
-        {/* Hero Section */}
-        <section ref={heroRef} id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        {/* Mobile fullscreen overlay */}
+        <div className={`mobile-nav-overlay ${isMenuOpen ? 'open' : ''} ${isDark ? 'dark-mode' : 'light-mode'}`}>
+          {navItems.map((item) => (
+            <button
+              key={item}
+              onClick={() => scrollToSection(item.toLowerCase())}
+              className={`mobile-nav-link ${isDark ? 'text-white hover:text-yellow-400' : 'text-gray-900 hover:text-yellow-600'} ${activeSection === item.toLowerCase() ? 'text-yellow-500' : ''}`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        {/* ===== HERO SECTION ===== */}
+        <section ref={heroRef} id="hero" className="min-h-[85vh] md:min-h-[90vh] flex items-center justify-center relative overflow-hidden pt-16">
+          <HeroParticles />
           <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
             <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
-              {/* Profile Image */}
-              <MouseParallax speed={0.03} className="flex-shrink-0 animate-fade-in">
-                <div className="relative">
-                  <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 shadow-2xl hover:scale-105 transition-transform duration-300">
+              {/* Profile Image with glow ring */}
+              <div className="flex-shrink-0 animate-fade-in">
+                <div className="hero-glow-ring">
+                  <div className="w-44 h-44 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden bg-gray-900">
                     <img
                       src={heroImg}
                       alt="Nahush Patel - Digital Marketing Professional"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <MouseParallax speed={0.08} className="absolute -bottom-2 -right-2 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-2xl md:text-4xl animate-bounce">
-                    👋
-                  </MouseParallax>
                 </div>
-              </MouseParallax>
+              </div>
 
               {/* Hero Content */}
               <div className="flex-1 text-center lg:text-left">
-                <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-fade-in">
+                <p className={`text-xs md:text-sm uppercase tracking-[0.2em] mb-2 md:mb-3 animate-fade-in ${isDark ? 'text-yellow-400/80' : 'text-yellow-600/80'}`}>
+                  Welcome to my portfolio
+                </p>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-fade-in">
                   Hi, I'm Nahush Patel
                 </h1>
-                <p className="text-lg md:text-3xl mb-3 md:mb-6 text-gray-700 dark:text-gray-200 animate-fade-in delay-300 font-semibold">
-                  Digital Marketing Professional
+                <p className={`text-lg md:text-2xl mb-3 md:mb-5 font-semibold animate-fade-in delay-300 ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>
+                  {typedText}<span className="typewriter-cursor" />
                 </p>
-                <p className="text-sm md:text-lg mb-5 md:mb-8 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 animate-fade-in delay-500 leading-relaxed">
-                  Creative and detail-oriented Digital Marketing Professional with hands-on experience in social media management, content strategy, Meta Ads, graphic design, WhatsApp marketing, e-commerce coordination, and website management.
+                <p className={`text-sm md:text-base mb-5 md:mb-7 max-w-xl mx-auto lg:mx-0 animate-fade-in delay-500 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                  Creative and detail-oriented Digital Marketing Professional with hands-on experience in social media management, content strategy, Meta Ads, graphic design, and e-commerce coordination.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start animate-fade-in delay-700">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start animate-fade-in delay-700">
                   <button
                     onClick={() => scrollToSection('projects')}
-                    className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm md:text-base"
+                    className="btn-shimmer px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full hover:shadow-lg hover:shadow-yellow-500/25 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm font-semibold"
                   >
-                    <Eye size={20} />
-                    View Experience
+                    <Eye size={18} />
+                    View My Work
                   </button>
                   <a
                     href="/Nahush_Patel_Resume.pdf"
                     download
-                    className="px-6 py-3 md:px-8 md:py-4 border-2 border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-black transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm md:text-base"
+                    className={`px-6 py-3 border-2 border-yellow-500 rounded-full hover:bg-yellow-500 hover:text-black transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm font-semibold ${isDark ? 'text-yellow-400' : 'text-yellow-600'}`}
                   >
-                    <Download size={20} />
+                    <Download size={18} />
                     Download Resume
                   </a>
                 </div>
@@ -594,265 +641,155 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* About Section */}
-        <section ref={aboutRef} id="about" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">About Me</h2>
-              <p className="text-base md:text-xl text-gray-600 dark:text-gray-300">Passionate about creating digital experiences that matter</p>
+        {/* ===== ABOUT SECTION — Bento Grid ===== */}
+        <section ref={aboutRef} id="about" className={`py-12 md:py-20 relative z-10 ${isDark ? 'bg-gray-900/50' : 'bg-white'}`}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="section-header">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">About Me</h2>
+              <p className={`text-sm md:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Passionate about creating digital experiences that matter</p>
+              <div className="section-divider" />
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div className="space-y-4 md:space-y-6">
-                <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <div className="bento-grid">
+              {/* Bio card — spans 2 cols on mobile, 2 on tablet, 2 on desktop */}
+              <div className={`bento-card col-span-2 lg:col-span-2 ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                <h3 className="text-lg md:text-xl font-bold mb-3 text-yellow-500">Who I Am</h3>
+                <p className={`text-sm leading-relaxed mb-3 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                   I'm <strong>Nahush Patel</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
                 </p>
-
-                <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                   With experience at <strong>ORGALIFE</strong>, <strong>GrahSiddhi Constructions</strong>, <strong>Omega Healthcare</strong>, and <strong>Sutherland Global</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
                 </p>
+              </div>
 
-                <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 text-yellow-500">Core Competencies:</h3>
-                  <div className="grid grid-cols-2 gap-1 md:gap-3">
-                    {[
-                      'Social Media Strategy',
-                      'Content Creation',
-                      'SEO Optimization',
-                      'Meta Ads Manager',
-                      'Graphic Design',
-                      'Analytics & Tracking',
-                      'Campaign Planning',
-                      'E-commerce Marketing',
-                      'Influencer Marketing',
-                      'Email Marketing'
-                    ].map((competency) => (
-                      <div key={competency} className="flex items-center space-x-2 p-1.5 md:p-2 rounded-lg hover:bg-yellow-500 dark:hover:bg-yellow-500/20 transition-colors">
-                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex-shrink-0"></div>
-                        <span className="text-xs md:text-sm font-medium">{competency}</span>
-                      </div>
-                    ))}
-                  </div>
+              {/* Image card */}
+              <div className={`bento-card col-span-2 md:col-span-1 lg:col-span-2 flex flex-col ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                <div className="relative overflow-hidden rounded-xl mb-4">
+                  <img
+                    src={aboutImg}
+                    alt="Nahush Patel"
+                    className="w-full aspect-square object-cover object-top"
+                  />
                 </div>
-
-                <div className="flex flex-wrap gap-2 md:gap-3 pt-3 md:pt-4">
-                  <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-yellow-500 dark:bg-yellow-500/30 rounded-full">
-                    <Award size={16} className="text-yellow-500" />
-                    <span className="text-xs md:text-sm font-medium">Digital Marketer</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-yellow-500 dark:bg-yellow-500/30 rounded-full">
-                    <Star size={16} className="text-yellow-500" />
-                    <span className="text-xs md:text-sm font-medium">Content Creation</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-yellow-500 dark:bg-yellow-500/30 rounded-full">
-                    <TrendingUp size={16} className="text-yellow-500" />
-                    <span className="text-xs md:text-sm font-medium">SEO Specialist</span>
-                  </div>
+                <div className="mt-auto px-2 pb-2">
+                  <h3 className={`text-xl md:text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>Nahush Patel</h3>
+                  <p className="text-yellow-500 font-medium text-sm mb-2">Digital Marketing Professional</p>
+                  <p className={`text-xs flex items-center gap-1.5 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Raipur, Chhattisgarh, India
+                  </p>
                 </div>
               </div>
 
-              <div className="flex justify-center">
-                <div className="relative">
-                  <div className="w-full max-w-xs md:max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-gradient-to-r from-yellow-400 to-yellow-600">
-                    <img
-                      src={aboutImg}
-                      alt="Nahush Patel"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              {/* Core Competencies — spans full width on mobile */}
+              <div className={`bento-card col-span-2 md:col-span-3 lg:col-span-2 ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                <h3 className="text-base md:text-lg font-bold mb-3 text-yellow-500">Core Competencies</h3>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {[
+                    'Social Media Strategy', 'Content Creation', 'SEO Optimization', 'Meta Ads Manager',
+                    'Graphic Design', 'Analytics & Tracking', 'Campaign Planning', 'E-commerce Marketing',
+                    'Influencer Marketing', 'Email Marketing'
+                  ].map((c) => (
+                    <div key={c} className={`flex items-center gap-2 p-1.5 rounded-lg text-xs md:text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex-shrink-0" />
+                      {c}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stats Grid */}
+              <div className={`bento-card col-span-2 p-0 overflow-hidden ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                <div className={`grid grid-cols-2 h-full divide-x divide-y ${isDark ? 'divide-white/5' : 'divide-gray-100'}`}>
+                  {[
+                    { icon: <Star size={20} />, value: '16+', label: 'Skills Mastered' },
+                    { icon: <Code2 size={20} />, value: '6+', label: 'Tech Stack' },
+                    { icon: <Palette size={20} />, value: '6+', label: 'Design Tools' },
+                    { icon: <TrendingUp size={20} />, value: '89%', label: 'Avg Proficiency' },
+                  ].map((stat, idx) => (
+                    <div key={stat.label} className={`flex flex-col sm:flex-row items-center sm:items-start gap-3 p-4 md:p-6 ${idx === 0 || idx === 1 ? 'border-b' : ''} ${idx % 2 === 0 ? 'border-r' : ''} ${isDark ? 'border-white/5' : 'border-gray-100'}`}>
+                      <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 flex-shrink-0">
+                        {stat.icon}
+                      </div>
+                      <div className="text-center sm:text-left">
+                        <div className={`text-lg md:text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stat.value}</div>
+                        <div className={`text-[10px] md:text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{stat.label}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Skills Section */}
-        <section ref={skillsRef} id="skills" className="py-10 md:py-20 relative z-10 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/50 via-yellow-500/30 to-yellow-600/50 dark:from-yellow-400/10 dark:via-yellow-500/10 dark:to-yellow-600/10"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10 md:mb-20">
-              <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-                Skills & Expertise
-              </h2>
-              <p className="text-sm md:text-xl text-gray-400 dark:text-gray-300 max-w-2xl mx-auto">
-                Mastering the art of digital creation through cutting-edge technologies and strategic marketing excellence
+        {/* ===== SKILLS SECTION — Compact Chips ===== */}
+        <section ref={skillsRef} id="skills" className={`py-12 md:py-20 relative z-10 overflow-hidden ${isDark ? '' : 'bg-gray-50'}`}>
+          <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-yellow-400/5 via-transparent to-yellow-600/5' : 'bg-gradient-to-br from-yellow-400/10 via-transparent to-yellow-600/10'}`} />
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="section-header">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Skills & Expertise</h2>
+              <p className={`text-sm md:text-base max-w-xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                Mastering digital creation through cutting-edge technologies
               </p>
-              <div className="mt-4 md:mt-8 flex justify-center">
-                <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
-              </div>
+              <div className="section-divider" />
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-5 md:gap-10">
-              {/* Frontend Development */}
-              <div className="skill-category skill-card group relative">
-                <div className={`h-full p-4 md:p-5 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
-                  isDark 
-                    ? 'bg-[#0B1120] border-blue-500/20 shadow-[0_0_15px_rgba(37,99,235,0.1)] hover:border-blue-500/40 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)]' 
-                    : 'bg-white border-blue-500/20 shadow-xl'
-                }`}>
-                  <div className="text-center mb-6 md:mb-8">
-                    <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 shadow-[0_0_20px_rgba(59,130,246,0.5)] flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                      <Code2 className="text-white" size={24} />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-1">Content & Design</h3>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">Building engaging assets</p>
-                    <div className="w-12 h-1 bg-blue-500 rounded-full mx-auto"></div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {skills.frontend.map((skill, index) => (
-                      <div key={skill.name} className="skill-item bg-gray-100 dark:bg-[#12182A] rounded-xl p-3 md:p-4 border border-gray-200 dark:border-white/5" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                            <span className="text-lg md:text-xl">{skill.icon}</span>
-                            <span className="font-medium text-gray-800 dark:text-gray-200 text-sm md:text-base">{skill.name}</span>
-                          </div>
-                          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/40 px-2 py-1 rounded-md">{skill.level}%</span>
-                        </div>
-                        <div className="relative h-2 bg-gray-200 dark:bg-gray-800/80 rounded-full overflow-hidden shadow-inner">
-                          <div 
-                            className="h-full bg-gradient-to-r from-blue-500 to-blue-400 dark:from-blue-600 dark:to-blue-400 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)] transition-all duration-1000 ease-out"
-                            style={{ 
-                              width: `${skill.level}%`,
-                              animationDelay: `${index * 0.2}s`
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
+              {(Object.entries(skills) as [keyof typeof skills, typeof skills.frontend][]).map(([key, skillList]) => {
+                const colors = skillColors[key];
+                const titles = { frontend: 'Content & Design', marketing: 'Digital Marketing', soft: 'Strategic Tools' };
+                const icons = { frontend: <Code2 size={20} />, marketing: <Palette size={20} />, soft: <TrendingUp size={20} /> };
 
-              {/* Marketing Skills */}
-              <div className="skill-category skill-card group relative">
-                <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${isDark
-                    ? 'bg-[#0B1120] border-yellow-500/30 shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:border-yellow-500/50 hover:shadow-[0_0_35px_rgba(234,179,8,0.25)]'
-                    : 'bg-white border-yellow-500/30 shadow-xl'
+                return (
+                  <div key={key} className={`rounded-2xl p-4 md:p-5 border transition-all duration-300 hover:scale-[1.02] ${isDark
+                    ? `bg-gray-800/60 ${colors.border} hover:border-${colors.accent}-500/40`
+                    : `bg-white ${colors.border} shadow-sm hover:shadow-md`
                   }`}>
-                  <div className="text-center mb-6 md:mb-8">
-                    <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-[0_0_20px_rgba(234,179,8,0.5)] flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                      <Palette className="text-white" size={24} />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-1">Digital Marketing</h3>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">Driving growth through strategy</p>
-                    <div className="w-12 h-1 bg-yellow-500 rounded-full mx-auto"></div>
-                  </div>
-
-                  <div className="space-y-4">
-                    {skills.marketing.map((skill, index) => (
-                      <div key={skill.name} className="skill-item bg-gray-100 dark:bg-[#12182A] rounded-xl p-3 md:p-4 border border-gray-200 dark:border-white/5" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                            <span className="text-lg md:text-xl">{skill.icon}</span>
-                            <span className="font-medium text-gray-800 dark:text-gray-200 text-sm md:text-base">{skill.name}</span>
-                          </div>
-                          <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-900/40 px-2 py-1 rounded-md">{skill.level}%</span>
-                        </div>
-                        <div className="relative h-2 bg-gray-200 dark:bg-gray-800/80 rounded-full overflow-hidden shadow-inner">
-                          <div
-                            className="h-full bg-gradient-to-r from-yellow-500 to-yellow-400 dark:from-yellow-600 dark:to-yellow-400 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)] transition-all duration-1000 ease-out"
-                            style={{
-                              width: `${skill.level}%`,
-                              animationDelay: `${index * 0.2}s`
-                            }}
-                          ></div>
-                        </div>
+                    {/* Card header */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${colors.gradient} flex items-center justify-center text-white shadow-lg`}>
+                        {icons[key]}
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Strategic Skills */}
-              <div className="skill-category skill-card group relative">
-                <div className={`h-full p-5 md:p-8 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${isDark
-                    ? 'bg-[#0B1120] border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)] hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]'
-                    : 'bg-white border-cyan-500/20 shadow-xl'
-                  }`}>
-                  <div className="text-center mb-6 md:mb-8">
-                    <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 shadow-[0_0_20px_rgba(6,182,212,0.5)] flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                      <TrendingUp className="text-white" size={24} />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-1">Strategic Skills</h3>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">Business growth expertise</p>
-                    <div className="w-12 h-1 bg-cyan-500 rounded-full mx-auto"></div>
-                  </div>
-
-                  <div className="space-y-4">
-                    {skills.soft.map((skill, index) => (
-                      <div key={skill.name} className="skill-item bg-gray-100 dark:bg-[#12182A] rounded-xl p-3 md:p-4 border border-gray-200 dark:border-white/5" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                            <span className="text-lg md:text-xl">{skill.icon}</span>
-                            <span className="font-medium text-gray-800 dark:text-gray-200 text-sm md:text-base">{skill.name}</span>
-                          </div>
-                          <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-md">{skill.level}%</span>
-                        </div>
-                        <div className="relative h-2 bg-gray-200 dark:bg-gray-800/80 rounded-full overflow-hidden shadow-inner">
-                          <div
-                            className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 dark:from-cyan-600 dark:to-cyan-400 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)] transition-all duration-1000 ease-out"
-                            style={{
-                              width: `${skill.level}%`,
-                              animationDelay: `${index * 0.2}s`
-                            }}
-                          ></div>
-                        </div>
+                      <div>
+                        <h3 className="font-bold text-base">{titles[key]}</h3>
                       </div>
-                    ))}
+                    </div>
+
+                    {/* Skill chips */}
+                    <div className="space-y-1.5">
+                      {skillList.map((skill, i) => (
+                        <div key={skill.name} className={`skill-chip group ${isDark ? 'bg-gray-900/60 hover:bg-gray-900' : 'bg-gray-50 hover:bg-gray-100'} rounded-lg`}>
+                          <span className="text-base flex-shrink-0">{skill.icon}</span>
+                          <span className={`text-sm font-medium flex-1 ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>{skill.name}</span>
+                          <div className="flex items-center gap-2">
+                            <div className="w-16 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                              <div className={`h-full rounded-full bg-gradient-to-r ${colors.gradient}`} style={{ width: `${skill.level}%` }} />
+                            </div>
+                            <span className={`text-[10px] font-bold ${colors.text} opacity-70`}>{skill.level}%</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
 
-            {/* Skills Summary Stats */}
-            <div className="mt-10 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <Star className="text-white" size={24} />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2">16+</div>
-                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Skills Mastered</div>
-              </div>
-
-              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <Code2 className="text-white" size={24} />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent mb-2">6+</div>
-                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Tech Stack</div>
-              </div>
-
-              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-red-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <Palette className="text-white" size={24} />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-red-600 bg-clip-text text-transparent mb-2">6+</div>
-                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Design Tools</div>
-              </div>
-
-              <div className="text-center group p-6 rounded-2xl bg-white/40 dark:bg-[#12182A]/40 backdrop-blur-lg border border-white/50 dark:border-white/10 shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-400 to-blue-500 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="text-white" size={24} />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-yellow-400 to-blue-600 bg-clip-text text-transparent mb-2">89%</div>
-                <div className="text-sm md:text-base text-gray-700 dark:text-gray-300 font-medium">Avg Proficiency</div>
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* Projects Section */}
-        <section ref={projectsRef} id="projects" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
+        {/* ===== PROJECTS SECTION ===== */}
+        <section ref={projectsRef} id="projects" className={`py-12 md:py-20 relative z-10 ${isDark ? 'bg-gray-900/50' : 'bg-white'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Featured Projects</h2>
-              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Showcasing professional work across digital marketing and web development</p>
+            <div className="section-header">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Featured Projects</h2>
+              <p className={`text-sm md:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Showcasing professional work across digital marketing</p>
+              <div className="section-divider" />
             </div>
 
             {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10">
               {projectCategories['digital-marketing'].subcategories.map((sub) => {
                 const SubIcon = sub.icon;
                 const count = projects.filter(p => p.subCategory === sub.id).length;
@@ -860,12 +797,12 @@ const Portfolio = () => {
                   <button
                     key={sub.id}
                     onClick={() => setSelectedSubCategory(sub.id)}
-                    className={`px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${selectedSubCategory === sub.id
-                        ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black shadow-lg scale-105'
-                        : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
-                      }`}
+                    className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5 ${selectedSubCategory === sub.id
+                      ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black shadow-lg shadow-yellow-500/20 scale-105'
+                      : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-white/5' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
                   >
-                    <SubIcon size={18} />
+                    <SubIcon size={14} />
                     {sub.name} ({count})
                   </button>
                 );
@@ -874,29 +811,28 @@ const Portfolio = () => {
 
             {/* Graphic Category Filter */}
             {selectedSubCategory === 'graphic-design' && graphicCategories.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-3 mb-12">
+              <div className="flex flex-wrap justify-center gap-2 mb-8">
                 <button
                   onClick={() => setSelectedGraphicCategory('all')}
-                  className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${selectedGraphicCategory === 'all'
-                      ? 'bg-yellow-500 text-black shadow-md'
-                      : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${selectedGraphicCategory === 'all'
+                    ? 'bg-yellow-500 text-black shadow-md'
+                    : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
                 >
                   All Designs
                 </button>
-
                 {graphicCategories.map((gCat) => {
                   const count = projects.filter(p => p.category === selectedCategory && p.subCategory === 'graphic-design' && p.graphicCategory === gCat).length;
                   return (
                     <button
                       key={gCat}
                       onClick={() => setSelectedGraphicCategory(gCat)}
-                      className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 flex items-center gap-1.5 ${selectedGraphicCategory === gCat
-                          ? 'bg-yellow-500 text-black shadow-md'
-                          : 'bg-gray-100 text-gray-700 dark:text-gray-200 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
-                        }`}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-1 ${selectedGraphicCategory === gCat
+                        ? 'bg-yellow-500 text-black shadow-md'
+                        : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
                     >
-                      <Palette size={14} />
+                      <Palette size={12} />
                       {gCat} ({count})
                     </button>
                   );
@@ -905,29 +841,17 @@ const Portfolio = () => {
             )}
 
             {/* Projects Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {displayedProjects.map((project, index) => (
                 <div key={index} className="project-card group">
-                  <div className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isDark ? 'bg-gray-900' : 'bg-gray-50'} hover:scale-105`}>
-                    {/* Media Container with fixed aspect ratio to prevent shifting */}
-                    <div className="relative overflow-hidden bg-gray-800 dark:bg-gray-800">
+                  <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] ${isDark ? 'bg-gray-800/60 border border-white/5 hover:border-yellow-500/20' : 'bg-white shadow-sm hover:shadow-xl border border-gray-100'}`}>
+                    {/* Media */}
+                    <div className="relative overflow-hidden bg-gray-800">
                       {project.mediaType === 'video' ? (
-                        // Video with different aspect ratios
-                        <div className={`relative w-full ${project.aspectRatio === '9:16' ? 'aspect-[9/16] max-h-96 mx-auto' :
-                            project.aspectRatio === '1:1' ? 'aspect-square' :
-                              'aspect-video'
-                          }`}>
-                          <video
-                            className="w-full h-full object-cover"
-                            controls
-                            poster={`https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&h=600&fit=crop`}
-                          >
+                        <div className={`relative w-full ${project.aspectRatio === '9:16' ? 'aspect-[9/16] max-h-96 mx-auto' : project.aspectRatio === '1:1' ? 'aspect-square' : 'aspect-video'}`}>
+                          <video className="w-full h-full object-cover" controls>
                             <source src={project.video} type="video/mp4" />
-                            Your browser does not support the video tag.
                           </video>
-                          <div className="absolute top-4 left-4 bg-black/60 text-white px-2 py-1 rounded text-xs font-medium">
-                            {project.aspectRatio}
-                          </div>
                         </div>
                       ) : project.mediaType === 'iframe' ? (
                         <div className="relative w-full overflow-hidden aspect-[9/16]">
@@ -941,12 +865,11 @@ const Portfolio = () => {
                           />
                         </div>
                       ) : (
-                        // Image with border for graphic design
                         <div
-                          className={`relative ${project.subCategory === 'graphic-design' ? 'p-4 cursor-pointer' : ''}`}
+                          className={`relative ${project.subCategory === 'graphic-design' ? 'p-3 cursor-pointer' : ''}`}
                           onClick={() => project.subCategory === 'graphic-design' && setLightboxIndex(index)}
                         >
-                          <div className={`${project.subCategory === 'graphic-design' ? 'border-4 border-white dark:border-gray-700 rounded-lg shadow-lg' : ''} overflow-hidden aspect-[4/3]`}>
+                          <div className={`${project.subCategory === 'graphic-design' ? 'border-2 border-white/10 rounded-lg' : ''} overflow-hidden aspect-[4/3]`}>
                             <img
                               src={project.image}
                               alt={project.title}
@@ -956,37 +879,30 @@ const Portfolio = () => {
                           </div>
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </div>
 
+                    {/* Info */}
                     {project.subCategory !== 'graphic-design' && (
-                      <div className="p-4 md:p-6">
-                        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors">{project.title}</h3>
-                        <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
+                      <div className="p-4">
+                        <h3 className={`text-base font-bold mb-2 group-hover:text-yellow-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
+                        <p className={`text-xs mb-3 leading-relaxed line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                           {project.description}
                         </p>
-
-                        <div className="flex flex-wrap gap-2 mb-4">
+                        <div className="flex flex-wrap gap-1.5 mb-3">
                           {project.tools.slice(0, 3).map((tool) => (
-                            <span key={tool} className="px-2 py-1 bg-gradient-to-r from-yellow-400 to-yellow-600 dark:from-yellow-400/30 dark:to-yellow-600/30 text-xs rounded-md font-medium">
+                            <span key={tool} className={`px-2 py-0.5 text-[10px] rounded-md font-semibold ${isDark ? 'bg-yellow-500/10 text-yellow-400' : 'bg-yellow-50 text-yellow-700'}`}>
                               {tool}
                             </span>
                           ))}
-                          {project.tools.length > 3 && (
-                            <span className="px-2 py-1 bg-gray-200 text-gray-700 dark:text-gray-300 dark:bg-gray-700 text-xs rounded-md">
-                              +{project.tools.length - 3} more
-                            </span>
-                          )}
                         </div>
-
                         <a
                           href={project.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-yellow-500 hover:text-yellow-500 font-medium text-sm transition-colors group-hover:gap-3"
+                          className="inline-flex items-center gap-1.5 text-yellow-500 hover:text-yellow-400 font-semibold text-xs transition-colors"
                         >
-                          <ExternalLink size={16} />
+                          <ExternalLink size={14} />
                           View Project
                         </a>
                       </div>
@@ -997,10 +913,10 @@ const Portfolio = () => {
             </div>
 
             {visibleProjectsCount < filteredProjects.length && (
-              <div className="text-center mt-10 md:mt-16">
+              <div className="text-center mt-8 md:mt-12">
                 <button
                   onClick={() => setVisibleProjectsCount(prev => prev + 6)}
-                  className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium shadow-md"
+                  className="btn-shimmer px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full hover:shadow-lg hover:shadow-yellow-500/25 transition-all duration-300 hover:scale-105 font-semibold text-sm"
                 >
                   See More Projects
                 </button>
@@ -1009,50 +925,43 @@ const Portfolio = () => {
 
             {filteredProjects.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-xl text-gray-600 dark:text-gray-400">No projects found in this category.</p>
+                <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>No projects found in this category.</p>
               </div>
             )}
           </div>
         </section>
 
-        {/* Experience Section */}
-        <section ref={experienceRef} id="experience" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Experience & Education</h2>
-              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Professional journey and academic background</p>
+        {/* ===== EXPERIENCE SECTION — Timeline ===== */}
+        <section ref={experienceRef} id="experience" className={`py-12 md:py-20 relative z-10 ${isDark ? '' : 'bg-gray-50'}`}>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="section-header">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Experience & Education</h2>
+              <p className={`text-sm md:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Professional journey and academic background</p>
+              <div className="section-divider" />
             </div>
 
-            <div className="mb-10 md:mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Work Experiences</h3>
-              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
+            {/* Work Experience — Timeline */}
+            <div className="mb-10">
+              <div className="flex items-center gap-2 mb-6">
+                <Briefcase size={20} className="text-yellow-500" />
+                <h3 className="text-xl md:text-2xl font-bold">Work Experience</h3>
+              </div>
+
+              <div className="timeline timeline-desktop">
                 {experiences.filter(e => e.category === 'work-experience').map((exp, index) => {
-                  const titleParts = exp.title.split(' @ ');
-                  const role = titleParts[0].replace(/\s*\(.*?\)\s*/g, '');
-                  const company = titleParts[1] ? titleParts[1].split(' (')[0] : '';
-                  const dateMatch = exp.title.match(/\((.*?)\)/);
-                  const date = dateMatch ? dateMatch[1] : '';
-                  
+                  const { role, company, date } = parseExpTitle(exp.title);
                   return (
-                    <div key={index} className={`relative p-6 md:p-8 rounded-3xl border ${isDark ? 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-yellow-500/50' : 'border-gray-200 bg-white hover:shadow-xl hover:border-yellow-400'} backdrop-blur-sm transition-all duration-500 group overflow-hidden hover:-translate-y-1`}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 to-yellow-600/0 group-hover:from-yellow-400/5 group-hover:to-yellow-600/5 transition-all duration-500 z-0"></div>
-                      <div className="relative z-10 flex flex-col h-full">
-                        <h4 className="font-extrabold text-lg md:text-xl lg:text-2xl mb-2 text-gray-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-yellow-600 transition-all duration-300">
-                          {role}
-                        </h4>
-                        {(company || date) && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
-                            {company && <span className="text-yellow-600 dark:text-yellow-400 font-bold text-sm md:text-base tracking-wide uppercase">{company}</span>}
-                            {company && date && <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>}
-                            {date && <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium font-mono bg-gray-100 dark:bg-gray-800/50 px-2 py-1 rounded-md inline-block w-fit">{date}</span>}
-                          </div>
-                        )}
-                        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors flex-grow">
-                          {exp.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mt-auto">
+                    <div key={index} className="timeline-item">
+                      <div className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
+                        <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          {company && <span className="text-yellow-500 text-xs font-bold uppercase tracking-wide">{company}</span>}
+                          {date && <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
+                        </div>
+                        <p className={`text-xs leading-relaxed mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{exp.description}</p>
+                        <div className="flex flex-wrap gap-1.5 timeline-tags">
                           {exp.tools.map(tool => (
-                            <span key={tool} className="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/20 text-xs rounded-full font-semibold shadow-sm group-hover:border-yellow-400/50 transition-colors">
+                            <span key={tool} className={`px-2 py-0.5 text-[10px] rounded-full font-semibold ${isDark ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20' : 'bg-yellow-50 text-yellow-700 border border-yellow-200'}`}>
                               {tool}
                             </span>
                           ))}
@@ -1064,78 +973,86 @@ const Portfolio = () => {
               </div>
             </div>
 
-            <div className="mb-10 md:mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Project-Based Experience</h3>
-              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-                {experiences.filter(e => e.category === 'project-based').map((exp, index) => {
-                  const titleParts = exp.title.split(' @ ');
-                  const role = titleParts[0].replace(/\s*\(.*?\)\s*/g, '');
-                  const company = titleParts[1] ? titleParts[1].split(' (')[0] : '';
-                  const dateMatch = exp.title.match(/\((.*?)\)/);
-                  const date = dateMatch ? dateMatch[1] : '';
-                  
-                  return (
-                    <div key={index} className={`relative p-6 md:p-8 rounded-3xl border ${isDark ? 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-yellow-500/50' : 'border-gray-200 bg-white hover:shadow-xl hover:border-yellow-400'} backdrop-blur-sm transition-all duration-500 group overflow-hidden hover:-translate-y-1`}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 to-yellow-600/0 group-hover:from-yellow-400/5 group-hover:to-yellow-600/5 transition-all duration-500 z-0"></div>
-                      <div className="relative z-10 flex flex-col h-full">
-                        <h4 className="font-extrabold text-lg md:text-xl lg:text-2xl mb-2 text-gray-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-yellow-600 transition-all duration-300">
-                          {role}
-                        </h4>
-                        {(company || date) && (
-                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
-                            {company && <span className="text-yellow-600 dark:text-yellow-400 font-bold text-sm md:text-base tracking-wide uppercase">{company}</span>}
-                            {company && date && <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>}
-                            {date && <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium font-mono bg-gray-100 dark:bg-gray-800/50 px-2 py-1 rounded-md inline-block w-fit">{date}</span>}
-                          </div>
-                        )}
-                        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors flex-grow">
-                          {exp.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mt-auto">
+            {/* Project-Based Experience — Collapsible */}
+            <div className="mb-10">
+              <button
+                onClick={() => setExpandedTimeline(prev => ({ ...prev, 'project-based': !prev['project-based'] }))}
+                className="flex items-center gap-2 mb-6 group"
+              >
+                <Users size={20} className="text-yellow-500" />
+                <h3 className="text-xl md:text-2xl font-bold">Project-Based Work</h3>
+                <ChevronDown size={18} className={`text-gray-400 transition-transform ${expandedTimeline['project-based'] ? 'rotate-180' : ''}`} />
+              </button>
+
+              {expandedTimeline['project-based'] && (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {experiences.filter(e => e.category === 'project-based').map((exp, index) => {
+                    const { role, company, date } = parseExpTitle(exp.title);
+                    return (
+                      <div key={index} className={`p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
+                        <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
+                        {date && <span className={`text-[10px] font-mono px-2 py-0.5 rounded inline-block mb-2 ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
+                        <p className={`text-xs leading-relaxed mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{exp.description}</p>
+                        <div className="flex flex-wrap gap-1.5">
                           {exp.tools.map(tool => (
-                            <span key={tool} className="px-3 py-1.5 bg-yellow-50 dark:bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/20 text-xs rounded-full font-semibold shadow-sm group-hover:border-yellow-400/50 transition-colors">
+                            <span key={tool} className={`px-2 py-0.5 text-[10px] rounded-full font-semibold ${isDark ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20' : 'bg-yellow-50 text-yellow-700 border border-yellow-200'}`}>
                               {tool}
                             </span>
                           ))}
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            <div className="mb-10 md:mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Social Media Accounts Managed</h3>
-              <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
-                {managedAccounts.map((account, index) => (
-                  <a
-                    key={index}
-                    href={account.url}
-                    target={account.url !== '#' ? "_blank" : undefined}
-                    rel={account.url !== '#' ? "noopener noreferrer" : undefined}
-                    className={`w-full sm:w-[calc(50%-0.5rem)] md:w-72 lg:w-80 p-4 rounded-xl border-2 border-solid ${isDark ? 'border-gray-700 bg-gray-800 hover:border-yellow-500' : 'border-gray-200 bg-white hover:border-yellow-500'} transition-all duration-300 hover:shadow-lg flex items-center justify-between group ${account.url === '#' ? 'cursor-default' : 'cursor-pointer'}`}
-                  >
-                    <span className="font-semibold text-sm md:text-base text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors">{account.name}</span>
-                    {account.url !== '#' && <ExternalLink size={16} className="text-gray-400 group-hover:text-yellow-500 transition-colors flex-shrink-0 ml-2" />}
-                  </a>
-                ))}
-              </div>
+            {/* Managed Accounts — Collapsible */}
+            <div className="mb-10">
+              <button
+                onClick={() => setExpandedTimeline(prev => ({ ...prev, 'managed': !prev['managed'] }))}
+                className="flex items-center gap-2 mb-6 group"
+              >
+                <Globe size={20} className="text-yellow-500" />
+                <h3 className="text-xl md:text-2xl font-bold">Accounts Managed</h3>
+                <ChevronDown size={18} className={`text-gray-400 transition-transform ${expandedTimeline['managed'] ? 'rotate-180' : ''}`} />
+              </button>
+
+              {expandedTimeline['managed'] && (
+                <div className="flex flex-wrap gap-3">
+                  {managedAccounts.map((account, index) => (
+                    <a
+                      key={index}
+                      href={account.url}
+                      target={account.url !== '#' ? "_blank" : undefined}
+                      rel={account.url !== '#' ? "noopener noreferrer" : undefined}
+                      className={`px-4 py-2.5 rounded-xl border transition-all duration-300 hover:scale-105 flex items-center gap-2 text-sm font-medium ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30 text-white' : 'bg-white border-gray-100 shadow-sm hover:shadow-md text-gray-900'}`}
+                    >
+                      <img src={instagramIcon} alt="IG" className="w-4 h-4" />
+                      {account.name}
+                      {account.url !== '#' && <ExternalLink size={12} className="text-gray-400" />}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
 
+            {/* Education */}
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-5 md:mb-8 text-center text-gray-900 dark:text-white">Education & Certifications</h3>
-              <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
+              <div className="flex items-center gap-2 mb-6">
+                <GraduationCap size={20} className="text-yellow-500" />
+                <h3 className="text-xl md:text-2xl font-bold">Education & Certifications</h3>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {certifications.map((cert, index) => (
-                  <div key={index} className={`certification-card p-5 md:p-8 rounded-2xl border-2 border-dashed ${isDark ? 'border-gray-600 hover:border-yellow-500 hover:bg-yellow-500/10' : 'border-gray-300 hover:border-yellow-500 hover:bg-yellow-500'} transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-lg`}>
-                    <div className="text-center">
-                      <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
-                        <Award className="text-white" size={24} />
-                      </div>
-                      <h3 className="font-bold mb-2 md:mb-3 text-base md:text-xl text-gray-900 dark:text-white">{cert.name}</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-xs md:text-base mb-1.5 md:mb-2 font-medium">{cert.issuer}</p>
-                      <p className="text-yellow-500 dark:text-yellow-500 text-sm md:text-base font-semibold">{cert.year}</p>
+                  <div key={index} className={`certification-card p-4 rounded-2xl border text-center transition-all duration-300 hover:scale-105 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
+                    <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Award className="text-white" size={16} />
                     </div>
+                    <h4 className="font-bold text-xs md:text-sm mb-1">{cert.name}</h4>
+                    <p className={`text-[10px] md:text-xs mb-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{cert.issuer}</p>
+                    <p className="text-yellow-500 text-xs font-bold">{cert.year}</p>
                   </div>
                 ))}
               </div>
@@ -1143,95 +1060,93 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section ref={contactRef} id="contact" className={`py-10 md:py-20 relative z-10 ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-2 md:mb-4 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Get In Touch</h2>
-              <p className="text-sm md:text-xl text-gray-600 dark:text-gray-300">Let's discuss how we can work together</p>
+        {/* ===== CONTACT SECTION ===== */}
+        <section ref={contactRef} id="contact" className={`py-12 md:py-20 relative z-10 ${isDark ? 'bg-gray-900/50' : 'bg-white'}`}>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="section-header">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Get In Touch</h2>
+              <p className={`text-sm md:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Let's discuss how we can work together</p>
+              <div className="section-divider" />
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-              <div className="space-y-6 md:space-y-8">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Contact Information</h3>
-                  <div className="space-y-4">
-                    <div className={`p-4 md:p-6 rounded-2xl flex items-center gap-4 ${isDark ? 'bg-gray-900 hover:bg-gray-700' : 'bg-gray-50 hover:bg-gray-100'} transition-all duration-300 hover:scale-105 shadow-md`}>
-                      <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <Mail size={20} className="text-black" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-sm md:text-lg mb-1 text-gray-900 dark:text-white">Email</h3>
-                        <a href="mailto:nahushpatel880@gmail.com" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
-                          nahushpatel880@gmail.com
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className={`p-4 md:p-6 rounded-2xl flex items-center gap-4 ${isDark ? 'bg-gray-900 hover:bg-gray-700' : 'bg-gray-50 hover:bg-gray-100'} transition-all duration-300 hover:scale-105 shadow-md`}>
-                      <div className="w-10 h-10 md:w-14 md:h-14 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
-                        <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-sm md:text-lg mb-1 text-gray-900 dark:text-white">WhatsApp</h3>
-                        <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className="text-xs md:text-base text-gray-600 dark:text-gray-300 hover:text-yellow-500 transition-colors">
-                          +91 787-578-3498
-                        </a>
-                      </div>
-                    </div>
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-10">
+              {/* Contact info */}
+              <div className="space-y-4">
+                <div className={`p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-gray-50 border border-gray-100'}`}>
+                  <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Mail size={18} className="text-black" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm">Email</h4>
+                    <a href="mailto:nahushpatel880@gmail.com" className={`text-xs hover:text-yellow-500 transition-colors ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                      nahushpatel880@gmail.com
+                    </a>
                   </div>
                 </div>
 
-                <div className="flex gap-4 md:gap-6 mt-6 md:mt-8">
-                  <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
-                    <Linkedin size={18} />
+                <div className={`p-4 rounded-2xl flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-gray-50 border border-gray-100'}`}>
+                  <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center flex-shrink-0 border border-gray-700">
+                    <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm">WhatsApp</h4>
+                    <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className={`text-xs hover:text-yellow-500 transition-colors ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                      +91 787-578-3498
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500 text-gray-400 hover:text-black' : 'bg-gray-100 hover:bg-yellow-500 text-gray-500 hover:text-black'}`}>
+                    <Linkedin size={16} />
                   </a>
-                  <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
-                    <Github size={18} />
+                  <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500 text-gray-400 hover:text-black' : 'bg-gray-100 hover:bg-yellow-500 text-gray-500 hover:text-black'}`}>
+                    <Github size={16} />
                   </a>
-                  <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-white dark:hover:text-black transition-all duration-300 hover:scale-110 shadow-md">
-                    <img src={whatsappIcon} alt="WhatsApp" className="w-6 h-6 md:w-8 md:h-8" />
+                  <a href="https://wa.me/917875783498" target="_blank" rel="noopener noreferrer" className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${isDark ? 'bg-gray-800 hover:bg-yellow-500' : 'bg-gray-100 hover:bg-yellow-500'}`}>
+                    <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
                   </a>
                 </div>
               </div>
 
-              <div className={`p-6 md:p-10 rounded-2xl shadow-xl ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Send Message</h3>
-                <form className="space-y-4 md:space-y-6" onSubmit={handleContactSubmit}>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Name</label>
+              {/* Contact form with floating labels */}
+              <div className={`p-5 md:p-8 rounded-2xl ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-gray-50 border border-gray-100'}`}>
+                <h3 className="text-lg font-bold mb-5">Send Message</h3>
+                <form className="space-y-4" onSubmit={handleContactSubmit}>
+                  <div className="floating-label-group">
                     <input
                       type="text"
                       name="name"
                       required
-                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border ${isDark ? 'border-gray-700' : 'border-gray-300'} focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors text-sm md:text-base text-gray-900 dark:text-white outline-none`}
-                      placeholder="Your name"
+                      placeholder=" "
+                      className={`w-full px-4 py-3 rounded-xl border transition-colors text-sm outline-none ${isDark ? 'bg-gray-900/60 border-gray-700 focus:border-yellow-500 text-white' : 'bg-white border-gray-200 focus:border-yellow-500 text-gray-900'}`}
                     />
+                    <label>Your name</label>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
+                  <div className="floating-label-group">
                     <input
                       type="email"
                       name="email"
                       required
-                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border ${isDark ? 'border-gray-700' : 'border-gray-300'} focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors text-sm md:text-base text-gray-900 dark:text-white outline-none`}
-                      placeholder="your@email.com"
+                      placeholder=" "
+                      className={`w-full px-4 py-3 rounded-xl border transition-colors text-sm outline-none ${isDark ? 'bg-gray-900/60 border-gray-700 focus:border-yellow-500 text-white' : 'bg-white border-gray-200 focus:border-yellow-500 text-gray-900'}`}
                     />
+                    <label>Your email</label>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Message</label>
+                  <div className="floating-label-group">
                     <textarea
                       name="message"
                       required
-                      rows={5}
-                      className={`w-full px-4 py-3 rounded-lg bg-white dark:bg-gray-800 border ${isDark ? 'border-gray-700' : 'border-gray-300'} focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-colors text-sm md:text-base text-gray-900 dark:text-white outline-none`}
-                      placeholder="Tell me about your project..."
-                    ></textarea>
+                      rows={4}
+                      placeholder=" "
+                      className={`w-full px-4 py-3 rounded-xl border transition-colors text-sm outline-none resize-none ${isDark ? 'bg-gray-900/60 border-gray-700 focus:border-yellow-500 text-white' : 'bg-white border-gray-200 focus:border-yellow-500 text-gray-900'}`}
+                    />
+                    <label>Your message</label>
                   </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 font-medium disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="btn-shimmer w-full px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-xl hover:shadow-lg hover:shadow-yellow-500/25 transition-all duration-300 hover:scale-[1.02] font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
@@ -1241,42 +1156,39 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className={`py-8 md:py-12 relative z-10 ${isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-gray-50 border-t border-gray-200'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <div className="flex justify-center space-x-6 mb-6">
-                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-yellow-500 transition-colors">
-                  <Linkedin size={24} />
+        {/* ===== FOOTER — Minimal Single-Row ===== */}
+        <footer className={`py-6 relative z-10 ${isDark ? 'bg-gray-950 border-t border-white/5' : 'bg-gray-50 border-t border-gray-200'}`}>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="font-bold text-sm bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                Nahush Patel
+              </span>
+              <div className="flex items-center gap-4">
+                <a href="https://www.linkedin.com/in/nahush-patel/" target="_blank" rel="noopener noreferrer" className={`hover:text-yellow-500 transition-colors ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                  <Linkedin size={16} />
                 </a>
-                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                  <Github size={24} />
+                <a href="https://github.com/deviljitu1" target="_blank" rel="noopener noreferrer" className={`hover:text-yellow-500 transition-colors ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                  <Github size={16} />
                 </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:scale-110 transition-transform inline-block">
-                  <img src={instagramIcon} alt="Instagram" className="w-6 h-6" />
-                </a>
-                <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-yellow-500 transition-colors">
-                  <Globe size={24} />
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+                  <img src={instagramIcon} alt="Instagram" className="w-4 h-4" />
                 </a>
               </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">
+              <p className={`text-xs ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
                 © 2026 Nahush Patel. All rights reserved.
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">
-                Digital Marketing Professional | Building Digital Experiences
               </p>
             </div>
           </div>
         </footer>
 
-        {/* Lightbox Modal */}
+        {/* ===== LIGHTBOX ===== */}
         {lightboxIndex !== null && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm" onClick={() => setLightboxIndex(null)}>
             <button
               className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 z-[101]"
               onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }}
             >
-              <X size={32} />
+              <X size={28} />
             </button>
 
             <button
@@ -1296,7 +1208,7 @@ const Portfolio = () => {
                 setLightboxIndex(Math.max(0, prevIndex));
               }}
             >
-              <ChevronLeft size={48} />
+              <ChevronLeft size={40} />
             </button>
 
             <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center p-4">
@@ -1325,7 +1237,7 @@ const Portfolio = () => {
                 setLightboxIndex(Math.min(filteredProjects.length - 1, nextIndex));
               }}
             >
-              <ChevronRight size={48} />
+              <ChevronRight size={40} />
             </button>
           </div>
         )}

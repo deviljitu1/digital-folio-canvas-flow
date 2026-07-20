@@ -45,6 +45,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --gold-400: #facc15;
+    --gold-500: #eab308;
+    --gold-600: #ca8a04;
   }
 
   .dark {
@@ -93,6 +97,7 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Outfit', sans-serif;
   }
 
   html {
@@ -100,7 +105,423 @@
   }
 }
 
-/* Custom Animations */
+/* ========================================
+   NAVIGATION — Floating Glass Pill
+   ======================================== */
+
+.nav-floating {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.nav-floating.light-mode {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.nav-floating.dark-mode {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(234, 179, 8, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 40px rgba(234, 179, 8, 0.05);
+}
+
+.nav-floating.nav-hidden {
+  transform: translateX(-50%) translateY(-120%);
+  opacity: 0;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--gold-500);
+}
+
+.nav-link.active {
+  color: var(--gold-500);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  box-shadow: 0 0 8px var(--gold-500);
+}
+
+/* Mobile full-screen overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-overlay.dark-mode {
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.mobile-nav-overlay.light-mode {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.mobile-nav-link {
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.mobile-nav-overlay.open .mobile-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-nav-overlay.open .mobile-nav-link:nth-child(1) { transition-delay: 0.05s; }
+.mobile-nav-overlay.open .mobile-nav-link:nth-child(2) { transition-delay: 0.10s; }
+.mobile-nav-overlay.open .mobile-nav-link:nth-child(3) { transition-delay: 0.15s; }
+.mobile-nav-overlay.open .mobile-nav-link:nth-child(4) { transition-delay: 0.20s; }
+.mobile-nav-overlay.open .mobile-nav-link:nth-child(5) { transition-delay: 0.25s; }
+.mobile-nav-overlay.open .mobile-nav-link:nth-child(6) { transition-delay: 0.30s; }
+
+/* ========================================
+   HERO — Glow Ring & Typewriter
+   ======================================== */
+
+.hero-glow-ring {
+  position: relative;
+  border-radius: 50%;
+}
+
+.hero-glow-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #facc15, #ca8a04, #facc15, #eab308, #facc15);
+  animation: glow-ring-rotate 4s linear infinite;
+  z-index: -1;
+}
+
+.hero-glow-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #facc15, #ca8a04, #facc15, #eab308, #facc15);
+  animation: glow-ring-rotate 4s linear infinite;
+  filter: blur(16px);
+  opacity: 0.6;
+  z-index: -2;
+}
+
+@keyframes glow-ring-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Typewriter cursor */
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background: var(--gold-500);
+  margin-left: 2px;
+  animation: cursor-blink 0.8s steps(1) infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Shimmer button */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: none;
+}
+
+.btn-shimmer:hover::after {
+  animation: shimmer-sweep 0.6s ease;
+}
+
+@keyframes shimmer-sweep {
+  to { left: 100%; }
+}
+
+/* Hero particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  opacity: 0.3;
+  animation: float-particle var(--duration, 6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(var(--dx, 30px), var(--dy, -40px)) scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+/* ========================================
+   BENTO GRID — About section
+   ======================================== */
+
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.bento-card {
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ========================================
+   SKILLS — Compact Chip Style
+   ======================================== */
+
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.skill-chip:hover {
+  transform: translateX(4px);
+}
+
+.skill-chip .skill-level-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.skill-chip:hover .skill-level-dot {
+  transform: scale(1.5);
+}
+
+/* ========================================
+   TIMELINE — Vertical Experience
+   ======================================== */
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #facc15, #ca8a04, transparent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 0.375rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #eab308;
+  border: 3px solid #0f172a;
+  z-index: 1;
+  box-shadow: 0 0 12px rgba(234, 179, 8, 0.4);
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .timeline-desktop {
+    padding-left: 0;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .timeline-desktop::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timeline-desktop .timeline-item {
+    width: 50%;
+    padding-left: 0;
+  }
+
+  .timeline-desktop .timeline-item:nth-child(odd) {
+    padding-right: 2.5rem;
+    text-align: right;
+    margin-left: 0;
+  }
+
+  .timeline-desktop .timeline-item:nth-child(odd)::before {
+    right: -6px;
+    left: auto;
+  }
+
+  .timeline-desktop .timeline-item:nth-child(odd) .timeline-tags {
+    justify-content: flex-end;
+  }
+
+  .timeline-desktop .timeline-item:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 2.5rem;
+  }
+
+  .timeline-desktop .timeline-item:nth-child(even)::before {
+    left: -6px;
+  }
+}
+
+/* ========================================
+   FLOATING LABEL INPUTS
+   ======================================== */
+
+.floating-label-group {
+  position: relative;
+}
+
+.floating-label-group input,
+.floating-label-group textarea {
+  padding-top: 1.25rem;
+}
+
+.floating-label-group label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  color: #9ca3af;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.floating-label-group textarea ~ label {
+  top: 1.25rem;
+  transform: none;
+}
+
+.floating-label-group input:focus ~ label,
+.floating-label-group input:not(:placeholder-shown) ~ label,
+.floating-label-group textarea:focus ~ label,
+.floating-label-group textarea:not(:placeholder-shown) ~ label {
+  top: 0.375rem;
+  left: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--gold-500);
+  transform: none;
+}
+
+/* ========================================
+   GENERAL ANIMATIONS
+   ======================================== */
+
 @keyframes gradient-x {
   0%, 100% {
     background-size: 200% 200%;
@@ -113,64 +534,30 @@
 }
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-  }
-}
+.animate-gradient-x { animation: gradient-x 15s ease infinite; }
+.animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
 
-/* Custom Utilities */
-.animate-gradient-x {
-  animation: gradient-x 15s ease infinite;
-}
+.delay-300 { animation-delay: 0.3s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-700 { animation-delay: 0.7s; }
 
-.animate-fade-in {
-  animation: fade-in 0.8s ease-out forwards;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
-}
-
-.delay-500 {
-  animation-delay: 0.5s;
-}
-
-.delay-700 {
-  animation-delay: 0.7s;
-}
-
-/* Glassmorphism Effects */
+/* Glassmorphism */
 .glass {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -182,7 +569,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Hover Effects */
+/* Hover lift */
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -196,28 +583,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Skill Category Animations */
-.skill-category .skill-item {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slide-in 0.6s ease forwards;
-}
-
-.skill-category .skill-item:nth-child(1) { animation-delay: 0.1s; }
-.skill-category .skill-item:nth-child(2) { animation-delay: 0.2s; }
-.skill-category .skill-item:nth-child(3) { animation-delay: 0.3s; }
-.skill-category .skill-item:nth-child(4) { animation-delay: 0.4s; }
-.skill-category .skill-item:nth-child(5) { animation-delay: 0.5s; }
-.skill-category .skill-item:nth-child(6) { animation-delay: 0.6s; }
-
-@keyframes slide-in {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Project Card Animations */
+/* Project Card */
 .project-card {
   opacity: 0;
   transform: translateY(30px);
@@ -231,13 +597,10 @@
 .project-card:nth-child(5) { animation-delay: 0.5s; }
 
 @keyframes project-appear {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Certification Card Animations */
+/* Certification Card */
 .certification-card {
   opacity: 0;
   transform: scale(0.8);
@@ -250,10 +613,7 @@
 .certification-card:nth-child(4) { animation-delay: 0.4s; }
 
 @keyframes cert-pop {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* Scroll Indicator */
@@ -262,145 +622,64 @@
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+  background: linear-gradient(90deg, #facc15, #eab308, #ca8a04);
   z-index: 1000;
   transition: width 0.3s ease;
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
-
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  border-radius: 4px;
+  background: linear-gradient(135deg, #facc15, #ca8a04);
+  border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #eab308, #a16207);
 }
 
-/* Responsive Typography */
-@media (max-width: 640px) {
-  .hero-title {
-    font-size: 2.5rem;
-    line-height: 1.2;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.25rem;
-  }
-}
-
-/* Focus States for Accessibility */
-button:focus,
-a:focus,
-input:focus,
-textarea:focus {
-  outline: 2px solid #3b82f6;
+/* Focus States */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold-500);
   outline-offset: 2px;
-}
-
-/* High Contrast Mode Support */
-@media (prefers-contrast: high) {
-  .bg-gradient-to-r {
-    background: #1e40af !important;
-  }
-  
-  .text-gray-600 {
-    color: #374151 !important;
-  }
-  
-  .dark .text-gray-300 {
-    color: #f3f4f6 !important;
-  }
 }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-/* Enhanced Skill Animations */
-.skill-category .skill-item {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: skill-slide-in 0.8s ease forwards;
+/* Section header reusable */
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.skill-category .skill-item:nth-child(1) { animation-delay: 0.1s; }
-.skill-category .skill-item:nth-child(2) { animation-delay: 0.2s; }
-.skill-category .skill-item:nth-child(3) { animation-delay: 0.3s; }
-.skill-category .skill-item:nth-child(4) { animation-delay: 0.4s; }
-.skill-category .skill-item:nth-child(5) { animation-delay: 0.5s; }
-.skill-category .skill-item:nth-child(6) { animation-delay: 0.6s; }
-
-@keyframes skill-slide-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@media (min-width: 768px) {
+  .section-header { margin-bottom: 4rem; }
 }
 
-/* Skill Progress Bar Animation */
-.skill-category .skill-item .bg-gradient-to-r {
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: progress-fill 1.5s ease-out forwards;
+.section-divider {
+  width: 3rem;
+  height: 3px;
+  margin: 0.75rem auto 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #facc15, #ca8a04);
 }
 
-@keyframes progress-fill {
-  to {
-    transform: scaleX(1);
-  }
+/* Responsive */
+@media (max-width: 640px) {
+  .hero-title { font-size: 2rem; line-height: 1.2; }
+  .hero-subtitle { font-size: 1.125rem; }
 }
 
-/* Enhanced Hover Effects for Skill Cards */
-.skill-category .group:hover {
-  transform: translateY(-10px);
-}
-
-.skill-category .group:hover .w-16 {
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-}
-
-/* Glassmorphism Enhancement */
-.skill-category .backdrop-blur-sm {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Skills Summary Stats Animation */
-.text-center.group:hover .w-20 {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-}
-
-.dark .text-center.group:hover .w-20 {
-  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1);
-}
-
-/* Responsive Enhancements */
 @media (max-width: 768px) {
-  .skill-category {
-    margin-bottom: 2rem;
-  }
-  
-  .skill-category .p-8 {
-    padding: 1.5rem;
-  }
-  
-  .skill-category .text-2xl {
-    font-size: 1.5rem;
-  }
+  .skill-category { margin-bottom: 1rem; }
 }
