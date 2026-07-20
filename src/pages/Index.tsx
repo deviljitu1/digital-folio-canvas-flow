@@ -30,10 +30,11 @@ import semrushIcon from "@/assets/Icons/semrush-icon.svg";
 import shopifyIcon from "@/assets/Icons/shopify-icon.svg";
 import whatsappIcon from "@/assets/Icons/wa-whatsapp-icon.svg";
 import canvaIcon from "@/assets/Icons/canva-icon-graphic-design.svg";
-import ecommerceIcon from "@/assets/Icons/e-commerce.svg";
+import eCommerceIcon from "@/assets/Icons/e-commerce.svg";
 import mailchimpIcon from "@/assets/Icons/mailchimp-email-marketing.svg";
 import seoIcon from "@/assets/Icons/seo.svg";
 import youtubeStudioIcon from "@/assets/Icons/youtube-studio-icon.svg";
+import metaAdsManagerIcon from "@/assets/Icons/meta-ads-manager-icon.svg";
 
 type Project = {
   title: string;
@@ -478,24 +479,24 @@ const Portfolio = () => {
   const skills = {
     frontend: [
       { name: "Content Creation", level: 95, icon: "✍️" },
-      { name: "Graphic Design", level: 90, icon: "🎨" },
-      { name: "Email Marketing", level: 88, icon: "📧" },
+      { name: "Graphic Design", level: 90, icon: <img src={canvaIcon} alt="Graphic Design" className="w-5 h-5" /> },
+      { name: "Email Marketing", level: 88, icon: <img src={mailchimpIcon} alt="Email Marketing" className="w-5 h-5" /> },
       { name: "Marketing Automation", level: 90, icon: <img src={n8nIcon} alt="n8n" className="w-5 h-5" /> },
       { name: "React JS", level: 82, icon: <img src={reactJsIcon} alt="React" className="w-5 h-5" /> },
-      { name: "E-commerce Marketing", level: 82, icon: "🛒" }
+      { name: "E-commerce Marketing", level: 82, icon: <img src={eCommerceIcon} alt="E-commerce" className="w-5 h-5" /> }
     ],
     marketing: [
       { name: "Social Media Mgt", level: 95, icon: <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" /> },
-      { name: "Meta Ads Manager", level: 92, icon: <img src={metaIconNew} alt="Meta" className="w-5 h-5" /> },
-      { name: "SEO Optimization", level: 88, icon: "🔍" },
+      { name: "Meta Ads Manager", level: 92, icon: <img src={metaAdsManagerIcon} alt="Meta Ads Manager" className="w-5 h-5" /> },
+      { name: "SEO Optimization", level: 88, icon: <img src={seoIcon} alt="SEO" className="w-5 h-5" /> },
       { name: "Google My Business", level: 90, icon: <img src={googleMyBusinessIcon} alt="GMB" className="w-5 h-5" /> },
       { name: "Influencer Marketing", level: 85, icon: "🤝" },
       { name: "Google Analytics", level: 87, icon: <img src={googleAnalyticsIcon} alt="Analytics" className="w-5 h-5" /> }
     ],
     soft: [
       { name: "Meta Business Suite", level: 93, icon: <img src={metaIconNew} alt="Meta" className="w-5 h-5" /> },
-      { name: "YouTube Studio", level: 88, icon: "▶️" },
-      { name: "Canva & Photoshop", level: 90, icon: "🖼️" },
+      { name: "YouTube Studio", level: 88, icon: <img src={youtubeStudioIcon} alt="YouTube Studio" className="w-5 h-5" /> },
+      { name: "Canva & Photoshop", level: 90, icon: <img src={canvaIcon} alt="Canva & Photoshop" className="w-5 h-5" /> },
       { name: "Shopify", level: 80, icon: <img src={shopifyIcon} alt="Shopify" className="w-5 h-5" /> },
       { name: "SEMrush & Yoast", level: 85, icon: <img src={semrushIcon} alt="SEMrush" className="w-5 h-5" /> }
     ]
@@ -769,15 +770,15 @@ const Portfolio = () => {
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 md:divide-x divide-gray-100 my-auto">
                   {[
                     { icon: <Megaphone size={16} className="text-slate-800" />, l1: 'Social Media', l2: 'Strategy' },
-                    { icon: <img src={youtubeStudioIcon} alt="Content" className="w-5 h-5 opacity-90" />, l1: 'Content', l2: 'Creation' },
-                    { icon: <img src={seoIcon} alt="SEO" className="w-5 h-5 opacity-90" />, l1: 'SEO', l2: 'Optimization' },
-                    { icon: <img src="/src/assets/Icons/meta-icon.svg" alt="Meta" className="w-5 h-5 opacity-90" />, l1: 'Meta Ads', l2: 'Manager' },
-                    { icon: <img src={canvaIcon} alt="Graphic Design" className="w-5 h-5 opacity-90" />, l1: 'Graphic', l2: 'Design' },
+                    { icon: <PenTool size={16} className="text-slate-800" />, l1: 'Content', l2: 'Creation' },
+                    { icon: <Search size={16} className="text-slate-800" />, l1: 'SEO', l2: 'Optimization' },
+                    { icon: <img src="/src/assets/Icons/meta-icon.svg" alt="Meta" className="w-4 h-4 opacity-80" />, l1: 'Meta Ads', l2: 'Manager' },
+                    { icon: <Palette size={16} className="text-slate-800" />, l1: 'Graphic', l2: 'Design' },
                     { icon: <Calendar size={16} className="text-slate-800" />, l1: 'Campaign', l2: 'Planning' },
                     { icon: <BarChart2 size={16} className="text-slate-800" />, l1: 'Analytics &', l2: 'Tracking' },
-                    { icon: <img src={ecommerceIcon} alt="E-commerce" className="w-5 h-5 opacity-90" />, l1: 'E-commerce', l2: 'Marketing' },
+                    { icon: <ShoppingCart size={16} className="text-slate-800" />, l1: 'E-commerce', l2: 'Marketing' },
                     { icon: <Users size={16} className="text-slate-800" />, l1: 'Influencer', l2: 'Marketing' },
-                    { icon: <img src={mailchimpIcon} alt="Email Marketing" className="w-5 h-5 opacity-90" />, l1: 'Email', l2: 'Marketing' }
+                    { icon: <Hourglass size={16} className="text-slate-800" />, l1: 'Email', l2: 'Marketing' }
                   ].map((c) => (
                     <div key={c.l1} className="flex flex-col items-center justify-center text-center px-1">
                       <div className="w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center mb-1.5">
