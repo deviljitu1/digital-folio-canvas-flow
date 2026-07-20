@@ -399,11 +399,11 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Freelance Digital Marketer @ GrahSiddhi Constructions",
-      description: "Managed social media platforms. Executed Meta Ads campaigns to drive leads and conversions. Designed social media creatives, thumbnails, and ad graphics. Implemented SEO strategies to improve website visibility and rankings. Analyzed campaign performance and optimized marketing efforts.",
-      tools: ["Meta Ads", "SEO", "Graphic Design"],
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=600&fit=crop",
-      liveLink: "https://www.instagram.com/grahsiddhiconstruction/",
+      title: "GrahSiddhi",
+      description: "A premium digital platform tailored for astrology, vastu consulting, and spiritual wellness services.",
+      tools: ["Website", "Meta Ads"],
+      image: "https://grahsiddhi.com/assets/logo-C0BhwsbT.webp",
+      liveLink: "https://grahsiddhi.com",
       category: "project-based",
       subCategory: "executive",
       mediaType: "image"
@@ -432,28 +432,38 @@ const Portfolio = () => {
       title: "Rajim Kumbh (Jan 2026 - Feb 2026)",
       description: "Managed end-to-end social media marketing for the event. Planned and executed content calendars across digital platforms. Designed promotional creatives, posters, and campaign graphics. Increased event visibility through engaging social media campaigns. Coordinated with the team to ensure timely campaign execution.",
       tools: ["Content Calendar", "Design", "Event Marketing"],
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop",
-      liveLink: "#",
+      image: "https://rajimkumbh.in/wp-content/uploads/2024/03/Logo-2.png",
+      liveLink: "https://rajimkumbh.in",
       category: "project-based",
       subCategory: "marketing",
       mediaType: "image"
     },
     {
-      title: "Rashtriye Kavi Sammelan (Jan 2026)",
-      description: "Planned and managed social media promotions for the event. Designed digital creatives and promotional content. Executed content strategy to maximize audience engagement. Coordinated with organizers for campaign planning.",
-      tools: ["Social Media", "Graphic Design", "Content Strategy"],
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop",
-      liveLink: "#",
-      category: "project-based",
-      subCategory: "marketing",
-      mediaType: "image"
-    },
-    {
-      title: "Nexafloors",
-      description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring",
-      tools: ["Social Media", "Content Creation"],
-      image: "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&h=600&fit=crop",
+      title: "Nexa Floors",
+      description: "Comprehensive social media management and Meta Ads lead generation to showcase projects and drive enquiries.",
+      tools: ["Social Media", "Graphics"],
+      image: "https://getwebdigital.com/assets/Nexa%20Floors-DA4r047u.webp",
       liveLink: "https://www.instagram.com/nexafloors/",
+      category: "project-based",
+      subCategory: "marketing",
+      mediaType: "image"
+    },
+    {
+      title: "get5star.in",
+      description: "A comprehensive reputation management and marketing platform designed to capture and amplify client reviews.",
+      tools: ["Website", "SEO"],
+      image: "https://get5star.in/assets/get5star-logo-Bvy3qxk-.png",
+      liveLink: "https://get5star.in",
+      category: "project-based",
+      subCategory: "marketing",
+      mediaType: "image"
+    },
+    {
+      title: "praxes.in",
+      description: "Strategic digital marketing campaigns driving brand awareness, engagement, and consistent growth.",
+      tools: ["Graphics", "Meta Ads"],
+      image: "https://www.praxes.in/logo1.png",
+      liveLink: "https://www.praxes.in",
       category: "project-based",
       subCategory: "marketing",
       mediaType: "image"
@@ -1067,9 +1077,20 @@ const Portfolio = () => {
                   {experiences.filter(e => e.category === 'project-based').map((exp, index) => {
                     const { role, company, date } = parseExpTitle(exp.title);
                     return (
-                      <div key={index} className={`p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
-                        <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
-                        {date && <span className={`text-[10px] font-mono px-2 py-0.5 rounded inline-block mb-2 ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
+                      <div key={index} className={`p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 flex flex-col ${isDark ? 'bg-gray-800/60 border-white/5 hover:border-yellow-500/30' : 'bg-white border-gray-100 shadow-sm hover:shadow-lg'}`}>
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1 pr-4">
+                            <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
+                            {date && <span className={`text-[10px] font-mono px-2 py-0.5 rounded inline-block mb-2 ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
+                          </div>
+                          {exp.image && exp.image.includes('http') && (
+                            <a href={exp.liveLink !== '#' ? exp.liveLink : undefined} target={exp.liveLink !== '#' ? '_blank' : undefined} rel="noopener noreferrer" className="shrink-0 flex-shrink-0 relative group">
+                              <div className={`w-14 h-14 rounded-lg flex items-center justify-center p-1 border overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-md ${isDark ? 'bg-white border-white/10' : 'bg-white border-gray-100 shadow-sm'}`}>
+                                <img src={exp.image} alt={role} className="max-w-full max-h-full object-contain" />
+                              </div>
+                            </a>
+                          )}
+                        </div>
                         <p className={`text-xs leading-relaxed mb-3 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{exp.description}</p>
                         <div className="flex flex-wrap gap-1.5">
                           {exp.tools.map(tool => (
