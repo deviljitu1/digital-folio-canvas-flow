@@ -772,7 +772,7 @@ const Portfolio = () => {
                     { icon: <Megaphone size={16} className="text-slate-800" />, l1: 'Social Media', l2: 'Strategy' },
                     { icon: <PenTool size={16} className="text-slate-800" />, l1: 'Content', l2: 'Creation' },
                     { icon: <Search size={16} className="text-slate-800" />, l1: 'SEO', l2: 'Optimization' },
-                    { icon: <img src="/src/assets/Icons/meta-icon.svg" alt="Meta" className="w-4 h-4 opacity-80" />, l1: 'Meta Ads', l2: 'Manager' },
+                    { icon: <img src={metaAdsManagerIcon} alt="Meta Ads Manager" className="w-5 h-5 opacity-90" />, l1: 'Meta Ads', l2: 'Manager' },
                     { icon: <Palette size={16} className="text-slate-800" />, l1: 'Graphic', l2: 'Design' },
                     { icon: <Calendar size={16} className="text-slate-800" />, l1: 'Campaign', l2: 'Planning' },
                     { icon: <BarChart2 size={16} className="text-slate-800" />, l1: 'Analytics &', l2: 'Tracking' },
