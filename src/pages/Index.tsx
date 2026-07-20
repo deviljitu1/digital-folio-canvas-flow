@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users } from 'lucide-react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users, User, Target, Rocket, Search, Calendar, BarChart2, Hourglass } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -539,9 +539,13 @@ const Portfolio = () => {
         <nav className={`nav-floating ${isDark ? 'dark-mode' : 'light-mode'} ${navHidden ? 'nav-hidden' : ''}`}>
           <div className="flex items-center gap-1">
             {/* Logo - visible on desktop */}
-            <span className="hidden md:inline-block font-bold text-sm bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mr-4 whitespace-nowrap">
-              NP
-            </span>
+            <div className="hidden md:flex items-center mr-4">
+              <img 
+                src={heroImg} 
+                alt="Nahush Patel" 
+                className="w-8 h-8 rounded-full object-cover border border-yellow-500/30 shadow-sm"
+              />
+            </div>
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-0.5">
@@ -651,30 +655,85 @@ const Portfolio = () => {
             </div>
 
             <div className="bento-grid">
-              {/* Bio card — spans 2 cols on mobile, 2 on tablet, 2 on desktop */}
-              <div className={`bento-card col-span-2 lg:col-span-2 ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
-                <h3 className="text-lg md:text-xl font-bold mb-3 text-yellow-500">Who I Am</h3>
-                <p className={`text-sm leading-relaxed mb-3 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                  I'm <strong>Nahush Patel</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
-                </p>
-                <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                  With experience at <strong>ORGALIFE</strong>, <strong>GrahSiddhi Constructions</strong>, <strong>Omega Healthcare</strong>, and <strong>Sutherland Global</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
-                </p>
+              {/* Bio card — Who I Am */}
+              <div className="bento-card col-span-2 lg:col-span-2 bg-white border border-gray-100 shadow-sm flex flex-col justify-between p-6">
+                <div>
+                  <div className="flex items-center gap-3 mb-1.5">
+                    <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-gray-900 flex-shrink-0">
+                      <User size={20} className="stroke-2" />
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900">Who <span className="text-yellow-400">I Am</span></h3>
+                  </div>
+                  <div className="w-10 h-1 bg-yellow-400 mb-4 rounded-full ml-1" />
+
+                  <p className="text-xs md:text-sm leading-relaxed mb-2.5 text-gray-700">
+                    I'm <strong className="text-gray-900">Nahush Patel</strong>, a passionate Digital Marketing Professional skilled in social media strategy, content creation, SEO, Meta Ads, and graphic design. I execute engaging campaigns that boost online presence and visibility for brands.
+                  </p>
+                  <p className="text-xs md:text-sm leading-relaxed text-gray-700">
+                    With experience at <strong className="text-gray-900">ORGALIFE</strong>, <strong className="text-gray-900">GrahSiddhi Constructions</strong>, <strong className="text-gray-900">Omega Healthcare</strong>, and <strong className="text-gray-900">Sutherland Global</strong>, I bring a unique blend of campaign execution and data-driven marketing skills.
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-2 md:divide-x divide-gray-100">
+                  <div className="flex items-center gap-2.5 px-1">
+                    <div className="w-10 h-10 rounded-xl bg-yellow-50 flex items-center justify-center text-yellow-500 flex-shrink-0">
+                      <Target size={18} className="stroke-2" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-gray-900 text-xs">Data-Driven</span>
+                      <span className="text-[10px] text-gray-500">Strategic Approach</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2.5 px-1 md:pl-4">
+                    <div className="w-10 h-10 rounded-xl bg-yellow-50 flex items-center justify-center text-yellow-500 flex-shrink-0">
+                      <Rocket size={18} className="stroke-2" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-gray-900 text-xs">Result-Oriented</span>
+                      <span className="text-[10px] text-gray-500">Campaign Execution</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2.5 px-1 md:pl-4">
+                    <div className="w-10 h-10 rounded-xl bg-yellow-50 flex items-center justify-center text-yellow-500 flex-shrink-0">
+                      <TrendingUp size={18} className="stroke-2" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-gray-900 text-xs">Growth Focused</span>
+                      <span className="text-[10px] text-gray-500">Measurable Impact</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Image card */}
-              <div className={`bento-card col-span-2 md:col-span-1 lg:col-span-2 flex flex-col ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
-                <div className="relative overflow-hidden rounded-xl mb-4">
-                  <img
-                    src={aboutImg}
-                    alt="Nahush Patel"
-                    className="w-full aspect-square object-cover object-top"
-                  />
+              <div className="bento-card col-span-2 md:col-span-1 lg:col-span-2 p-0 flex flex-col relative overflow-hidden bg-[#0f172a] border border-white/10 shadow-xl">
+                
+                {/* Decorative Dots Top-Left */}
+                <div className="absolute top-4 left-4 grid grid-cols-4 gap-1.5 opacity-30 z-0">
+                  {Array.from({ length: 24 }).map((_, i) => (
+                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#14b8a6]" />
+                  ))}
                 </div>
-                <div className="mt-auto px-2 pb-2">
-                  <h3 className={`text-xl md:text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>Nahush Patel</h3>
-                  <p className="text-yellow-500 font-medium text-sm mb-2">Digital Marketing Professional</p>
-                  <p className={`text-xs flex items-center gap-1.5 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+
+                {/* Decorative Swoosh Bottom-Right */}
+                <svg className="absolute -right-4 bottom-12 w-40 h-40 text-yellow-500 opacity-80 z-0 pointer-events-none" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 0 100 Q 50 100 100 50" stroke="currentColor" strokeWidth="2" fill="none" />
+                </svg>
+
+                <div className="relative px-6 pt-8 pb-3 z-10 w-full flex justify-center mt-2">
+                  <div className="w-full max-w-[180px] md:max-w-[200px] aspect-square rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl">
+                    <img
+                      src={aboutImg}
+                      alt="Nahush Patel"
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+                
+                <div className="px-6 pb-6 relative z-10 mt-auto">
+                  <h3 className="text-2xl font-bold mb-1 text-white">Nahush Patel</h3>
+                  <p className="text-[#14b8a6] font-medium text-xs md:text-sm mb-2">Digital Marketing Professional</p>
+                  <p className="text-xs flex items-center gap-1.5 text-gray-400">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     Raipur, Chhattisgarh, India
                   </p>
@@ -682,38 +741,57 @@ const Portfolio = () => {
               </div>
 
               {/* Core Competencies — spans full width on mobile */}
-              <div className={`bento-card col-span-2 md:col-span-3 lg:col-span-2 ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
-                <h3 className="text-base md:text-lg font-bold mb-3 text-yellow-500">Core Competencies</h3>
-                <div className="grid grid-cols-2 gap-1.5">
+              <div className="bento-card col-span-2 md:col-span-3 lg:col-span-2 bg-white border border-gray-100 shadow-sm flex flex-col p-6">
+                <div className="flex items-center gap-3 mb-1.5">
+                  <div className="w-10 h-10 rounded-full bg-[#0f172a] flex items-center justify-center text-yellow-400 flex-shrink-0">
+                    <Star size={20} className="stroke-2" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Core <span className="text-yellow-400">Competencies</span></h3>
+                </div>
+                <div className="w-10 h-1 bg-yellow-400 mb-5 rounded-full ml-1" />
+
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-y-4 md:divide-x divide-gray-100 my-auto">
                   {[
-                    'Social Media Strategy', 'Content Creation', 'SEO Optimization', 'Meta Ads Manager',
-                    'Graphic Design', 'Analytics & Tracking', 'Campaign Planning', 'E-commerce Marketing',
-                    'Influencer Marketing', 'Email Marketing'
+                    { icon: <Megaphone size={16} className="text-slate-800" />, l1: 'Social Media', l2: 'Strategy' },
+                    { icon: <PenTool size={16} className="text-slate-800" />, l1: 'Content', l2: 'Creation' },
+                    { icon: <Search size={16} className="text-slate-800" />, l1: 'SEO', l2: 'Optimization' },
+                    { icon: <img src="/src/assets/Icons/meta-icon.svg" alt="Meta" className="w-4 h-4 opacity-80" />, l1: 'Meta Ads', l2: 'Manager' },
+                    { icon: <Palette size={16} className="text-slate-800" />, l1: 'Graphic', l2: 'Design' },
+                    { icon: <Calendar size={16} className="text-slate-800" />, l1: 'Campaign', l2: 'Planning' },
+                    { icon: <BarChart2 size={16} className="text-slate-800" />, l1: 'Analytics &', l2: 'Tracking' },
+                    { icon: <ShoppingCart size={16} className="text-slate-800" />, l1: 'E-commerce', l2: 'Marketing' },
+                    { icon: <Users size={16} className="text-slate-800" />, l1: 'Influencer', l2: 'Marketing' },
+                    { icon: <Hourglass size={16} className="text-slate-800" />, l1: 'Email', l2: 'Marketing' }
                   ].map((c) => (
-                    <div key={c} className={`flex items-center gap-2 p-1.5 rounded-lg text-xs md:text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex-shrink-0" />
-                      {c}
+                    <div key={c.l1} className="flex flex-col items-center justify-center text-center px-1">
+                      <div className="w-10 h-10 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center mb-1.5">
+                        {c.icon}
+                      </div>
+                      <div className="w-3 h-0.5 bg-yellow-400 mb-1.5 rounded-full" />
+                      <span className="text-[10px] md:text-[11px] font-bold text-gray-800 leading-tight">{c.l1}</span>
+                      <span className="text-[10px] md:text-[11px] font-bold text-gray-800 leading-tight">{c.l2}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Stats Grid */}
-              <div className={`bento-card col-span-2 p-0 overflow-hidden ${isDark ? 'bg-gray-800/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
-                <div className={`grid grid-cols-2 h-full divide-x divide-y ${isDark ? 'divide-white/5' : 'divide-gray-100'}`}>
+              <div className="bento-card col-span-2 p-0 overflow-hidden bg-[#0f172a] border border-white/10 shadow-xl">
+                <div className="grid grid-cols-2 h-full divide-x divide-y divide-white/5">
                   {[
-                    { icon: <Star size={20} />, value: '16+', label: 'Skills Mastered' },
-                    { icon: <Code2 size={20} />, value: '6+', label: 'Tech Stack' },
-                    { icon: <Palette size={20} />, value: '6+', label: 'Design Tools' },
-                    { icon: <TrendingUp size={20} />, value: '89%', label: 'Avg Proficiency' },
+                    { icon: <Star size={24} />, value: '16+', title: 'Skills', subtitle: 'Mastered', iconBg: 'bg-[#14b8a6]', iconColor: 'text-white' },
+                    { icon: <Code2 size={24} />, value: '6+', title: 'Tech', subtitle: 'Stack', iconBg: 'bg-yellow-500', iconColor: 'text-[#0f172a]' },
+                    { icon: <Palette size={24} />, value: '6+', title: 'Design', subtitle: 'Tools', iconBg: 'bg-[#14b8a6]', iconColor: 'text-white' },
+                    { icon: <TrendingUp size={24} />, value: '89%', title: 'Avg', subtitle: 'Proficiency', iconBg: 'bg-yellow-500', iconColor: 'text-[#0f172a]' },
                   ].map((stat, idx) => (
-                    <div key={stat.label} className={`flex flex-col sm:flex-row items-center sm:items-start gap-3 p-4 md:p-6 ${idx === 0 || idx === 1 ? 'border-b' : ''} ${idx % 2 === 0 ? 'border-r' : ''} ${isDark ? 'border-white/5' : 'border-gray-100'}`}>
-                      <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-500 flex-shrink-0">
+                    <div key={stat.title} className={`flex flex-col sm:flex-row items-center sm:items-start gap-4 p-6 ${idx === 0 || idx === 1 ? 'border-b' : ''} ${idx % 2 === 0 ? 'border-r' : ''} border-white/5`}>
+                      <div className={`w-14 h-14 rounded-full ${stat.iconBg} ${stat.iconColor} flex items-center justify-center flex-shrink-0`}>
                         {stat.icon}
                       </div>
-                      <div className="text-center sm:text-left">
-                        <div className={`text-lg md:text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stat.value}</div>
-                        <div className={`text-[10px] md:text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{stat.label}</div>
+                      <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                        <span className="text-[11px] text-gray-300 font-medium tracking-wide">{stat.title}</span>
+                        <span className="text-3xl font-bold text-white leading-none my-1.5">{stat.value}</span>
+                        <span className="text-[11px] text-gray-400 font-medium">{stat.subtitle}</span>
                       </div>
                     </div>
                   ))}
