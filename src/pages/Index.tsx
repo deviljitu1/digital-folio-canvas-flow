@@ -1159,10 +1159,12 @@ const Portfolio = () => {
 
 
             {/* Projects Grid */}
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6">
+            <div className={selectedSubCategory === 'development' 
+              ? "grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6" 
+              : "columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6"}>
               {displayedProjects.map((project, index) => (
-                <div key={index} className="project-card group break-inside-avoid mb-4 md:mb-6 inline-block w-full">
-                  <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] ${isDark ? 'bg-gray-800/60 border border-white/5 hover:border-yellow-500/20' : 'bg-white shadow-sm hover:shadow-xl border border-gray-100'}`}>
+                <div key={index} className={`project-card group ${selectedSubCategory === 'development' ? 'h-full flex flex-col' : 'break-inside-avoid mb-4 md:mb-6 inline-block'} w-full`}>
+                  <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] ${isDark ? 'bg-gray-800/60 border border-white/5 hover:border-yellow-500/20' : 'bg-white shadow-sm hover:shadow-xl border border-gray-100'} ${selectedSubCategory === 'development' ? 'h-full flex flex-col' : ''}`}>
                     {/* Media */}
                     <div className="relative overflow-hidden bg-gray-800">
                       {project.mediaType === 'video' ? (
@@ -1202,23 +1204,25 @@ const Portfolio = () => {
 
                     {/* Info */}
                     {project.subCategory !== 'graphic-design' && (
-                      <div className="p-4">
-                        <h3 className={`text-base font-bold mb-2 group-hover:text-yellow-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
-                        <p className={`text-xs mb-3 leading-relaxed line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mb-3">
-                          {project.tools.slice(0, 3).map((tool) => (
-                            <span key={tool} className={`px-2 py-0.5 text-[10px] rounded-md font-semibold ${isDark ? 'bg-yellow-500/10 text-yellow-400' : 'bg-yellow-50 text-yellow-700'}`}>
-                              {tool}
-                            </span>
-                          ))}
+                      <div className={`p-4 ${selectedSubCategory === 'development' ? 'flex flex-col flex-1' : ''}`}>
+                        <div>
+                          <h3 className={`text-base font-bold mb-2 group-hover:text-yellow-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
+                          <p className={`text-xs mb-3 leading-relaxed line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5 mb-3">
+                            {project.tools.slice(0, 3).map((tool) => (
+                              <span key={tool} className={`px-2 py-0.5 text-[10px] rounded-md font-semibold ${isDark ? 'bg-yellow-500/10 text-yellow-400' : 'bg-yellow-50 text-yellow-700'}`}>
+                                {tool}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                         <a
                           href={project.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-yellow-500 hover:text-yellow-400 font-semibold text-xs transition-colors"
+                          className={`inline-flex items-center gap-1.5 text-yellow-500 hover:text-yellow-400 font-semibold text-xs transition-colors ${selectedSubCategory === 'development' ? 'mt-auto' : ''}`}
                         >
                           <ExternalLink size={14} />
                           View Project
