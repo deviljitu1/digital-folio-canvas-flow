@@ -285,7 +285,8 @@ const Portfolio = () => {
         { id: 'social-media', name: 'Social Media Content', icon: Video },
         { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart },
         { id: 'development', name: 'Development', icon: Code2 },
-        { id: 'food-beverage', name: 'Food & Beverage', icon: ShoppingCart }
+        { id: 'food-beverage', name: 'Food & Beverage', icon: ShoppingCart },
+        { id: 'jewellery', name: 'Jewellery', icon: Sparkles }
       ]
     }
   };
@@ -428,6 +429,86 @@ const Portfolio = () => {
       subCategory: "food-beverage",
       mediaType: "iframe",
       iframeSrc: "https://www.instagram.com/p/DYWaUKRGGua/embed"
+    },
+    {
+      title: "Bespoke Luxe Post 1",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/Dc1S6NLB6hA/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/Dc1S6NLB6hA/embed"
+    },
+    {
+      title: "Bespoke Luxe Reel 1",
+      description: "Social media reel for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DcyAg3qh5Fv/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DcyAg3qh5Fv/embed"
+    },
+    {
+      title: "Bespoke Luxe Post 2",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DctJ4blgYf8/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DctJ4blgYf8/embed"
+    },
+    {
+      title: "Bespoke Luxe Post 3",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DcjI82kBYSx/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DcjI82kBYSx/embed"
+    },
+    {
+      title: "Bespoke Luxe Post 4",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DcgOYCNge9b/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DcgOYCNge9b/embed"
+    },
+    {
+      title: "Bespoke Luxe Post 5",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DcY29TNog7A/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DcY29TNog7A/embed"
+    },
+    {
+      title: "Bespoke Luxe Reel 2",
+      description: "Social media reel for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DcTYX59or_U/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DcTYX59or_U/embed"
+    },
+    {
+      title: "Bespoke Luxe Post 6",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DcODf2_AUdD/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DcODf2_AUdD/embed"
     },
     {
       title: "Orgalife Food Reel 2",
