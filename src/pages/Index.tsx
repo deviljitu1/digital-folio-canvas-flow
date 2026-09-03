@@ -645,8 +645,8 @@ const Portfolio = () => {
         {/* ===== FLOATING NAV ===== */}
         <nav className={`nav-floating ${isDark ? 'dark-mode' : 'light-mode'} ${navHidden ? 'nav-hidden' : ''}`}>
           <div className="flex items-center gap-1">
-            {/* Logo - visible on desktop */}
-            <div className="hidden md:flex items-center mr-4">
+            {/* Logo - visible on all screens */}
+            <div className="flex items-center mr-2 md:mr-4">
               <img 
                 src={heroImg} 
                 alt="Nahush Patel" 
@@ -942,17 +942,11 @@ const Portfolio = () => {
                     </div>
 
                     {/* Skill chips */}
-                    <div className="space-y-1.5">
+                    <div className="flex flex-wrap gap-2.5">
                       {skillList.map((skill, i) => (
-                        <div key={skill.name} className={`skill-chip group ${isDark ? 'bg-gray-900/60 hover:bg-gray-900' : 'bg-gray-50 hover:bg-gray-100'} rounded-lg`}>
-                          <span className="text-base flex-shrink-0">{skill.icon}</span>
-                          <span className={`text-sm font-medium flex-1 ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>{skill.name}</span>
-                          <div className="flex items-center gap-2">
-                            <div className="w-16 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                              <div className={`h-full rounded-full bg-gradient-to-r ${colors.gradient}`} style={{ width: `${skill.level}%` }} />
-                            </div>
-                            <span className={`text-[10px] font-bold ${colors.text} opacity-70`}>{skill.level}%</span>
-                          </div>
+                        <div key={skill.name} className={`flex items-center gap-1.5 px-3 py-1.5 group ${isDark ? 'bg-gray-900/60 hover:bg-gray-800 border-white/10' : 'bg-white hover:bg-gray-50 border-gray-200 shadow-sm'} rounded-lg border transition-all duration-300`}>
+                          <span className="text-sm md:text-base flex-shrink-0">{skill.icon}</span>
+                          <span className={`text-xs md:text-sm font-medium ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>{skill.name}</span>
                         </div>
                       ))}
                     </div>
