@@ -467,7 +467,7 @@ const Portfolio = () => {
       mediaType: "image"
     },
     {
-      title: "Rajim Kumbh (Jan 2026 - Feb 2026)",
+      title: "Rajim Kumbh",
       description: "Managed end-to-end social media marketing for the event. Planned and executed content calendars across digital platforms. Designed promotional creatives, posters, and campaign graphics. Increased event visibility through engaging social media campaigns. Coordinated with the team to ensure timely campaign execution.",
       tools: ["Content Calendar", "Design", "Event Marketing"],
       image: "https://rajimkumbh.in/wp-content/uploads/2024/03/Logo-2.png",
@@ -561,7 +561,8 @@ const Portfolio = () => {
     { name: "Chhattisgarhi Agrwal Samaj", url: "https://www.instagram.com/cgdauagrawalsamaj?igsh=MTV1NGtndGVrdDhyNg==" },
     { name: "Nexafloors", url: "https://www.instagram.com/nexafloors/" },
     { name: "GrahSiddhi Constructions", url: "https://www.instagram.com/grahsiddhiconstruction/" },
-    { name: "Praxes Official", url: "https://www.instagram.com/praxes.official_?igsh=MW4wcjNmZzR5cndvYg%3D%3D&utm_source=qr" }
+    { name: "Praxes Official", url: "https://www.instagram.com/praxes.official_?igsh=MW4wcjNmZzR5cndvYg%3D%3D&utm_source=qr" },
+    { name: "Bespoke luxe by Ankita", url: "https://www.instagram.com/bespoke_luxe_by_ankita/" }
   ];
 
   // Filter projects
