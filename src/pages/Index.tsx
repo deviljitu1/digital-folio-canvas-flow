@@ -511,6 +511,16 @@ const Portfolio = () => {
       iframeSrc: "https://www.instagram.com/p/DcODf2_AUdD/embed"
     },
     {
+      title: "Bespoke Luxe Post 7",
+      description: "Social media post for Bespoke luxe by Ankita.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/Db7k2sggZXY/",
+      category: "digital-marketing",
+      subCategory: "jewellery",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/Db7k2sggZXY/embed"
+    },
+    {
       title: "Orgalife Food Reel 2",
       description: "Social media reel for Orgalife Food.",
       tools: ["Instagram", "Video Editing", "Content Creation"],
