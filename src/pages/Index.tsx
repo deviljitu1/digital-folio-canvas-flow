@@ -372,6 +372,66 @@ const Portfolio = () => {
       iframeSrc: "https://www.instagram.com/reel/DLo8Fr0TdBL/embed"
     },
     {
+      title: "Orgalife Food Reel 6",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/Dc1C48Fxw16/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/Dc1C48Fxw16/embed"
+    },
+    {
+      title: "Orgalife Food Reel 7",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DctVB0pJW9s/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DctVB0pJW9s/embed"
+    },
+    {
+      title: "Orgalife Food Reel 8",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/Dcd3XJKOniV/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/Dcd3XJKOniV/embed"
+    },
+    {
+      title: "Orgalife Food Reel 9",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DYqxMTZvl3d/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DYqxMTZvl3d/embed"
+    },
+    {
+      title: "Orgalife Food Reel 10",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DWBct9ojK1W/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DWBct9ojK1W/embed"
+    },
+    {
+      title: "Orgalife Food Reel 11",
+      description: "Social media reel for Orgalife Food.",
+      tools: ["Instagram", "Video Editing", "Content Creation"],
+      liveLink: "https://www.instagram.com/reel/DTUj6tIEz7r/",
+      category: "digital-marketing",
+      subCategory: "social-media",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/reel/DTUj6tIEz7r/embed"
+    },
+    {
       title: "Nexafloors Reel 1",
       description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring 📍Chennai",
       tools: ["Instagram", "Video Editing", "Content Creation"],
@@ -975,11 +1035,11 @@ const Portfolio = () => {
                           </video>
                         </div>
                       ) : project.mediaType === 'iframe' ? (
-                        <div className="relative w-full overflow-hidden aspect-[9/16]">
+                        <div className="relative w-full overflow-hidden aspect-[9/16] rounded-lg">
                           <iframe
                             src={project.iframeSrc}
-                            className="absolute top-0 left-0 w-full border-0"
-                            style={{ height: 'calc(100% + 150px)' }}
+                            className="absolute left-0 w-full border-0"
+                            style={{ top: '-54px', height: 'calc(100% + 160px)' }}
                             allowTransparency={true}
                             allow="encrypted-media"
                             scrolling="no"
