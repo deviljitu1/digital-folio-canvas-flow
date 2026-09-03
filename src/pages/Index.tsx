@@ -132,7 +132,8 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedCategory, setSelectedCategory] = useState('digital-marketing');
-  const [selectedSubCategory, setSelectedSubCategory] = useState('food-beverage');
+  const [selectedMainCategory, setSelectedMainCategory] = useState('all');
+  const [selectedGraphicCategory, setSelectedGraphicCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
@@ -159,7 +160,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     setVisibleProjectsCount(6);
-  }, [selectedCategory, selectedSubCategory]);
+  }, [selectedCategory, selectedGraphicCategory]);
 
   // Scroll tracking for active section & nav hide
   useEffect(() => {
@@ -793,7 +794,7 @@ const Portfolio = () => {
   // Filter projects
   const filteredProjects = projects.filter(project => {
     if (selectedCategory !== 'all' && selectedCategory !== project.category) return false;
-    if (selectedSubCategory !== 'all' && selectedSubCategory !== project.subCategory) return false;
+    if (selectedGraphicCategory !== 'all' && selectedGraphicCategory !== project.subCategory) return false;
     return true;
   });
 
@@ -1149,35 +1150,86 @@ const Portfolio = () => {
               <div className="section-divider" />
             </div>
 
-            {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10">
-              {projectCategories['digital-marketing'].subcategories.map((sub) => {
-                const SubIcon = sub.icon;
-                const count = [...projects, ...generatedProjects].filter(p => p.subCategory === sub.id).length;
+            {/* Main Category Filter */}
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-4 md:mb-6">
+              {[
+                { id: 'all', name: 'All', icon: Grid3x3 },
+                { id: 'graphics', name: 'Graphics', icon: PenTool },
+                { id: 'social-media', name: 'Social Media Content', icon: Video },
+                { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart },
+                { id: 'development', name: 'Development', icon: Code2 }
+              ].map((mainTab) => {
+                const TabIcon = mainTab.icon;
+                const allProjs = [...projects, ...generatedProjects];
+                let count = 0;
+                if (mainTab.id === 'all') count = allProjs.length;
+                else if (mainTab.id === 'graphics') count = allProjs.filter(p => ['food-beverage', 'jewellery', 'education', 'government', 'real-estate', 'ai-works'].includes(p.subCategory)).length;
+                else count = allProjs.filter(p => p.subCategory === mainTab.id).length;
+
                 return (
                   <button
-                    key={sub.id}
-                    onClick={() => setSelectedSubCategory(sub.id)}
-                    className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5 ${selectedSubCategory === sub.id
+                    key={mainTab.id}
+                    onClick={() => {
+                       setSelectedMainCategory(mainTab.id);
+                       if (mainTab.id === 'graphics') {
+                         setSelectedGraphicCategory('all');
+                       }
+                    }}
+                    className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5 ${selectedMainCategory === mainTab.id
                       ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-black shadow-lg shadow-yellow-500/20 scale-105'
                       : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-white/5' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
-                    <SubIcon size={14} />
-                    {sub.name} ({count})
+                    <TabIcon size={14} />
+                    {mainTab.name} ({count})
                   </button>
                 );
               })}
             </div>
 
+            {/* Graphics Sub Category Filter */}
+            {selectedMainCategory === 'graphics' && (
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10">
+                {[
+                  { id: 'all', name: 'All Graphics', icon: Grid3x3 },
+                  { id: 'food-beverage', name: 'Food & Beverage', icon: ShoppingCart },
+                  { id: 'jewellery', name: 'Jewellery', icon: Sparkles },
+                  { id: 'education', name: 'Education', icon: BookOpen },
+                  { id: 'government', name: 'Government', icon: Landmark },
+                  { id: 'real-estate', name: 'Real Estate', icon: Building },
+                  { id: 'ai-works', name: 'AI Works', icon: Bot },
+                ].map((sub) => {
+                  const SubIcon = sub.icon;
+                  const allProjs = [...projects, ...generatedProjects];
+                  const count = sub.id === 'all' 
+                    ? allProjs.filter(p => ['food-beverage', 'jewellery', 'education', 'government', 'real-estate', 'ai-works'].includes(p.subCategory)).length
+                    : allProjs.filter(p => p.subCategory === sub.id).length;
+                  
+                  return (
+                    <button
+                      key={sub.id}
+                      onClick={() => setSelectedGraphicCategory(sub.id)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 ${selectedGraphicCategory === sub.id
+                        ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30'
+                        : isDark ? 'bg-gray-800/50 text-gray-400 hover:text-gray-200 border border-white/5' : 'bg-gray-50 text-gray-500 hover:text-gray-700'
+                      }`}
+                    >
+                      <SubIcon size={12} />
+                      {sub.name} ({count})
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
 
             {/* Projects Grid */}
-            <div className={selectedSubCategory === 'development' 
+            <div className={selectedMainCategory === 'development' 
               ? "grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6" 
               : "columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6"}>
               {displayedProjects.map((project, index) => (
-                <div key={index} className={`project-card group ${selectedSubCategory === 'development' ? 'h-full flex flex-col' : 'break-inside-avoid mb-4 md:mb-6 inline-block'} w-full`}>
-                  <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] ${isDark ? 'bg-gray-800/60 border border-white/5 hover:border-yellow-500/20' : 'bg-white shadow-sm hover:shadow-xl border border-gray-100'} ${selectedSubCategory === 'development' ? 'h-full flex flex-col' : ''}`}>
+                <div key={index} className={`project-card group ${selectedMainCategory === 'development' ? 'h-full flex flex-col' : 'break-inside-avoid mb-4 md:mb-6 inline-block'} w-full`}>
+                  <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] ${isDark ? 'bg-gray-800/60 border border-white/5 hover:border-yellow-500/20' : 'bg-white shadow-sm hover:shadow-xl border border-gray-100'} ${selectedMainCategory === 'development' ? 'h-full flex flex-col' : ''}`}>
                     {/* Media */}
                     <div className="relative overflow-hidden bg-gray-800">
                       {project.mediaType === 'video' ? (
@@ -1217,7 +1269,7 @@ const Portfolio = () => {
 
                     {/* Info */}
                     {(project.liveLink && project.liveLink !== '#') && (
-                      <div className={`p-4 ${selectedSubCategory === 'development' ? 'flex flex-col flex-1' : ''}`}>
+                      <div className={`p-4 ${selectedMainCategory === 'development' ? 'flex flex-col flex-1' : ''}`}>
                         <div>
                           <h3 className={`text-base font-bold mb-2 group-hover:text-yellow-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
                           <p className={`text-xs mb-3 leading-relaxed line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -1235,7 +1287,7 @@ const Portfolio = () => {
                           href={project.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-1.5 text-yellow-500 hover:text-yellow-400 font-semibold text-xs transition-colors ${selectedSubCategory === 'development' ? 'mt-auto' : ''}`}
+                          className={`inline-flex items-center gap-1.5 text-yellow-500 hover:text-yellow-400 font-semibold text-xs transition-colors ${selectedMainCategory === 'development' ? 'mt-auto' : ''}`}
                         >
                           <ExternalLink size={14} />
                           View Project
