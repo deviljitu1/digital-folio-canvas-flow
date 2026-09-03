@@ -1109,7 +1109,7 @@ const Portfolio = () => {
                             <h4 className="font-bold text-sm md:text-base mb-1">{role}</h4>
                             {date && <span className={`text-[10px] font-mono px-2 py-0.5 rounded inline-block mb-2 ${isDark ? 'bg-gray-700/50 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>{date}</span>}
                           </div>
-                          {exp.image && exp.image.includes('http') && (
+                          {exp.image && !exp.image.includes('unsplash') && (
                             <a href={exp.liveLink !== '#' ? exp.liveLink : undefined} target={exp.liveLink !== '#' ? '_blank' : undefined} rel="noopener noreferrer" className="shrink-0 flex-shrink-0 relative group">
                               <div className={`w-14 h-14 rounded-lg flex items-center justify-center p-1 border overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-md ${isDark ? 'bg-white border-white/10' : 'bg-white border-gray-100 shadow-sm'}`}>
                                 <img src={exp.image} alt={role} className="max-w-full max-h-full object-contain" />
