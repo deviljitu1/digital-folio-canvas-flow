@@ -283,7 +283,8 @@ const Portfolio = () => {
       subcategories: [
         { id: 'graphic-design', name: 'Graphic Design', icon: PenTool },
         { id: 'social-media', name: 'Social Media Content', icon: Video },
-        { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart }
+        { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart },
+        { id: 'development', name: 'Development', icon: Code2 }
       ]
     }
   };
@@ -307,7 +308,26 @@ const Portfolio = () => {
   });
 
   const projects: Project[] = [
-
+    {
+      title: "get5star.in",
+      description: "A comprehensive reputation management and marketing platform designed to capture and amplify client reviews.",
+      tools: ["Web Development", "UI/UX"],
+      liveLink: "https://get5star.in/",
+      category: "digital-marketing",
+      subCategory: "development",
+      mediaType: "image",
+      image: "https://get5star.in/assets/get5star-logo-Bvy3qxk-.png"
+    },
+    {
+      title: "GrahSiddhi",
+      description: "A premium digital platform tailored for astrology, vastu consulting, and spiritual wellness services.",
+      tools: ["Web Development", "UI/UX"],
+      liveLink: "https://grahsiddhi.com/",
+      category: "digital-marketing",
+      subCategory: "development",
+      mediaType: "image",
+      image: "https://grahsiddhi.com/assets/logo-C0BhwsbT.webp"
+    },
     {
       title: "Orgalife Food Reel 2",
       description: "Social media reel for Orgalife Food.",
