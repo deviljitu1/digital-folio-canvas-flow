@@ -284,7 +284,8 @@ const Portfolio = () => {
         { id: 'graphic-design', name: 'Graphic Design', icon: PenTool },
         { id: 'social-media', name: 'Social Media Content', icon: Video },
         { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart },
-        { id: 'development', name: 'Development', icon: Code2 }
+        { id: 'development', name: 'Development', icon: Code2 },
+        { id: 'food-beverage', name: 'Food & Beverage', icon: ShoppingCart }
       ]
     }
   };
@@ -327,6 +328,106 @@ const Portfolio = () => {
       subCategory: "development",
       mediaType: "image",
       image: "https://grahsiddhi.com/assets/logo-C0BhwsbT.webp"
+    },
+    {
+      title: "Orgalife Food Post 1",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DbOBVlqS4rY/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DbOBVlqS4rY/embed"
+    },
+    {
+      title: "Orgalife Food Post 2",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYwra37mIgU/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYwra37mIgU/embed"
+    },
+    {
+      title: "Orgalife Food Post 3",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYj5Fs0OJnK/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYj5Fs0OJnK/embed"
+    },
+    {
+      title: "Orgalife Food Post 4",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYhHGT9s0Kt/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYhHGT9s0Kt/embed"
+    },
+    {
+      title: "Orgalife Food Post 5",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYe3JE5tlE5/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYe3JE5tlE5/embed"
+    },
+    {
+      title: "Orgalife Food Post 6",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYerzioBY-c/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYerzioBY-c/embed"
+    },
+    {
+      title: "Orgalife Food Post 7",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYZVl43o0YW/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYZVl43o0YW/embed"
+    },
+    {
+      title: "Orgalife Food Post 8",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYY41EsoyUB/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYY41EsoyUB/embed"
+    },
+    {
+      title: "Orgalife Food Post 9",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYWj9hTGAnh/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYWj9hTGAnh/embed"
+    },
+    {
+      title: "Orgalife Food Post 10",
+      description: "Social media post for Orgalife Food.",
+      tools: ["Instagram", "Content Creation"],
+      liveLink: "https://www.instagram.com/p/DYWaUKRGGua/",
+      category: "digital-marketing",
+      subCategory: "food-beverage",
+      mediaType: "iframe",
+      iframeSrc: "https://www.instagram.com/p/DYWaUKRGGua/embed"
     },
     {
       title: "Orgalife Food Reel 2",
