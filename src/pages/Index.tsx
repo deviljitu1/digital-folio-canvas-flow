@@ -160,7 +160,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     setVisibleProjectsCount(6);
-  }, [selectedCategory, selectedGraphicCategory]);
+  }, [selectedMainCategory, selectedGraphicCategory]);
 
   // Scroll tracking for active section & nav hide
   useEffect(() => {
@@ -792,9 +792,20 @@ const Portfolio = () => {
   ];
 
   // Filter projects
-  const filteredProjects = projects.filter(project => {
-    if (selectedCategory !== 'all' && selectedCategory !== project.category) return false;
-    if (selectedGraphicCategory !== 'all' && selectedGraphicCategory !== project.subCategory) return false;
+  const allProjects = [...projects, ...generatedProjects];
+  const filteredProjects = allProjects.filter(project => {
+    if (selectedMainCategory !== 'all') {
+      if (selectedMainCategory === 'graphics') {
+        if (!['food-beverage', 'jewellery', 'education', 'government', 'real-estate', 'ai-works'].includes(project.subCategory)) {
+          return false;
+        }
+        if (selectedGraphicCategory !== 'all' && selectedGraphicCategory !== project.subCategory) {
+          return false;
+        }
+      } else {
+        if (project.subCategory !== selectedMainCategory) return false;
+      }
+    }
     return true;
   });
 
