@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users, User, Target, Rocket, Search, Calendar, BarChart2, Hourglass, Cpu } from 'lucide-react';
+import { Moon, Sun, Menu, X, Download, Eye, ExternalLink, Mail, Phone, Github, Linkedin, Code2, Palette, TrendingUp, Star, Megaphone, PenTool, Video, BarChart, ShoppingCart, Globe, Sparkles, Award, Grid3x3, ChevronLeft, ChevronRight, ChevronDown, Briefcase, GraduationCap, Users, User, Target, Rocket, Search, Calendar, BarChart2, Hourglass, Cpu, Building, BookOpen, Landmark, Bot } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -1153,7 +1153,7 @@ const Portfolio = () => {
             <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10">
               {projectCategories['digital-marketing'].subcategories.map((sub) => {
                 const SubIcon = sub.icon;
-                const count = projects.filter(p => p.subCategory === sub.id).length;
+                const count = [...projects, ...generatedProjects].filter(p => p.subCategory === sub.id).length;
                 return (
                   <button
                     key={sub.id}
