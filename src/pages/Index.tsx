@@ -15,6 +15,7 @@ import tindog from "@/assets/tindog.webp";
 import portfolioProject from "@/assets/portfolio-project.webp";
 import poetree from "@/assets/poetree.webp";
 import calmmindAi from "@/assets/calmmind-ai.webp";
+import bespokeLuxeImg from "@/assets/bespoke-luxe.png";
 
 import certificateIcon from "@/assets/Icons/certificate-award-trophy-svgrepo-com.svg";
 import instagramIcon from "@/assets/Icons/instagram.svg";
@@ -477,6 +478,16 @@ const Portfolio = () => {
       liveLink: "https://grahsiddhi.com",
       category: "project-based",
       subCategory: "executive",
+      mediaType: "image"
+    },
+    {
+      title: "Bespoke luxe by Ankita",
+      description: "✨ Customising real jewellery | 💎 Luxe & timeless designs | 🤝 Trusted & certified experience | 📍 Bhilai",
+      tools: ["Social Media", "Marketing"],
+      image: bespokeLuxeImg,
+      liveLink: "https://www.instagram.com/bespoke_luxe_by_ankita/",
+      category: "project-based",
+      subCategory: "marketing",
       mediaType: "image"
     },
     {
