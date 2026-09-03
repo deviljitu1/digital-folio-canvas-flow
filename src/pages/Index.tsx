@@ -990,9 +990,9 @@ const Portfolio = () => {
 
 
             {/* Projects Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6">
               {displayedProjects.map((project, index) => (
-                <div key={index} className="project-card group">
+                <div key={index} className="project-card group break-inside-avoid mb-4 md:mb-6 inline-block w-full">
                   <div className={`rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.03] ${isDark ? 'bg-gray-800/60 border border-white/5 hover:border-yellow-500/20' : 'bg-white shadow-sm hover:shadow-xl border border-gray-100'}`}>
                     {/* Media */}
                     <div className="relative overflow-hidden bg-gray-800">
@@ -1018,12 +1018,12 @@ const Portfolio = () => {
                           className={`relative ${project.subCategory === 'graphic-design' ? 'p-3 cursor-pointer' : ''}`}
                           onClick={() => project.subCategory === 'graphic-design' && setLightboxIndex(index)}
                         >
-                          <div className={`${project.subCategory === 'graphic-design' ? 'border-2 border-white/10 rounded-lg' : ''} overflow-hidden aspect-[4/3]`}>
+                          <div className={`${project.subCategory === 'graphic-design' ? 'border-2 border-white/10 rounded-lg' : ''} overflow-hidden`}>
                             <img
                               src={project.image}
                               alt={project.title}
                               loading="lazy"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                              className="w-full h-auto block group-hover:scale-[1.03] transition-transform duration-500"
                             />
                           </div>
                         </div>
