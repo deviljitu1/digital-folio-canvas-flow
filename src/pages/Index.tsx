@@ -47,6 +47,7 @@ import openaiIcon from "@/assets/Icons/openai-icon.svg";
 import linkedinAppIcon from "@/assets/Icons/linkedin-app-icon.svg";
 import googleAdsIcon from "@/assets/Icons/google-ads.svg";
 import githubIcon from "@/assets/Icons/github-icon.svg";
+import midjourneyIcon from "@/assets/Icons/midjourney.svg";
 
 type Project = {
   title: string;
@@ -306,16 +307,7 @@ const Portfolio = () => {
   });
 
   const projects: Project[] = [
-    {
-      title: "Orgalife Food Reel 1",
-      description: "Social media reel for Orgalife Food.",
-      tools: ["Instagram", "Video Editing", "Content Creation"],
-      liveLink: "https://www.instagram.com/reel/DSFMZfYDKY1/",
-      category: "digital-marketing",
-      subCategory: "social-media",
-      mediaType: "iframe",
-      iframeSrc: "https://www.instagram.com/reel/DSFMZfYDKY1/embed"
-    },
+
     {
       title: "Orgalife Food Reel 2",
       description: "Social media reel for Orgalife Food.",
@@ -326,16 +318,7 @@ const Portfolio = () => {
       mediaType: "iframe",
       iframeSrc: "https://www.instagram.com/reel/DTHnQl5DAyi/embed"
     },
-    {
-      title: "Orgalife Food Reel 3",
-      description: "Social media reel for Orgalife Food.",
-      tools: ["Instagram", "Video Editing", "Content Creation"],
-      liveLink: "https://www.instagram.com/reel/DO8fqHmjsb6/",
-      category: "digital-marketing",
-      subCategory: "social-media",
-      mediaType: "iframe",
-      iframeSrc: "https://www.instagram.com/reel/DO8fqHmjsb6/embed"
-    },
+
     {
       title: "Digital Pallavi Reel",
       description: "Social media reel for Digital Pallavi.",
@@ -346,26 +329,8 @@ const Portfolio = () => {
       mediaType: "iframe",
       iframeSrc: "https://www.instagram.com/reel/DOOJbE2CaJr/embed"
     },
-    {
-      title: "Orgalife Food Reel 4",
-      description: "Social media reel for Orgalife Food.",
-      tools: ["Instagram", "Video Editing", "Content Creation"],
-      liveLink: "https://www.instagram.com/reel/DLL-6OwxKpi/",
-      category: "digital-marketing",
-      subCategory: "social-media",
-      mediaType: "iframe",
-      iframeSrc: "https://www.instagram.com/reel/DLL-6OwxKpi/embed"
-    },
-    {
-      title: "Orgalife Food Reel 5",
-      description: "Social media reel for Orgalife Food.",
-      tools: ["Instagram", "Video Editing", "Content Creation"],
-      liveLink: "https://www.instagram.com/reel/DLo8Fr0TdBL/",
-      category: "digital-marketing",
-      subCategory: "social-media",
-      mediaType: "iframe",
-      iframeSrc: "https://www.instagram.com/reel/DLo8Fr0TdBL/embed"
-    },
+
+
     {
       title: "Orgalife Food Reel 6",
       description: "Social media reel for Orgalife Food.",
@@ -426,16 +391,7 @@ const Portfolio = () => {
       mediaType: "iframe",
       iframeSrc: "https://www.instagram.com/reel/DTUj6tIEz7r/embed"
     },
-    {
-      title: "Nexafloors Reel 1",
-      description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring 📍Chennai",
-      tools: ["Instagram", "Video Editing", "Content Creation"],
-      liveLink: "https://www.instagram.com/reel/DayBEjzKyyM/",
-      category: "digital-marketing",
-      subCategory: "social-media",
-      mediaType: "iframe",
-      iframeSrc: "https://www.instagram.com/reel/DayBEjzKyyM/embed"
-    },
+
     {
       title: "Nexafloors Reel 2",
       description: "🏠 Flooring Installation Experts | Tiles • Marble • Granite • more ✨ Interior & Exterior Flooring 📍Chennai",
@@ -461,7 +417,7 @@ const Portfolio = () => {
 
   const experiences = [
     {
-      title: "Digital Marketing Executive @ ORGALIFE (Oct 2025 - Present)",
+      title: "Digital Marketing Executive @ ORGALIFE (Oct 2025 - July)",
       description: "Managed social media platforms, content strategy, and audience engagement. Executed Meta Ads, WhatsApp marketing, and product launch campaigns. Planned content calendars and managed influencer marketing, barter collaborations, and brand partnerships. Managed day-to-day e-commerce and digital marketing operations. Designed social media creatives, ad graphics, and promotional materials. Managed SEO activities and optimized Google Business Profile (GMB) to improve online visibility and local search performance.",
       tools: ["Meta Ads", "WhatsApp Marketing", "Graphic Design", "SEO"],
       image: "https://orgalife.in/cdn/shop/files/Orgalife_Logo_2.png?v=1748346273&width=352",
@@ -586,7 +542,7 @@ const Portfolio = () => {
       { name: "Claude", level: 90, icon: <img src={claudeIcon} alt="Claude" className="w-5 h-5" /> },
       { name: "Hugging Face", level: 88, icon: <img src={huggingFaceIcon} alt="Hugging Face" className="w-5 h-5" /> },
       { name: "Google Antigravity", level: 85, icon: <img src={antigravityIcon} alt="Antigravity" className="w-5 h-5" /> },
-      { name: "Midjourney", level: 85, icon: "🎨" },
+      { name: "Midjourney", level: 85, icon: <img src={midjourneyIcon} alt="Midjourney" className="w-5 h-5" /> },
       { name: "Nano Banana", level: 90, icon: <img src={nanoBananaIcon} alt="Nano Banana" className="w-5 h-5" /> },
       { name: "Veo3", level: 88, icon: "🎥" }
     ]
