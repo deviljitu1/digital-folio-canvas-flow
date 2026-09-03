@@ -132,7 +132,7 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedCategory, setSelectedCategory] = useState('digital-marketing');
-  const [selectedSubCategory, setSelectedSubCategory] = useState('graphic-design');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('food-beverage');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
@@ -281,12 +281,15 @@ const Portfolio = () => {
       icon: Megaphone,
       color: 'purple',
       subcategories: [
-        { id: 'graphic-design', name: 'Graphic Design', icon: PenTool },
+        { id: 'food-beverage', name: 'Food & Beverage', icon: ShoppingCart },
+        { id: 'jewellery', name: 'Jewellery', icon: Sparkles },
+        { id: 'education', name: 'Education', icon: BookOpen },
+        { id: 'government', name: 'Government', icon: Landmark },
+        { id: 'real-estate', name: 'Real Estate', icon: Building },
+        { id: 'ai-works', name: 'AI Works', icon: Bot },
         { id: 'social-media', name: 'Social Media Content', icon: Video },
         { id: 'paid-ads', name: 'Paid Advertising', icon: BarChart },
-        { id: 'development', name: 'Development', icon: Code2 },
-        { id: 'food-beverage', name: 'Food & Beverage', icon: ShoppingCart },
-        { id: 'jewellery', name: 'Jewellery', icon: Sparkles }
+        { id: 'development', name: 'Development', icon: Code2 }
       ]
     }
   };
@@ -296,15 +299,25 @@ const Portfolio = () => {
   const generatedProjects: Project[] = Object.entries(portfolioImports).map(([path, url]) => {
     const parts = path.split('/');
     const fileName = parts.pop() || '';
+    const folderName = parts.pop() || '';
     const title = fileName.replace(/\.[^/.]+$/, "");
+    
+    let subCategory = 'food-beverage'; // fallback
+    if (folderName === 'Orgalife Organic food' || folderName === 'Food Cafe') subCategory = 'food-beverage';
+    else if (folderName === 'Jewallary') subCategory = 'jewellery';
+    else if (folderName === 'Education') subCategory = 'education';
+    else if (folderName === 'RealEstate') subCategory = 'real-estate';
+    else if (folderName === 'Government') subCategory = 'government';
+    else if (folderName === 'AI Works') subCategory = 'ai-works';
+
     return {
       title,
-      description: `Creative design work`,
+      description: `Creative design work for ${folderName}`,
       tools: ["Graphic Design", "Photoshop", "Illustrator"],
       image: url as string,
       liveLink: "#",
       category: "digital-marketing",
-      subCategory: "graphic-design",
+      subCategory,
       mediaType: "image"
     };
   });
@@ -1186,10 +1199,10 @@ const Portfolio = () => {
                         </div>
                       ) : (
                         <div
-                          className={`relative ${project.subCategory === 'graphic-design' ? 'p-3 cursor-pointer' : ''}`}
-                          onClick={() => project.subCategory === 'graphic-design' && setLightboxIndex(index)}
+                          className={`relative ${project.mediaType === 'image' ? 'p-3 cursor-pointer' : ''}`}
+                          onClick={() => project.mediaType === 'image' && setLightboxIndex(index)}
                         >
-                          <div className={`${project.subCategory === 'graphic-design' ? 'border-2 border-white/10 rounded-lg' : ''} overflow-hidden`}>
+                          <div className={`${project.mediaType === 'image' ? 'border-2 border-white/10 rounded-lg' : ''} overflow-hidden`}>
                             <img
                               src={project.image}
                               alt={project.title}
@@ -1203,7 +1216,7 @@ const Portfolio = () => {
                     </div>
 
                     {/* Info */}
-                    {project.subCategory !== 'graphic-design' && (
+                    {(project.liveLink && project.liveLink !== '#') && (
                       <div className={`p-4 ${selectedSubCategory === 'development' ? 'flex flex-col flex-1' : ''}`}>
                         <div>
                           <h3 className={`text-base font-bold mb-2 group-hover:text-yellow-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.title}</h3>
