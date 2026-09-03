@@ -59,7 +59,6 @@ type Project = {
   video?: string;
   aspectRatio?: string;
   iframeSrc?: string;
-  graphicCategory?: string;
 };
 
 // Typewriter hook
@@ -132,7 +131,6 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedCategory, setSelectedCategory] = useState('digital-marketing');
   const [selectedSubCategory, setSelectedSubCategory] = useState('graphic-design');
-  const [selectedGraphicCategory, setSelectedGraphicCategory] = useState('all');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
@@ -159,7 +157,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     setVisibleProjectsCount(6);
-  }, [selectedCategory, selectedSubCategory, selectedGraphicCategory]);
+  }, [selectedCategory, selectedSubCategory]);
 
   // Scroll tracking for active section & nav hide
   useEffect(() => {
@@ -293,22 +291,18 @@ const Portfolio = () => {
   const generatedProjects: Project[] = Object.entries(portfolioImports).map(([path, url]) => {
     const parts = path.split('/');
     const fileName = parts.pop() || '';
-    const folderName = parts.pop() || '';
     const title = fileName.replace(/\.[^/.]+$/, "");
     return {
       title,
-      description: `Creative design work for ${folderName}`,
+      description: `Creative design work`,
       tools: ["Graphic Design", "Photoshop", "Illustrator"],
       image: url as string,
       liveLink: "#",
       category: "digital-marketing",
       subCategory: "graphic-design",
-      mediaType: "image",
-      graphicCategory: folderName
+      mediaType: "image"
     };
   });
-
-  const graphicCategories = Array.from(new Set(generatedProjects.map(p => p.graphicCategory))).filter(Boolean) as string[];
 
   const projects: Project[] = [
     {
@@ -607,7 +601,6 @@ const Portfolio = () => {
   const filteredProjects = projects.filter(project => {
     if (selectedCategory !== 'all' && selectedCategory !== project.category) return false;
     if (selectedSubCategory !== 'all' && selectedSubCategory !== project.subCategory) return false;
-    if (selectedSubCategory === 'graphic-design' && selectedGraphicCategory !== 'all' && project.graphicCategory !== selectedGraphicCategory) return false;
     return true;
   });
 
@@ -990,36 +983,6 @@ const Portfolio = () => {
               })}
             </div>
 
-            {/* Graphic Category Filter */}
-            {selectedSubCategory === 'graphic-design' && graphicCategories.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-2 mb-8">
-                <button
-                  onClick={() => setSelectedGraphicCategory('all')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${selectedGraphicCategory === 'all'
-                    ? 'bg-yellow-500 text-black shadow-md'
-                    : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  All Designs
-                </button>
-                {graphicCategories.map((gCat) => {
-                  const count = projects.filter(p => p.category === selectedCategory && p.subCategory === 'graphic-design' && p.graphicCategory === gCat).length;
-                  return (
-                    <button
-                      key={gCat}
-                      onClick={() => setSelectedGraphicCategory(gCat)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-1 ${selectedGraphicCategory === gCat
-                        ? 'bg-yellow-500 text-black shadow-md'
-                        : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
-                    >
-                      <Palette size={12} />
-                      {gCat} ({count})
-                    </button>
-                  );
-                })}
-              </div>
-            )}
 
             {/* Projects Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
